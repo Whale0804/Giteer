@@ -6,7 +6,8 @@ import models from './model'
 import {Provider} from '@tarojs/redux'
 
 import './app.scss'
-import 'taro-ui/dist/style/index.scss' // 全局引入一次即可
+import 'taro-ui/dist/style/index.scss'
+import {hasLogin} from "./utils/common"; // 全局引入一次即可
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -66,7 +67,11 @@ class App extends Component {
 
   componentDidMount () {
     this.updateApp();
-
+    if(!hasLogin()){
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
+    }
     wx.cloud.init({
       env: 'giteer-36a385',
       traceUser: true

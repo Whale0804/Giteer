@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
-import {hasLogin} from "../../utils/common";
 
 
 import './index.scss'
@@ -14,12 +13,6 @@ export default class Index extends Component {
 
   componentWillMount () {
 
-    console.log('1')
-    if(!hasLogin()){
-      Taro.redirectTo({
-        url: '/pages/login/index'
-      })
-    }
   }
 
   componentDidMount () { }

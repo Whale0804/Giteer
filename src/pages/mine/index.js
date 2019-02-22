@@ -21,7 +21,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <WebView src='https://space.bilibili.com/28226042'  />
+      <WebView src=''  />
     )
   }
 }
