@@ -1,26 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
-import {hasLogin} from "../../utils/common";
-
 
 import './index.scss'
 
 export default class Index extends Component {
 
   config = {
-    navigationBarTitleText: 'Giteer'
+    navigationBarTitleText: '动态'
   }
 
-  componentWillMount () {
-
-    console.log('1')
-    if(!hasLogin()){
-      Taro.redirectTo({
-        url: '/pages/login/index'
-      })
-    }
-  }
+  componentWillMount () { }
 
   componentDidMount () { }
 
@@ -29,8 +19,6 @@ export default class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-
-
 
   render () {
     return (
