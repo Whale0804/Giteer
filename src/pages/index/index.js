@@ -23,12 +23,17 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  login(){
+    Taro.navigateTo({
+      url: '/pages/login/login'
+    })
+  }
 
 
   render () {
     return (
       <View className='index'>
-        <AtButton type='primary'>按钮文案</AtButton>
+        <AtButton type='primary' onClick={this.login}>按钮文案</AtButton>
       </View>
     )
   }
