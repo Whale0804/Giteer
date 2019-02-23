@@ -32,11 +32,12 @@ class App extends Component {
       'pages/index/index',
       'pages/dynamic/index',
       'pages/mine/index',
-      'pages/login/login'
-
+      'pages/login/login',
+      'pages/mine/about',
+      'pages/mine/author'
     ],
     window: {
-      backgroundTextStyle: 'light',
+      backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#D64337',
       navigationBarTitleText: 'Giteer',
       navigationBarTextStyle: 'white'
