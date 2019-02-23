@@ -29,11 +29,21 @@ export default class Index extends Component {
     })
   }
 
+  name(){
+    console.log(Taro.getStorageSync('user_info').name)
+    Taro.showToast({
+      title: Taro.getStorageSync('user_info').name,
+      icon: 'none',
+      mask: true,
+    });
+  }
+
 
   render () {
     return (
       <View className='index'>
         <AtButton type='primary' onClick={this.login}>按钮文案</AtButton>
+        <AtButton type='primary' onClick={this.name}>用户名</AtButton>
       </View>
     )
   }

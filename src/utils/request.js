@@ -24,18 +24,16 @@ export default (options = {method: 'GET',data: {} }) =>{
       if(!noConsole){
         console.log(
           `${new Date().toLocaleString()}【 M=${options.url} 】【接口响应：】`,
-          res.data
+          res
         )
-      }
-      if(data.status !== 'ok'){
-        Taro.showToast({
-          title: '请求失败了...',
-          icon: 'none',
-          mask: true,
-        });
       }
       return data;
     }else {
+      Taro.showToast({
+        title: '遇到未知错误',
+        icon: 'none',
+        mask: true,
+      });
       throw new Error(`网络请求错误，状态码${statusCode}`);
     }
   });

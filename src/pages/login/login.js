@@ -17,7 +17,6 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: '',
       username: '',
       password: ''
     }
@@ -35,12 +34,6 @@ export default class Login extends Component {
 
   componentDidHide() {}
 
-  handleTokenChange (value) {
-    this.setState({
-      token: value
-    })
-  }
-
   handleUsernameChange (value) {
     this.setState({
       username: value
@@ -54,7 +47,7 @@ export default class Login extends Component {
   }
 
   getUserInfo () {
-    const { token, username, password } = this.state
+    const { username, password } = this.state
     if (username.length === 0) {
       Taro.showToast({
         title: '请输入邮箱',
@@ -66,6 +59,13 @@ export default class Login extends Component {
         icon: 'none'
       })
     }
+    this.props.dispatch({
+      type: 'login/login',
+      payload: {
+        username: username,
+        password: password,
+      },
+    });
   }
 
   render() {
