@@ -44,6 +44,8 @@ export default (options = {method: 'GET',data: {} }) =>{
       return data;
     }else {
       if(statusCode == 401){
+        Taro.setStorageSync('access_token', '')
+        Taro.setStorageSync('user_info', '')
         Taro.navigateTo({
           url: '/pages/login/login'
         })

@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo {
+  width: 200px;
+  height: 166px;
+  margin-top: 300px;
+}
+
+.login_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  width: 400px;
+  height: 88px;
+  border-radius: 44px;
+  color: #ffffff;
+  font-size: 34px;
+  background-color: #D64337;
+}

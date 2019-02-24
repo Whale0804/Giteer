@@ -18,5 +18,11 @@ export default class DynamicItem extends Component {
   render() {
     const { item } = this.props
     if (!item) return <View />
+    let created_at = timeago(Date.parse(new Date(item.created_at)));
+    return (
+      <View className='content'>
+        {created_at}
+      </View>
+    )
   }
 }
