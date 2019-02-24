@@ -1,7 +1,9 @@
 import Taro from '@tarojs/taro'
 import {baseUrl, noConsole} from "../config";
+import {hasLogin} from "./common";
 
 export default (options = {method: 'GET',data: {} }) =>{
+  var data = {};
   //输出请求日志
   if (!noConsole){
     console.log(
@@ -9,10 +11,22 @@ export default (options = {method: 'GET',data: {} }) =>{
     );
   }
 
+
+  if(hasLogin()){
+    data = {
+      ...options.data,
+      access_token: Taro.getStorageSync('access_token')
+    }
+  }else{
+    data = {
+      ...options.data
+    }
+  }
+
   return Taro.request({
     url: baseUrl + options.url,
     data: {
-      ...options.data,
+      ...data,
     },
     header: {
       'Content-Type': 'application/json',
@@ -29,11 +43,17 @@ export default (options = {method: 'GET',data: {} }) =>{
       }
       return data;
     }else {
-      Taro.showToast({
-        title: '遇到未知错误',
-        icon: 'none',
-        mask: true,
-      });
+      if(statusCode == 401){
+        Taro.navigateTo({
+          url: '/pages/login/login'
+        })
+      }else {
+        Taro.showToast({
+          title: '遇到未知错误',
+          icon: 'none',
+          mask: true,
+        });
+      }
       throw new Error(`网络请求错误，状态码${statusCode}`);
     }
   });

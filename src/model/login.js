@@ -39,7 +39,7 @@ export default {
         });
 
         setTimeout(() => {
-          Taro.navigateBack();
+          Taro.reLaunch();
         }, 1000);
       }
     }

@@ -45,7 +45,9 @@ class About extends Component {
         if (res.confirm) {
           Taro.setStorageSync('access_token', '')
           Taro.setStorageSync('user_info', null)
-          Taro.navigateBack()
+          Taro.navigateTo({
+            url: '/pages/login/login'
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
