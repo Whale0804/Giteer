@@ -58,6 +58,9 @@ export default class Index extends Component {
 
   render () {
     const { dynamic_list,isLogin } = this.props;
+    dynamic_list.sort = (a,b) =>{
+      return Date.parse(new Date(a.created_at)) < Date.parse(new Date(b.created_at)) ? 1 : -1;
+    }
     return (
       <View>
         {
