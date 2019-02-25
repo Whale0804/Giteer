@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux';
-import {PER_PAGE} from "../../constants/common";
+import {PER_PAGE,LOADING_TEXT} from "../../constants/common";
 import Empty from '../../components/empty'
 import {hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
@@ -33,16 +33,11 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
-    const {user,page,isLogin} = this.state;
+    Taro.startPullDownRefresh();
+    Taro.showLoading({title: LOADING_TEXT});
+    const {isLogin} = this.state;
     if(isLogin){
-      this.props.dispatch({
-        type: 'dynamic/getDynamicList',
-        payload: {
-          username: user.login,
-          page: page,
-          per_page:PER_PAGE
-        },
-      });
+      this.getDynamicList();
     }
   }
 
@@ -55,6 +50,31 @@ export default class Index extends Component {
   }
 
   componentDidHide () { }
+
+  //下拉刷新
+  onPullDownRefresh() {
+    let that = this;
+    this.setState({
+      page: 1
+    }, ()=>{
+      that.getDynamicList();
+    })
+  }
+  //上拉加载
+  onReachBottom(){
+
+  }
+  getDynamicList(){
+    const {user,page} = this.state;
+    this.props.dispatch({
+      type: 'dynamic/getDynamicList',
+      payload: {
+        username: user.login,
+        page: page,
+        per_page:PER_PAGE
+      },
+    });
+  }
 
   render () {
     const { dynamic_list,isLogin } = this.props;
