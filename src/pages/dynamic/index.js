@@ -1,12 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux';
-import {PER_PAGE,LOADING_TEXT} from "../../constants/common";
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
 import Empty from '../../components/empty'
 import {hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
 import DynamicItem from "../../components/dynamic/dynamicItem";
-
+import LoadMore from "../../components/loadMore/loadMore"
 import './index.scss'
 
 
@@ -26,6 +26,8 @@ export default class Index extends Component {
     this.state = {
       isLogin: false,
       page: 1,
+      status: false,
+      refresh_status: REFRESH_STATUS.NORMAL,
       user: Taro.getStorageSync('user_info')
     }
   }
@@ -33,10 +35,10 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
-    Taro.startPullDownRefresh();
-    Taro.showLoading({title: LOADING_TEXT});
     const {isLogin} = this.state;
     if(isLogin){
+      Taro.startPullDownRefresh();
+      Taro.showLoading({title: LOADING_TEXT});
       this.getDynamicList();
     }
   }
@@ -62,10 +64,26 @@ export default class Index extends Component {
   }
   //上拉加载
   onReachBottom(){
-
+    const { page, refresh_status } = this.state
+    if (refresh_status !== REFRESH_STATUS.NO_MORE_DATA) {
+      let that = this
+      this.setState({
+        page: page + 1
+      }, ()=>{
+        that.getDynamicList()
+      })
+    }
   }
   getDynamicList(){
     const {user,page} = this.state;
+    let that = this;
+
+    if (page !== 1) {
+      that.setState({
+        refresh_status: REFRESH_STATUS.REFRESHING
+      })
+    }
+
     this.props.dispatch({
       type: 'dynamic/getDynamicList',
       payload: {
@@ -73,13 +91,26 @@ export default class Index extends Component {
         page: page,
         per_page:PER_PAGE
       },
-    });
+      callback: (res) => {
+        Taro.stopPullDownRefresh()
+        Taro.hideLoading()
+        let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
+        that.setState({
+          refresh_status: status
+        })
+      }
+    })
   }
 
   render () {
-    const { dynamic_list,isLogin } = this.props;
-    dynamic_list.sort = (a,b) =>{
-      return Date.parse(new Date(a.created_at)) < Date.parse(new Date(b.created_at)) ? 1 : -1;
+    const { dynamic_list} = this.props;
+    const {isLogin, refresh_status,status } = this.state;
+    if(!dynamic_list.length > 0){
+      this.setState(
+        {
+          status: true
+        }
+      )
     }
     return (
       <View>
@@ -95,8 +126,9 @@ export default class Index extends Component {
                       </View>
                     )
                   })
-                ) : <Empty />
+                ) : <Empty status={status}/>
               }
+              <LoadMore status={refresh_status} />
             </View>
           ) : <Login/>
         }

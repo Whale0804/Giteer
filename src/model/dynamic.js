@@ -7,13 +7,17 @@ export default {
     dynamic_list: []
   },
   effects: {
-    *getDynamicList({ payload }, { call, put, }){
+    *getDynamicList({ payload, callback }, { call, put, select}){
+      const { dynamic_list } = yield select(state => state.dynamic);
+      const { page } = payload;
       const res = yield call(dynamic.getDynamicList,payload);
       if(res.length > 0){
+        console.log(page)
+        callback(res)
         yield put({
           type: 'save',
           payload: {
-            dynamic_list: res
+            dynamic_list: page > 1 ? [...dynamic_list, ...res] : res,
           },
         });
       }
