@@ -44,7 +44,7 @@ class About extends Component {
       success(res) {
         if (res.confirm) {
           Taro.setStorageSync('access_token', '')
-          Taro.setStorageSync('user_info', '';
+          Taro.setStorageSync('user_info', '');
           Taro.clearStorage();
           setTimeout(()=>{
             Taro.navigateBack();
@@ -72,7 +72,7 @@ class About extends Component {
         <Image mode='aspectFit'
                className='logo'
                src={require('../../asset/images/octocat.png')}/>
-        <Text className='version'>
+        <Text className='text'>
           小程序版码云 ❤ 此源码仅供交流学习，严禁以任何形式独立发布或用于商业用途；
         </Text>
         <Text className='version'>

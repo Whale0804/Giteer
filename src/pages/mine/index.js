@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text,Button } from '@tarojs/components'
 import { NAVIGATE_TYPE } from '../../constants/navigateType'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import {hasLogin} from "../../utils/common";
@@ -148,8 +148,12 @@ export default class Index extends Component {
               </View>
             </View>
             <View className='list_view'>
+              <Button className='list btn' openType="contact">
+                <View className='list_title'>客服反馈</View>
+                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+              </Button>
               <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.ABOUT)}>
-                <View className='list_title'>About</View>
+                <View className='list_title'>关于</View>
                 <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
               </View>
             </View>

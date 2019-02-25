@@ -122,7 +122,14 @@
   }
 }
 
+.btn{
+  box-sizing: inherit!important;
+}
+
 .bottom_view {
   height: 50px;
 }
 
+Button::after {
+  border: 0;
+}
