@@ -26,7 +26,6 @@ export default class Index extends Component {
     this.state = {
       isLogin: false,
       page: 1,
-      status: false,
       refresh_status: REFRESH_STATUS.NORMAL,
       user: Taro.getStorageSync('user_info')
     }
@@ -103,15 +102,8 @@ export default class Index extends Component {
   }
 
   render () {
-    const { dynamic_list} = this.props;
-    const {isLogin, refresh_status,status } = this.state;
-    if(!dynamic_list.length > 0){
-      this.setState(
-        {
-          status: true
-        }
-      )
-    }
+    let { dynamic_list} = this.props;
+    const {isLogin, refresh_status } = this.state;
     return (
       <View>
         {
@@ -126,7 +118,7 @@ export default class Index extends Component {
                       </View>
                     )
                   })
-                ) : <Empty status={status}/>
+                ) : <Empty array={dynamic_list}/>
               }
               <LoadMore status={refresh_status} />
             </View>

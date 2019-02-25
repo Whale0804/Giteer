@@ -44,8 +44,11 @@ class About extends Component {
       success(res) {
         if (res.confirm) {
           Taro.setStorageSync('access_token', '')
-          Taro.setStorageSync('user_info', '')
-          Taro.navigateBack();
+          Taro.setStorageSync('user_info', '';
+          Taro.clearStorage();
+          setTimeout(()=>{
+            Taro.navigateBack();
+          },1000)
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
