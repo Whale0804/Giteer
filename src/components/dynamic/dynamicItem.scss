@@ -23,12 +23,24 @@
 
 .username {
   color: #2d8cf0;
+  font-size: 35px;
+  display: flex;
+  flex-direction: row;
+  word-break:break-all;
+}
+.reposname{
+  color: #2d8cf0;
   font-size: 30px;
   word-break:break-all;
+}
+
+.textprefix{
+  font-size: 30px;
 }
 .commentBody {
   font-size: 30px;
   word-break:break-all;
+  color: darkgray;
 }
 
 .text {
@@ -39,9 +51,9 @@
 }
 
 .time {
-  margin-top: 20px;
   color: #7f7f7f;
-  font-size: 25px;
+  font-size: 28px;
   text-align: right;
   padding-right: 10px;
+  flex-direction: row;
 }

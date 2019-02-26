@@ -102,7 +102,7 @@ export default class Index extends Component {
   }
 
   render () {
-    let { dynamic_list} = this.props;
+    const { dynamic_list} = this.props;
     const {isLogin, refresh_status } = this.state;
     return (
       <View>

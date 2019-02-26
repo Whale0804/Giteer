@@ -24,26 +24,27 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator style={{width:'100%'}} url={'/pages/account/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>发表了</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>发表了对</Text>
+              <Text className='reposname'>
+                {' '+item.repo.human_name+' '}
+              </Text>
+              <Text className='textprefix'>
+                仓库的评论:
               </Text>
               <Text className='commentBody'>
-                的评论 {item.payload.comment.body}
+                {' '+item.payload.comment.body}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'WatchEvent') {
@@ -54,19 +55,17 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>starred</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
+              <Text className='textprefix'>收藏了仓库</Text>
               <Text className='username'>
-                {item.repo.full_name}
+                {item.repo.human_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'CreateEvent') {
@@ -77,19 +76,17 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{'created a ' + item.payload.ref_type}</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>创建了一个新的仓库</Text>
+              <Text className='reposname'>
+                {' '+item.repo.human_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'ForkEvent') {
@@ -100,27 +97,23 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>forked</Text>
-            </Navigator>
-            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.payload.forkee.url)} >
-              <Text className='username'>
-                {item.payload.forkee.full_name}
+              <Text className='time'>
+                {created_at}
               </Text>
             </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>from</Text>
+            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.payload.forkee.url)} >
+              <Text className='textprefix'>Fork了仓库</Text>
+              <Text className='reposname'>
+                {' ' + item.repo.name}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.name}
+              <Text className='textprefix'>到仓库</Text>
+              <Text className='reposname'>
+                {' ' + item.payload.forkee.full_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'IssueEvent') {
@@ -131,27 +124,20 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>在</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>对</Text>
+              <Text className='reposname'>
+                {' '+item.repo.human_name+' '}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>建了 任务</Text>
-            </Navigator>
-            <Navigator url='' >
-              <Text className='username'>
-                {'#'+item.payload.number+' '+item.payload.title}
-              </Text>
+              <Text className='textprefix'>仓库创建了新的Issue:</Text>
+              <Text className='reposname'>{' #'+item.payload.number}</Text>
+              <Text className='commentBody'>{' '+item.payload.title}</Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'IssueCommentEvent') {
@@ -162,19 +148,24 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{item.payload.action + ' a issue comment in'}</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>评论了</Text>
+              <Text className='reposname'>
+                {' ' + item.repo.human_name + ' '}
+              </Text>
+              <Text className='textprefix'>的 Issue</Text>
+              <Text className='reposname'>
+                {' #' + item.payload.issue.number + ' ' + item.payload.issue.title + ': '}
+              </Text>
+              <Text className='commentBody'>
+                {item.payload.comment.body}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'FollowEvent') {
@@ -185,19 +176,18 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>starred following</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/account/developerInfo?username=' + item.payload.target.login} >
-              <Text className='username'>
-                {item.payload.target.login}
+              <Text className='textprefix'>关注了</Text>
+              <Text className='reposname'>
+                {' ' + item.payload.target.login}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
+
         </View>
       )
     } else if (item.type === 'PushEvent') {
@@ -208,19 +198,20 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>pushed commits in</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.name}
+              <Text className='textprefix'>推送到了</Text>
+              <Text className='reposname'>
+                {' ' + item.repo.full_name + ' '}
+              </Text>
+              <Text className='textprefix'>
+                的 {' ' + item.payload.ref + ' '} 分支
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'PullRequestEvent') {
@@ -237,7 +228,7 @@ export default class DynamicItem extends Component {
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
               <Text className='username'>
-                {item.repo.full_name}
+                {item.repo.human_name}
               </Text>
             </Navigator>
           </View>
@@ -254,19 +245,17 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{item.payload.action + ' a pullRequest comment in'}</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>{item.payload.action + ' a pullRequest comment in' }</Text>
+              <Text className='reposname'>
+                {item.repo.human_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'CommitCommentEvent') {
@@ -277,19 +266,17 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>creates a commit comment in </Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='textprefix'>creates a commit comment in </Text>
+              <Text className='reposname'>
+                {item.repo.human_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'DeleteEvent') {
@@ -300,19 +287,18 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{'deleted a ' + item.payload.ref_type + ' in'}</Text>
-            </Navigator>
-            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='time'>
+                {created_at}
               </Text>
             </Navigator>
+            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
+              <Text className='textprefix'>删除了这个</Text>
+              <Text className='reposname'>
+                {' ' + item.repo.human_name + ''}
+              </Text>
+              <Text className='textprefix'>仓库</Text>
+            </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     } else if (item.type === 'MemberEvent') {
@@ -323,19 +309,18 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{item.payload.action + ' a member in'}</Text>
+              <Text className='time'>
+                {created_at}
+              </Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
+              <Text className='textprefix'>{item.payload.action + ' a member in '}</Text>
+              <Text className='reposname'>
                 {item.repo.full_name}
               </Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
+
         </View>
       )
     } else if (item.type === 'PublicEvent') {
@@ -346,29 +331,25 @@ export default class DynamicItem extends Component {
               <Text className='username'>
                 {item.actor.name}
               </Text>
-            </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>make</Text>
-            </Navigator>
-            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
-              <Text className='username'>
-                {item.repo.full_name}
+              <Text className='time'>
+                {created_at}
               </Text>
             </Navigator>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>public</Text>
+            <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
+              <Text className='textprefix'>将仓库</Text>
+              <Text className='username'>
+                {' ' + item.repo.full_name + ' '}
+              </Text>
+              <Text className='textprefix'>更改为公开状态</Text>
             </Navigator>
           </View>
-          <Text className='time'>
-            {created_at}
-          </Text>
         </View>
       )
     }
 
     return (
       <View className='content'>
-        <AtAvatar circle size='large' image={item.actor.avatar_url} />
+        <AtAvatar circle image={item.actor.avatar_url} />
         {dynamic}
       </View>
     )
