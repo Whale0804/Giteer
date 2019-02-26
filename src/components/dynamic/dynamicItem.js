@@ -123,7 +123,7 @@ export default class DynamicItem extends Component {
           </Text>
         </View>
       )
-    } else if (item.type === 'IssuesEvent') {
+    } else if (item.type === 'IssueEvent') {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
@@ -133,11 +133,19 @@ export default class DynamicItem extends Component {
               </Text>
             </Navigator>
             <Navigator url='' hoverClass='none' >
-              <Text className='text'>{item.payload.action + ' a issue in'}</Text>
+              <Text className='text'>在</Text>
             </Navigator>
             <Navigator url={'/pages/repo/repo?url=' + encodeURI(item.repo.url)} >
               <Text className='username'>
                 {item.repo.full_name}
+              </Text>
+            </Navigator>
+            <Navigator url='' hoverClass='none' >
+              <Text className='text'>建了 任务</Text>
+            </Navigator>
+            <Navigator url='' >
+              <Text className='username'>
+                {'#'+item.payload.number+' '+item.payload.title}
               </Text>
             </Navigator>
           </View>
@@ -360,8 +368,10 @@ export default class DynamicItem extends Component {
 
     return (
       <View className='content'>
-        <AtAvatar circle image={item.actor.avatar_url} />
-        {dynamic}
+        <AtAvatar circle size='large' image={item.actor.avatar_url} />
+        <View className='user_info'>
+          {dynamic}
+        </View>
       </View>
     )
   }

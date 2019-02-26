@@ -24,17 +24,17 @@ export const timeago = dateTimeStamp => {   //dateTimeStamp是一个时间毫秒
   let monthC = diffValue/month;
   let result = null
   if(monthC >= 1 && monthC <= 3){
-    result = " " + parseInt(monthC) + " month(s) ago"
+    result = " " + parseInt(monthC) + " 月前"
   }else if(weekC >= 1 && weekC <= 3){
-    result = " " + parseInt(weekC) + " week(s) ago"
+    result = " " + parseInt(weekC) + " 周前"
   }else if(dayC >= 1 && dayC <= 6){
-    result = " " + parseInt(dayC) + " day(s) ago"
+    result = " " + parseInt(dayC) + " 天前"
   }else if(hourC >= 1 && hourC <= 23){
-    result = " " + parseInt(hourC) + " hour(s) ago"
+    result = " " + parseInt(hourC) + " 小时前"
   }else if(minC >= 1 && minC <= 59){
-    result =" " + parseInt(minC) + " minute(s) ago"
+    result =" " + parseInt(minC) + " 分钟前"
   }else if(diffValue >= 0 && diffValue <= minute){
-    result = "just now"
+    result = "现在"
   }else {
     let datetime = new Date();
     datetime.setTime(dateTimeStamp);
