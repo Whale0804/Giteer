@@ -7,6 +7,8 @@ import {Provider} from '@tarojs/redux'
 
 import './app.scss'
 import 'taro-ui/dist/style/index.scss'
+import './asset/ionicons/css/ionicons.min.css'
+
 import {hasLogin} from "./utils/common"; // 全局引入一次即可
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -34,7 +36,8 @@ class App extends Component {
       'pages/mine/index',
       'pages/login/login',
       'pages/mine/about',
-      'pages/mine/author'
+      'pages/mine/author',
+      'pages/mine/repo/repoList'
     ],
     window: {
       backgroundTextStyle: 'dark',

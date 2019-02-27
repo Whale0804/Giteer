@@ -10,8 +10,6 @@ export default (options = {method: 'GET',data: {} }) =>{
       `${new Date().toLocaleDateString()}【M=${options.url}】P=${JSON.stringify(options.data)}`
     );
   }
-
-
   if(hasLogin()){
     data = {
       ...options.data,

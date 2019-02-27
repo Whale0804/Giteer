@@ -58,4 +58,15 @@ export const formatTime = date => {
   const second = date.getSeconds()
 
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
+};
+
+export const formatCount = n => {
+  if(n > 1000 && n < 10000){
+    return parseInt((n/1000)*10)/10 + 'k';
+  }else if (n >= 10000) {
+    return parseInt((n/10000)*10)/10 + 'w';
+  }else {
+    return n;
+  }
+};
+

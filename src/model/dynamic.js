@@ -12,7 +12,6 @@ export default {
       const { page } = payload;
       const res = yield call(dynamic.getDynamicList,payload);
       if(res.length > 0){
-        console.log(page)
         callback(res)
         yield put({
           type: 'save',

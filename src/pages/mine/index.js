@@ -37,9 +37,10 @@ export default class Index extends Component {
   handleNavigate(type) {
     switch (type) {
       case NAVIGATE_TYPE.REPOS: {
-        let url = encodeURI(baseUrl + '/user/repos')
+        let url = encodeURI('/user/repos');
+        console.log(url);
         Taro.navigateTo({
-          url: '/pages/repo/repoList?url=' + url
+          url: '/pages/mine/repo/repoList?url=' + url
         })
       }
         break
@@ -84,7 +85,7 @@ export default class Index extends Component {
 
   render () {
     const user = Taro.getStorageSync('user_info');
-    const { isLogin } = this.state
+    const { isLogin } = this.state;
     return (
       <View>
         {
