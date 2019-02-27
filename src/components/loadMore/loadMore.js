@@ -33,7 +33,7 @@ export default class LoadMore extends Component {
       }
         break
       case REFRESH_STATUS.NO_MORE_DATA: {
-        view = <View className='no-more-data'>-- No More Data --</View>
+        view = <View className='no-more-data'>-- 已经到底啦~ --</View>
       }
     }
     return (

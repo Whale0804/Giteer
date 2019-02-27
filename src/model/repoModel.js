@@ -11,9 +11,8 @@ export default {
       const { repo_list } = yield select(state => state.repo);
       const { page } = payload;
       const res = yield call(repo.getRepoList,payload);
-      console.log(res);
+      callback(res);
       if(res.length > 0){
-        callback(res);
         yield put({
           type: 'save',
           payload: {
