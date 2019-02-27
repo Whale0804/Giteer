@@ -46,13 +46,13 @@ export default class Index extends Component {
         break
       case NAVIGATE_TYPE.FOLLOWERS: {
         Taro.navigateTo({
-          url: '/pages/account/follow?type=followers'
+          url: '/pages/mine/follow/follower?type=followers'
         })
       }
         break
       case NAVIGATE_TYPE.FOLLOWING: {
         Taro.navigateTo({
-          url: '/pages/account/follow?type=following'
+          url: '/pages/mine/follow/follower?type=following'
         })
       }
         break

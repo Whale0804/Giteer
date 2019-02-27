@@ -3,21 +3,18 @@ import { View } from '@tarojs/components'
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import LoadMore from "../../../components/loadMore/loadMore";
-import RepoItem from '../../../components/mine/repoItem'
+import FollowItem from '../../../components/mine/followItem'
 
-import './repoList.scss'
+import './follower.scss'
 
-
-
-@connect(({ repo }) => ({
-  ...repo,
+@connect(({ follow }) => ({
+  ...follow,
 }))
-class RepoList extends Component{
+export default class Follower extends Component {
 
   config = {
-    navigationBarTitleText: '仓库',
     enablePullDownRefresh: true
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -29,26 +26,59 @@ class RepoList extends Component{
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log(this.props, nextProps)
   }
 
   componentWillMount() {
+    let params = this.$router.params;
+    let type = params.type;
+    let username = params.username;
+    let url = '';
+    let title = '';
+    if (type === 'followers') {
+      // Followers
+      url = '/user/followers';
+      if (username) {
+        url = '/users/' + username + '/followers'
+      }
+      title = '关注我的';
+    } else if (type === 'following') {
+      // Following
+      url = '/user/following';
+      if (username) {
+        url = '/users/' + username + '/following'
+      }
+      title = '我关注的';
+    }
+
+    Taro.setNavigationBarTitle({
+      title: title
+    });
+
     this.setState({
-      url: decodeURI(this.$router.params.url)
+      url: url
     })
   }
 
   componentDidMount() {
     Taro.startPullDownRefresh();
     Taro.showLoading({title: LOADING_TEXT});
-    this.getRepoList()
+    this.getFollow()
   }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
+
 
   onPullDownRefresh() {
     let that = this;
     this.setState({
       page: 1
     }, ()=>{
-      that.getRepoList()
+      that.getFollow()
     })
   }
 
@@ -59,28 +89,39 @@ class RepoList extends Component{
     this.setState({
       page: page + 1
     }, ()=>{
-      that.getRepoList()
+      that.getFollow()
     })
   }
 
-  getRepoList() {
+  getFollow() {
     let that = this;
-    const { page } = this.state;
+    const { url, page } = this.state;
+    let params = this.$router.params;
+    let username = params.username;
     if (page !== 1) {
       that.setState({
         refresh_status: REFRESH_STATUS.REFRESHING
       })
     }
-
-    this.props.dispatch({
-      type: 'repo/getRepoList',
-      payload:{
+    let parmas;
+    if(username){
+      parmas = {
+        url: url,
         page: page,
         per_page: PER_PAGE,
-        visibility:'all',
-        sort:'updated',
-        direction:'desc'
-      },
+        username: username
+      }
+    }else {
+      parmas = {
+        url: url,
+        page: page,
+        per_page: PER_PAGE
+      }
+    }
+
+    this.props.dispatch({
+      type: 'follow/getFollowList',
+      payload:{...parmas},
       callback: res => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
@@ -93,25 +134,24 @@ class RepoList extends Component{
   }
 
   handleClickedItem(item) {
-    let url = '/pages/repo/repo?url=' + decodeURI(item.url)
     Taro.navigateTo({
-      url: url
+      url: '/pages/mine/developerInfo/developerInfo?username=' + item.name
     })
   }
 
   render () {
-    const {repo_list} = this.props;
+    const {follow_list} = this.props;
     const {refresh_status} = this.state;
-    const repoList = repo_list.map((item, index) => {
+    const followList = follow_list.map((item, index) => {
       return (
         <View onClick={this.handleClickedItem.bind(this, item)} key={index}>
-          <RepoItem item={item} />
+          <FollowItem item={item} />
         </View>
       )
     });
     return (
       <View className='content'>
-        {repoList}
+        {followList}
         <LoadMore status={refresh_status} />
       </View>
     )

@@ -37,7 +37,10 @@ class App extends Component {
       'pages/login/login',
       'pages/mine/about',
       'pages/mine/author',
-      'pages/mine/repo/repoList'
+      'pages/mine/repo/repoList',
+      'pages/mine/follow/follower',
+      'pages/mine/developerInfo/developerInfo',
+
     ],
     window: {
       backgroundTextStyle: 'dark',

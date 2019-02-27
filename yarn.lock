@@ -131,6 +131,13 @@
   dependencies:
     csso "^3.5.0"
 
+"@tarojs/plugin-less@^1.2.15":
+  version "1.2.15"
+  resolved "https://registry.yarnpkg.com/@tarojs/plugin-less/-/plugin-less-1.2.15.tgz#0f428e6a32ccfdb16e342023949a968049003aa7"
+  integrity sha512-cdr9RtCdKi0lqm/HQe737Tt0FMD1bJkScm9BoqlmFjU0fM/jSArLhW51RiM3oGQYV9k0XESEzkhtZJs9+UyybA==
+  dependencies:
+    less "^3.0.4"
+
 "@tarojs/plugin-sass@1.2.14":
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/@tarojs/plugin-sass/-/plugin-sass-1.2.14.tgz#186bad585c0b8f7809b599c6fa14e482aeb77a2d"
@@ -1871,7 +1878,7 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
-clone@^2.1.1:
+clone@^2.1.1, clone@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
@@ -4261,6 +4268,22 @@ less@3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/less/-/less-3.0.4.tgz#d27dcedbac96031c9e7b76f1da1e4b7d83760814"
   integrity sha512-q3SyEnPKbk9zh4l36PGeW2fgynKu+FpbhiUNx/yaiBUQ3V0CbACCgb9FzYWcRgI2DJlP6eI4jc8XPrCTi55YcQ==
+  optionalDependencies:
+    errno "^0.1.1"
+    graceful-fs "^4.1.2"
+    image-size "~0.5.0"
+    mime "^1.4.1"
+    mkdirp "^0.5.0"
+    promise "^7.1.1"
+    request "^2.83.0"
+    source-map "~0.6.0"
+
+less@^3.0.4:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/less/-/less-3.9.0.tgz#b7511c43f37cf57dc87dffd9883ec121289b1474"
+  integrity sha512-31CmtPEZraNUtuUREYjSqRkeETFdyEHSEPAGq4erDlUXtda7pzNmctdljdIagSb589d/qXGWiiP31R5JVf+v0w==
+  dependencies:
+    clone "^2.1.2"
   optionalDependencies:
     errno "^0.1.1"
     graceful-fs "^4.1.2"

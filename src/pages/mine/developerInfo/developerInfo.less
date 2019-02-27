@@ -1,0 +1,164 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.account_bg {
+  width: 750px;
+  height: 488px;
+}
+
+.user_info {
+  margin-top: -485px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .username {
+    color: #fff;
+    font-size: 36px;
+    margin-top: 20px;
+  }
+
+  .login_name {
+    color: #fff;
+    font-size: 28px;
+    margin-top: 15px;
+  }
+}
+
+.info_view {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 85%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+
+  .bio {
+    color: #7f7f7f;
+    font-size: 30px;
+    text-align: center;
+    margin: 30px 30px 0 30px;
+  }
+
+  .item_view {
+    background-color: #fff;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+
+    .line {
+      background-color: #7f7f7f;
+      width: 1px;
+      height: 40px;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      width: 30%;
+
+      .title {
+        text-align: center;
+        color: #333;
+        font-size: 34px;
+        font-weight: bold;
+      }
+
+      .desc {
+        text-align: center;
+        color: #7f7f7f;
+        font-size: 26px;
+      }
+    }
+  }
+
+  .button_view {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 70px;
+    margin-bottom: 30px;
+
+    .button {
+      border-radius: 35px;
+      width: 40%;
+      height: 100%;
+      font-size: 34px;
+      color: #fff;
+      padding: 0 0;
+      line-height: 70px;
+      background-color: #2d8cf0;
+    }
+  }
+}
+
+.list_view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 85%;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  padding: 10px 0;
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 90%;
+    height: 90px;
+
+    .list_title {
+      text-align: center;
+      color: #333;
+      font-size: 32px;
+    }
+
+    .list_content {
+      text-align: right;
+      color: #7f7f7f;
+      font-size: 28px;
+    }
+  }
+}
+
+.bottom_view {
+  height: 50px;
+}
+
+.home_view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 50px;
+  bottom: 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: #2d8cf0;
+}
