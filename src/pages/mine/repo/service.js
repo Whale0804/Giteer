@@ -7,9 +7,15 @@ export const getRepoList = data =>Request({
   method: 'GET',
   data: data
 });
-//列出授权用户的所有仓库
+//获取某个用户的公开仓库
 export const getOtherRepoList = data =>Request({
-  url: '/api//v5/users/'+data.username+'/repos',
+  url: '/api/v5/users/'+data.username+'/repos',
+  method: 'GET',
+  data: data
+});
+//列出用户 star 了的仓库
+export const getStarOtherRepoList = data =>Request({
+  url: '/api/v5/users/'+data.username+'/starred',
   method: 'GET',
   data: data
 });

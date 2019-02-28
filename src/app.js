@@ -39,6 +39,7 @@ class App extends Component {
       'pages/mine/author',
       'pages/mine/repo/repoList',
       'pages/mine/repo/repoOtherList',
+      'pages/mine/repo/repoStarOtherList',
       'pages/mine/follow/follower',
       'pages/mine/developerInfo/developerInfo',
 

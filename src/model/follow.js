@@ -41,6 +41,26 @@ export default {
           },
         });
       }
+    },
+    *doFollowed({payload, callback}, {call, put, select}){
+      const res = yield call(follow.doFollowed,payload);
+      callback({isFollow:true});
+      yield put({
+        type: 'save',
+        payload: {
+          isFollow: true,
+        },
+      });
+    },
+    *unFollowed({payload, callback}, {call, put, select}){
+      const res = yield call(follow.unFollowed,payload);
+      callback({isFollow:false});
+      yield put({
+        type: 'save',
+        payload: {
+          isFollow: false,
+        },
+      });
     }
   },
   reducers: {

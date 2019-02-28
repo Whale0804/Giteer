@@ -18,4 +18,20 @@ export const checkFollowing = data => {
       METHOD_TYPE: METHOD_TYPE.CHECK_FOLLOW
     }
   });
-}
+};
+//关注一个用户
+export const doFollowed = data => {
+  return Request({
+    url: '/api/v5/user/following/'+data.username,
+    method: 'PUT',
+    data: {}
+  });
+};
+//取消关注一个用户
+export const unFollowed = data => {
+  return Request({
+    url: '/api/v5/user/following/'+data.username,
+    method: 'DELETE',
+    data: {}
+  });
+};

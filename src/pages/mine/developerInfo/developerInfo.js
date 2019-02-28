@@ -98,25 +98,39 @@ class DeveloperInfo extends Component {
   }
 
   handleFollow() {
-    const { isFollowed, username } = this.state
+    const { isFollowed, username } = this.state;
     if (isFollowed) {
       //取消关注
-      api.delete(url).then((res)=>{
-        if (res.statusCode === 204) {
-          that.setState({
+      this.props.dispatch({
+        type: 'follow/unFollowed',
+        payload:{
+          username: username
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
             isFollowed: false
-          })
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
         }
-      })
+      });
     } else {
       //添加关注
-      api.put(url).then((res)=>{
-        if (res.statusCode === 204) {
-          that.setState({
-            isFollowed: true
-          })
+      this.props.dispatch({
+        type: 'follow/doFollowed',
+        payload:{
+          username: username
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
+            isFollowed: false
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
         }
-      })
+      });
     }
   }
 
@@ -143,7 +157,7 @@ class DeveloperInfo extends Component {
         break
       case NAVIGATE_TYPE.STARRED_REPOS: {
         Taro.navigateTo({
-          url: '/pages/repo/starredRepo?username=' + developerInfo.login
+          url: '/pages/mine/repo/repoStarOtherList?username=' + developerInfo.login
         })
       }
         break

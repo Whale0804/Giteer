@@ -34,6 +34,20 @@ export default {
           },
         });
       }
+    },
+    *getStarOtherRepoList({payload, callback}, {call, put, select}){
+      const { repo_list } = yield select(state => state.repo);
+      const { page } = payload;
+      const res = yield call(repo.getStarOtherRepoList,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            repo_list: page > 1 ? [...repo_list, ...res] : res,
+          },
+        });
+      }
     }
   },
   reducers: {

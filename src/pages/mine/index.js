@@ -55,8 +55,9 @@ export default class Index extends Component {
       }
         break
       case NAVIGATE_TYPE.STARRED_REPOS: {
+        const user = Taro.getStorageSync('user_info');
         Taro.navigateTo({
-          url: '/pages/repo/starredRepo'
+          url: '/pages/mine/repo/repoStarOtherList?username=' + user.login
         })
       }
         break
