@@ -6,7 +6,7 @@ import { NAVIGATE_TYPE } from '../../../constants/navigateType'
 import { hasLogin } from '../../../utils/common'
 import {connect} from "@tarojs/redux";
 
-import './developerInfo.less'
+import './developerInfo.scss'
 
 
 @connect(({ user,follow }) => ({

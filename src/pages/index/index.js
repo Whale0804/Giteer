@@ -32,7 +32,8 @@ export default class Index extends Component {
 
   componentDidMount () {
 
-    let that = this
+    let that = this;
+    this.loadNotice();
     Taro.getSystemInfo({
       success(res) {
         that.setState({
@@ -61,6 +62,18 @@ export default class Index extends Component {
       clearTimeout(timeOut)
     },2000)
 
+  }
+
+  loadNotice(){
+    const db = wx.cloud.database();
+    db.collection('notices').orderBy('create_date', 'desc')
+      .get()
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   onPageScroll(obj) {

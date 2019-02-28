@@ -349,7 +349,7 @@ export default class DynamicItem extends Component {
 
     return (
       <View className='content'>
-        <AtAvatar circle image={item.actor.avatar_url} />
+        <AtAvatar image={item.actor.avatar_url} />
         {dynamic}
       </View>
     )

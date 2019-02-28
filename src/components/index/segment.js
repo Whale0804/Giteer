@@ -5,7 +5,7 @@ import { AtIcon } from 'taro-ui'
 
 import Tab from './tab'
 
-import './segment.less'
+import './segment.scss'
 
 export default class Segment extends Component {
 

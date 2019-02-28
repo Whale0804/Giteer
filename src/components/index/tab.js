@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import PropTypes from 'prop-types';
 import { View, Text } from '@tarojs/components'
 
-import './tab.less'
+import './tab.scss'
 
 export default class Segment extends Component {
 
