@@ -1,7 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtButton } from 'taro-ui'
-
+import Segment from '../../components/index/segment'
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
+import Empty from '../../components/empty'
+import {hasLogin} from "../../utils/common";
+import Login from '../../components/login/login';
+import LoadMore from "../../components/loadMore/loadMore"
 
 import './index.scss'
 
@@ -9,12 +13,13 @@ export default class Index extends Component {
 
   config = {
     navigationBarTitleText: 'Giteer',
-    enablePullDownRefresh: true
+    enablePullDownRefresh: true,
   }
 
   constructor (props) {
     super(props)
     this.state = {
+      current: 0,
       animation: null,
       isHidden: false,
       fixed: false
@@ -99,27 +104,22 @@ export default class Index extends Component {
     }
   }
 
-  login(){
-    Taro.navigateTo({
-      url: '/pages/login/login'
+  onTabChange(index) {
+    this.setState({
+      current: index
     })
-  }
-
-  name(){
-    console.log(Taro.getStorageSync('user_info').name)
-    Taro.showToast({
-      title: Taro.getStorageSync('user_info').name,
-      icon: 'none',
-      mask: true,
-    });
   }
 
 
   render () {
+    const { current, fixed } = this.state;
     return (
-      <View className='index'>
-        <View style={{marginTop:'100px',textAlign:'center'}}>
-          敬请期待~
+      <View className='content'>
+        <View className={fixed ? 'segment-fixed' : ''}>
+          <Segment tabList={['仓库', '用户']}
+                   current={current}
+                   onTabChange={this.onTabChange}
+          />
         </View>
       </View>
     )
