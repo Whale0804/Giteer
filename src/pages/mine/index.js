@@ -37,10 +37,8 @@ export default class Index extends Component {
   handleNavigate(type) {
     switch (type) {
       case NAVIGATE_TYPE.REPOS: {
-        let url = encodeURI('/user/repos');
-        console.log(url);
         Taro.navigateTo({
-          url: '/pages/mine/repo/repoList?url=' + url
+          url: '/pages/mine/repo/repoList'
         })
       }
         break

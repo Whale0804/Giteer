@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-import Request from '../../../utils/request';
+import Request from '../../utils/request';
 
 //获取一个用户
 export const getUser = data =>Request({

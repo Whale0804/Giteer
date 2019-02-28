@@ -3,82 +3,51 @@ import { View } from '@tarojs/components'
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import LoadMore from "../../../components/loadMore/loadMore";
-import FollowItem from '../../../components/mine/followItem'
+import RepoItem from '../../../components/mine/repoItem'
 
-import './follower.scss'
+import './repoList.scss'
 
-@connect(({ follow }) => ({
-  ...follow,
+@connect(({ repo }) => ({
+  ...repo,
 }))
-export default class Follower extends Component {
+class RepoList extends Component{
 
   config = {
+    navigationBarTitleText: '仓库',
     enablePullDownRefresh: true
-  };
+  }
 
   constructor(props) {
     super(props);
     this.state = {
-      url: '',
       page: 1,
+      username: '',
       refresh_status: REFRESH_STATUS.NORMAL,
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    //console.log(this.props, nextProps)
   }
 
   componentWillMount() {
     let params = this.$router.params;
-    let type = params.type;
-    let username = params.username;
-    let url = '';
-    let title = '';
-    if (type === 'followers') {
-      // Followers
-      url = '/user/followers';
-      if (username) {
-        url = '/users/' + username + '/followers'
-      }
-      title = '关注我的';
-    } else if (type === 'following') {
-      // Following
-      url = '/user/following';
-      if (username) {
-        url = '/users/' + username + '/following'
-      }
-      title = '我关注的';
-    }
-
-    Taro.setNavigationBarTitle({
-      title: title
-    });
-
     this.setState({
-      url: url
+      username: params.username
     })
   }
 
   componentDidMount() {
     Taro.startPullDownRefresh();
     Taro.showLoading({title: LOADING_TEXT});
-    this.getFollow()
+    this.getRepoList()
   }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
 
   onPullDownRefresh() {
     let that = this;
     this.setState({
       page: 1
     }, ()=>{
-      that.getFollow()
+      that.getRepoList()
     })
   }
 
@@ -89,39 +58,29 @@ export default class Follower extends Component {
     this.setState({
       page: page + 1
     }, ()=>{
-      that.getFollow()
+      that.getRepoList()
     })
   }
 
-  getFollow() {
+  getRepoList() {
     let that = this;
-    const { url, page } = this.state;
-    let params = this.$router.params;
-    let username = params.username;
+    const { page, username } = this.state;
     if (page !== 1) {
       that.setState({
         refresh_status: REFRESH_STATUS.REFRESHING
       })
     }
-    let parmas;
-    if(username){
-      parmas = {
-        url: url,
-        page: page,
-        per_page: PER_PAGE,
-        username: username
-      }
-    }else {
-      parmas = {
-        url: url,
-        page: page,
-        per_page: PER_PAGE
-      }
-    }
 
     this.props.dispatch({
-      type: 'follow/getFollowList',
-      payload:{...parmas},
+      type: 'repo/getOtherRepoList',
+      payload:{
+        page: page,
+        per_page: PER_PAGE,
+        username: username,
+        visibility:'all',
+        sort:'updated',
+        direction:'desc'
+      },
       callback: res => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
@@ -134,24 +93,25 @@ export default class Follower extends Component {
   }
 
   handleClickedItem(item) {
+    let url = '/pages/repo/repo?url=' + decodeURI(item.url)
     Taro.navigateTo({
-      url: '/pages/mine/developerInfo/developerInfo?username=' + item.login
+      url: url
     })
   }
 
   render () {
-    const {follow_list} = this.props;
+    const {repo_list} = this.props;
     const {refresh_status} = this.state;
-    const followList = follow_list.map((item, index) => {
+    const repoList = repo_list.map((item, index) => {
       return (
         <View onClick={this.handleClickedItem.bind(this, item)} key={index}>
-          <FollowItem item={item} />
+          <RepoItem item={item} />
         </View>
       )
     });
     return (
       <View className='content'>
-        {followList}
+        {repoList}
         <LoadMore status={refresh_status} />
       </View>
     )

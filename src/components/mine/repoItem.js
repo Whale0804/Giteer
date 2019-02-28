@@ -51,13 +51,6 @@ export default class RepoItem extends Component{
             </View>
           }
           {
-            item.open_issues_count > 0 &&
-            <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-help-outline' size='16' color='#7f7f7f'/>
-              <View className='repo_number_title'>{formatCount(item.open_issues_count)}</View>
-            </View>
-          }
-          {
             item.forks_count > 0 &&
             <View className='repo_number_item'>
               <AtIcon prefixClass='ion' value='ios-git-network' size='16' color='#7f7f7f'/>

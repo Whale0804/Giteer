@@ -4,7 +4,8 @@ import * as follow from '../pages/mine/follow/service';
 export default {
   namespace: 'follow',
   state: {
-    follow_list: []
+    follow_list: [],
+    isFollow: true
   },
   effects: {
     *getFollowList({payload, callback}, {call, put, select}){
@@ -17,6 +18,26 @@ export default {
           type: 'save',
           payload: {
             follow_list: page > 1 ? [...follow_list, ...res] : res,
+          },
+        });
+      }
+    },
+    *checkFollowing({payload, callback}, {call, put, select}){
+      const res = yield call(follow.checkFollowing,payload);
+      if(res != ''){
+        callback(res);
+        yield put({
+          type: 'save',
+          payload: {
+            isFollow: res.isFollow,
+          },
+        });
+      }else{
+        callback({isFollow:true});
+        yield put({
+          type: 'save',
+          payload: {
+            isFollow: true,
           },
         });
       }

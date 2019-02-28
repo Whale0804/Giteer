@@ -9,8 +9,9 @@ import {connect} from "@tarojs/redux";
 import './developerInfo.less'
 
 
-@connect(({ user }) => ({
+@connect(({ user,follow }) => ({
   ...user,
+  ...follow
 }))
 class DeveloperInfo extends Component {
 
@@ -36,7 +37,7 @@ class DeveloperInfo extends Component {
   }
 
   componentWillMount() {
-    let params = this.$router.params
+    let params = this.$router.params;
     this.setState({
       username: params.username,
       isShare: params.share
@@ -62,15 +63,15 @@ class DeveloperInfo extends Component {
   getDeveloperInfo() {
     const { username } = this.state;
     this.props.dispatch({
-      type: 'repo/getRepoList',
+      type: 'user/getUser',
       payload:{
         username: username
       },
       callback: (res) => {
-        that.setState({
+        this.setState({
           developerInfo: res
         }, ()=>{
-          that.checkFollowing()
+          this.checkFollowing()
         })
       }
     });
@@ -78,19 +79,28 @@ class DeveloperInfo extends Component {
 
   checkFollowing() {
     if (hasLogin()) {
-      let that = this
-      const { username } = this.state
-      let url = '/user/following/' + username
-      Taro.stopPullDownRefresh();
-      Taro.hideLoading();
+      const { username } = this.state;
+      this.props.dispatch({
+        type: 'follow/checkFollowing',
+        payload:{
+          username: username
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
+            isFollowed: res.isFollow
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
+        }
+      });
     }
   }
 
   handleFollow() {
     const { isFollowed, username } = this.state
-    let url = '/user/following/' + username
-    let that = this
     if (isFollowed) {
+      //取消关注
       api.delete(url).then((res)=>{
         if (res.statusCode === 204) {
           that.setState({
@@ -99,6 +109,7 @@ class DeveloperInfo extends Component {
         }
       })
     } else {
+      //添加关注
       api.put(url).then((res)=>{
         if (res.statusCode === 204) {
           that.setState({
@@ -110,23 +121,23 @@ class DeveloperInfo extends Component {
   }
 
   handleNavigate(type) {
-    const { developerInfo } = this.state
+    const { developerInfo } = this.state;
     switch (type) {
       case NAVIGATE_TYPE.REPOS: {
         Taro.navigateTo({
-          url: '/pages/repo/repoList?url=' + encodeURI(developerInfo.repos_url)
+          url: '/pages/mine/repo/repoOtherList?username=' + developerInfo.login
         })
       }
         break
       case NAVIGATE_TYPE.FOLLOWERS: {
         Taro.navigateTo({
-          url: '/pages/account/follow?type=followers&username=' + developerInfo.login
+          url: '/pages/mine/follow/follower?type=followers&username=' + developerInfo.login
         })
       }
         break
       case NAVIGATE_TYPE.FOLLOWING: {
         Taro.navigateTo({
-          url: '/pages/account/follow?type=following&username=' + developerInfo.login
+          url: '/pages/mine/follow/follower?type=following&username=' + developerInfo.login
         })
       }
         break
@@ -162,7 +173,7 @@ class DeveloperInfo extends Component {
   }
 
   render() {
-    const { developerInfo, isFollowed, isShare } = this.state
+    const { developerInfo, isFollowed, isShare } = this.state;
     if (!developerInfo) return <View />
     return (
       <View className='content'>
@@ -170,7 +181,7 @@ class DeveloperInfo extends Component {
         <View className='user_info'>
           <AtAvatar className='avatar' circle image={developerInfo.avatar_url}/>
           <Text className='username'>
-            {developerInfo.name || developerInfo.login}
+            {developerInfo.name}
           </Text>
           <View className='login_name'>@{developerInfo.login}</View>
         </View>
@@ -196,10 +207,10 @@ class DeveloperInfo extends Component {
             {
               developerInfo.type === 'User' &&
               <Button className='button' onClick={this.handleFollow.bind(this)}>
-                {isFollowed ? 'Unfollow' : 'Follow'}
+                {isFollowed ? '取消关注' : '关注'}
               </Button>
             }
-            <Button className='button' openType='share'>Share</Button>
+            <Button className='button' openType='share'>分享</Button>
           </View>
         </View>
         <View className='list_view'>
@@ -208,26 +219,18 @@ class DeveloperInfo extends Component {
             <AtIcon prefixClass='ion' value='ios-arrow-forward' size='20' color='#7f7f7f' />
           </View>
           {/*<View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.EVENTS)}>*/}
-            {/*<View className='list_title'>Events</View>*/}
-            {/*<AtIcon prefixClass='ion' value='ios-arrow-forward' size='20' color='#7f7f7f' />*/}
+          {/*<View className='list_title'>Events</View>*/}
+          {/*<AtIcon prefixClass='ion' value='ios-arrow-forward' size='20' color='#7f7f7f' />*/}
           {/*</View>*/}
         </View>
         <View className='list_view'>
           <View className='list'>
-            <View className='list_title'>Email</View>
-            <View className='list_content'>{developerInfo.email.length > 0 ? developerInfo.email : '--'}</View>
-          </View>
-          <View className='list'>
-            <View className='list_title'>Blog</View>
+            <View className='list_title'>博客</View>
             <View className='list_content'>{developerInfo.blog.length > 0 ? developerInfo.blog : '--'}</View>
           </View>
           <View className='list'>
-            <View className='list_title'>Company</View>
-            <View className='list_content'>{developerInfo.company.length > 0 ? developerInfo.company : '--'}</View>
-          </View>
-          <View className='list'>
-            <View className='list_title'>Location</View>
-            <View className='list_content'>{developerInfo.location.length > 0 ? developerInfo.location : '--'}</View>
+            <View className='list_title'>微博</View>
+            <View className='list_content'>{developerInfo.weibo.length > 0 ? developerInfo.weibo : '--'}</View>
           </View>
         </View>
         <View className='bottom_view' />

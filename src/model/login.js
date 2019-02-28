@@ -13,10 +13,8 @@ export default {
       if(res.access_token){
         var token = {access_token: res.access_token}
         const user = yield call(login.getUserInfo,token);
-        console.log(user.name)
         Taro.setStorageSync('user_info', user);
         Taro.setStorageSync('access_token', res.access_token);
-
         yield put({
           type: 'common/save',
           payload: {

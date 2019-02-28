@@ -118,8 +118,9 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-        <AtButton type='primary' onClick={this.login}>按钮文案</AtButton>
-        <AtButton type='primary' onClick={this.name}>用户名</AtButton>
+        <View style={{marginTop:'100px',textAlign:'center'}}>
+          敬请期待~
+        </View>
       </View>
     )
   }
