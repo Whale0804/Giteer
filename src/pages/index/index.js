@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import Segment from '../../components/index/segment'
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
-import Empty from '../../components/empty'
+import {View, Text, Image} from '@tarojs/components'
+import { AtNoticebar } from 'taro-ui'
 import {hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
-import LoadMore from "../../components/loadMore/loadMore"
+import SearchBar from '../../components/index/SearchBar'
+import SearchHistory from '../../components/index/searchHistory'
 
 import './index.scss'
 
@@ -13,127 +12,174 @@ export default class Index extends Component {
 
   config = {
     navigationBarTitleText: 'Giteer',
-    enablePullDownRefresh: true,
   }
 
   constructor (props) {
     super(props)
     this.state = {
-      current: 0,
-      animation: null,
-      isHidden: false,
-      fixed: false
+      notice: null,
+      notice_closed: false,
+      isLogin: false,
+      history:[]
     }
   }
 
   componentWillMount () {
-
   }
 
   componentDidMount () {
-
     let that = this;
     this.loadNotice();
-    Taro.getSystemInfo({
-      success(res) {
-        that.setState({
-          windowHeight: res.windowHeight - (res.windowWidth / 750) * 80
-        })
-      }
-    })
+    this.loadHistory();
   }
 
   componentWillUnmount () { }
 
-  componentDidShow () { }
+  componentDidShow () {
+    this.setState({
+      isLogin: hasLogin()
+    })
+  }
 
   componentDidHide () { }
 
   onPullDownRefresh() {
-    console.log('调用下拉刷新')
-    this.loadItemList()
   }
 
-  loadItemList () {
-    console.log("开始延迟调用")
-    var timeOut = setTimeout(() => {
-      console.log("延迟调用完毕")
-      Taro.stopPullDownRefresh()
-      clearTimeout(timeOut)
-    },2000)
 
-  }
 
   loadNotice(){
+    let that = this;
     const db = wx.cloud.database();
     db.collection('notices').orderBy('create_date', 'desc')
       .get()
       .then(res => {
-        console.log(res)
+        if(res.data.length > 0){
+          const key = 'notice_key_'+res.data[0]._id;
+          const notice_closed = Taro.getStorageSync(key);
+          that.setState({
+            notice: res.data[0],
+            notice_closed: notice_closed
+          })
+        }
       })
       .catch(err => {
         console.log(err)
       })
   }
 
-  onPageScroll(obj) {
-    const { fixed } = this.state
-    if (obj.scrollTop > 0) {
-      if (!fixed) {
-        this.setState({
-          fixed: true
-        })
-      }
+  onCloseNotice() {
+    const { notice } = this.state;
+    const key = 'notice_key_' + notice._id;
+    Taro.setStorageSync(key, true)
+  }
+
+  onClickSearch(e) {
+    const value = e.detail.value
+    if (value && value.length > 0) {
+      this.updateHistory(value);
+      Taro.navigateTo({
+        url: '/pages/index/searchResult?value=' + encodeURI(value)
+      });
     } else {
-      this.setState({
-        fixed: false
+      Taro.showToast({
+        title: '请输入搜索内容',
+        icon: 'none'
       })
     }
   }
 
-  onScroll(e) {
-    if (e.detail.scrollTop < 0) return;
-    if (e.detail.deltaY > 0) {
-      let animation = Taro.createAnimation({
-        duration: 400,
-        timingFunction: 'ease',
-      }).bottom(25).step().export()
-      this.setState({
-        isHidden: false,
-        animation: animation
-      })
-    } else {
-      //向下滚动
-      if (!this.state.isHidden) {
-        let animation = Taro.createAnimation({
-          duration: 400,
-          timingFunction: 'ease',
-        }).bottom(-95).step().export()
-        this.setState({
-          isHidden: true,
-          animation: animation
-        })
+  updateHistory(value) {
+    const { history } = this.state;
+    for (let item of history) {
+      if (value === item) {
+        history.splice(history.indexOf(item), 1);
+        break
       }
     }
-  }
-
-  onTabChange(index) {
-    this.setState({
-      current: index
+    history.unshift(value);
+    let that = this
+    Taro.setStorage({
+      key: 'search_history',
+      data: history,
+      success(res) {
+        that.loadHistory()
+      }
     })
   }
 
+  loadHistory() {
+    let that = this;
+    Taro.getStorage({
+      key: 'search_history',
+    }).then(res =>{
+      if (res.data.length > 0) {
+        that.setState({
+          history: res.data
+        })
+      }
+    }).catch(err =>{
+
+    })
+  }
+
+  clear_history() {
+    console.log('clear')
+    Taro.removeStorage({
+      key: 'search_history'
+    })
+    this.setState({
+      history: []
+    })
+  }
+
+  onTagClick (item) {
+    this.updateHistory(item.name);
+    let url = '/pages/index/searchResult?value=' + encodeURI(item.name)
+    Taro.navigateTo({
+      url: url
+    })
+  }
 
   render () {
-    const { current, fixed } = this.state;
+    const { notice, notice_closed, isLogin } = this.state;
+    let {history} = this.state;
+    if(history.length > 10){
+      history = history.slice(0,10)
+    }
     return (
-      <View className='content'>
-        <View className={fixed ? 'segment-fixed' : ''}>
-          <Segment tabList={['仓库', '用户']}
-                   current={current}
-                   onTabChange={this.onTabChange}
-          />
-        </View>
+      <View>
+        {
+          isLogin ? (
+            <View className='content'>
+              {
+                (notice.status && !notice_closed) &&
+                <AtNoticebar icon='volume-plus'
+                             close
+                             onClose={this.onCloseNotice.bind(this)}>
+                  {notice.notice_content}
+                </AtNoticebar>
+              }
+              <View className='search-bar-fixed'>
+                <SearchBar onClickSearch={this.onClickSearch} />
+              </View>
+              {
+                history.length > 0 &&
+                <View className='search-history-bg'>
+                  <View className='search-history'>
+                    <SearchHistory items={history} onTagClick={this.onTagClick}/>
+                  </View>
+                  <View className='clear' onClick={this.clear_history.bind(this)}>Clear All</View>
+                </View>
+              }
+              <View style={{textAlign:'center'}}>
+                <Image mode='aspectFit'
+                       className='logo'
+                       src={require('../../asset/images/octocat.png')}/>
+                <Text className='text'>Giteer For 码云</Text>
+              </View>
+            </View>):<Login/>
+        }
       </View>
     )
   }

@@ -23,7 +23,6 @@ export default class Login extends Component {
   }
 
   componentWillMount() {
-    console.log('3');
   }
 
   componentDidMount() {}

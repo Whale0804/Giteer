@@ -35,11 +35,11 @@ class About extends Component {
   logout() {
 
     Taro.showModal({
-      content: 'Are you sure?',
+      content: '确定要退出吗?',
       showCancel: true,
-      cancelText: 'No',
+      cancelText: '取消',
       cancelColor: '#7f7f7f',
-      confirmText: 'Yeah',
+      confirmText: '确定',
       confirmColor: '#D64337',
       success(res) {
         if (res.confirm) {

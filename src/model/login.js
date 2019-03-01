@@ -10,11 +10,13 @@ export default {
   effects: {
     *login({ payload }, { call, put, }){
       const res = yield call(login.getAccessToken, payload);
+      console.log(res);
       if(res.access_token){
         var token = {access_token: res.access_token}
         const user = yield call(login.getUserInfo,token);
         Taro.setStorageSync('user_info', user);
         Taro.setStorageSync('access_token', res.access_token);
+        Taro.setStorageSync('refresh_token', res.refresh_token);
         yield put({
           type: 'common/save',
           payload: {

@@ -18,6 +18,19 @@ export default {
           },
         });
       }
+    },
+    *getMine({payload, callback}, {call, put, select}){
+      const res = yield call(user.getMine,payload);
+      callback(res);
+      if(res.length > 0){
+        Taro.setStorageSync('user_info', res);
+        yield put({
+          type: 'save',
+          payload: {
+            user_info: res,
+          },
+        });
+      }
     }
   },
   reducers: {

@@ -4,35 +4,63 @@ import { NAVIGATE_TYPE } from '../../constants/navigateType'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import {hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
+import {connect} from "@tarojs/redux";
 
 import './index.scss'
+import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 
+@connect(({ user }) => ({
+  ...user,
+}))
 export default class Index extends Component {
 
   config = {
-    navigationBarTitleText: '我的'
+    navigationBarTitleText: '我的',
+    enablePullDownRefresh:true
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      isLogin: false
+      isLogin: false,
+      userInfo: null,
     }
   }
 
   componentWillMount () { }
 
-  componentDidMount () { }
+  componentDidMount () {
+    Taro.startPullDownRefresh();
+    this.getMine();
+  }
 
   componentWillUnmount () { }
 
   componentDidShow () {
     this.setState({
       isLogin: hasLogin()
-    })
+    });
   }
 
   componentDidHide () { }
+
+  onPullDownRefresh() {
+    this.getMine()
+  }
+
+  getMine(){
+    let that = this;
+    this.props.dispatch({
+      type: 'user/getMine',
+      payload: { },
+      callback: (res) => {
+        Taro.stopPullDownRefresh();
+        that.setState({
+          userInfo: res
+        })
+      }
+    })
+  }
 
   handleNavigate(type) {
     switch (type) {
@@ -83,7 +111,10 @@ export default class Index extends Component {
   }
 
   render () {
-    const user = Taro.getStorageSync('user_info');
+    let user = Taro.getStorageSync('user_info');
+    if(user){
+      user = this.state.userInfo
+    }
     const { isLogin } = this.state;
     return (
       <View>
@@ -131,20 +162,20 @@ export default class Index extends Component {
             </View>
             <View className='list_view'>
               <View className='list'>
-                <View className='list_title'>Email</View>
+                <View className='list_title'>邮箱</View>
                 <View className='list_content'>{user.email.length > 0 ? user.email : '--'}</View>
               </View>
               <View className='list'>
-                <View className='list_title'>Blog</View>
+                <View className='list_title'>博客</View>
                 <View className='list_content'>{user.blog.length > 0 ? user.blog : '--'}</View>
               </View>
               <View className='list'>
-                <View className='list_title'>Company</View>
-                <View className='list_content'>{user.company.length > 0 ? user.company : '--'}</View>
+                <View className='list_title'>微博</View>
+                <View className='list_content'>{user.weibo.length > 0 ? user.weibo : '--'}</View>
               </View>
               <View className='list'>
-                <View className='list_title'>Location</View>
-                <View className='list_content'>{user.location.length > 0 ? user.location : '--'}</View>
+                <View className='list_title'>地址</View>
+                <View className='list_content'>{user.address.length > 0 ? user.address : '--'}</View>
               </View>
             </View>
             <View className='list_view'>

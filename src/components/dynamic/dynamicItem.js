@@ -24,7 +24,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator style={{width:'100%'}} url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator style={{width:'100%'}} url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -51,7 +51,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -72,7 +72,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -93,7 +93,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -120,7 +120,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -144,7 +144,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -172,7 +172,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -180,7 +180,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </Navigator>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.payload.target.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.payload.target.login} >
               <Text className='textprefix'>关注了</Text>
               <Text className='reposname'>
                 {' ' + item.payload.target.login}
@@ -194,7 +194,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -218,7 +218,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -241,7 +241,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -262,7 +262,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -283,7 +283,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -305,7 +305,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -327,7 +327,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <Navigator url={'/pages/account/developerInfo?username=' + item.actor.login} >
+            <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -349,7 +349,9 @@ export default class DynamicItem extends Component {
 
     return (
       <View className='content'>
-        <AtAvatar image={item.actor.avatar_url} />
+        <Navigator url={'/pages/mine/developerInfo/developerInfo?username=' + item.actor.login} >
+          <AtAvatar size={"small"} image={item.actor.avatar_url} />
+        </Navigator>
         {dynamic}
       </View>
     )

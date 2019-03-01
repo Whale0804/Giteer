@@ -4,12 +4,14 @@ import Index from './pages/index'
 import dva from './utils/dva'
 import models from './model'
 import {Provider} from '@tarojs/redux'
+import {refreshToken} from './utils/refreshToken'
+import {hasLogin} from "./utils/common";
 
 import './app.scss'
+// 全局引入一次即可
 import 'taro-ui/dist/style/index.scss'
 import './asset/ionicons/css/ionicons.min.css'
 
-import {hasLogin} from "./utils/common"; // 全局引入一次即可
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -32,6 +34,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/index/searchResult',
       'pages/dynamic/index',
       'pages/mine/index',
       'pages/login/login',
@@ -80,6 +83,8 @@ class App extends Component {
       Taro.navigateTo({
         url: '/pages/login/login'
       })
+    }else{
+      refreshToken()
     }
     wx.cloud.init({
       env: 'giteer-36a385',
