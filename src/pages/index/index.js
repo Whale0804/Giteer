@@ -172,12 +172,14 @@ export default class Index extends Component {
                   <View className='clear' onClick={this.clear_history.bind(this)}>Clear All</View>
                 </View>
               }
-              <View style={{textAlign:'center'}}>
-                <Image mode='aspectFit'
-                       className='logo'
-                       src={require('../../asset/images/octocat.png')}/>
-                <Text className='text'>Giteer For 码云</Text>
-              </View>
+              { history.length == 0 &&
+                <View style={{textAlign: 'center', marginTop: '90px'}}>
+                  <Image mode='aspectFit'
+                         className='logo'
+                         src={require('../../asset/images/octocat.png')}/>
+                  <Text className='text'>Giteer For 码云</Text>
+                </View>
+              }
             </View>):<Login/>
         }
       </View>

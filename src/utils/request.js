@@ -43,7 +43,13 @@ export default (options = {method: 'GET',data: {} }) =>{
       }
       return data;
     }else {
-      if(statusCode == 404){
+      if(statusCode == 401){
+        Taro.setStorageSync('access_token', '');
+        Taro.setStorageSync('user_info', '');
+        Taro.navigateTo({
+          url: '/pages/login/login'
+        })
+      }else if(statusCode == 404){
         //Api返回404即未关注此用户
         console.log(statusCode)
         if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_FOLLOW){

@@ -84,7 +84,7 @@ class App extends Component {
         url: '/pages/login/login'
       })
     }else{
-      refreshToken()
+      //refreshToken()
     }
     wx.cloud.init({
       env: 'giteer-36a385',
