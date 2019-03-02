@@ -125,7 +125,7 @@ class DeveloperInfo extends Component {
         callback: (res) => {
           console.log(res);
           this.setState({
-            isFollowed: false
+            isFollowed: true
           });
           Taro.stopPullDownRefresh();
           Taro.hideLoading();

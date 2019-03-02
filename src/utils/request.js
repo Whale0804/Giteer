@@ -56,6 +56,14 @@ export default (options = {method: 'GET',data: {} }) =>{
           return {
             isFollow:false
           };
+        }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_WATCH) {
+          return {
+            isWatch:false
+          };
+        }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_STAR) {
+          return {
+            isStar:false
+          };
         }
       }else {
         Taro.showToast({

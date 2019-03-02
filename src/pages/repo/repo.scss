@@ -1,0 +1,189 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.repo_bg_view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #D64337;
+
+  .repo_info_title {
+    color: #ffffff;
+    font-size: 50px;
+    margin: 5px 25px;
+    text-align: center;
+  }
+
+  .fork {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .fork_title {
+      margin-left: 10px;
+      color: #fff;
+      font-size: 30px;
+    }
+  }
+
+  .repo_info_desc {
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+    margin: 5px 25px 90px 25px;
+  }
+}
+
+.repo_number_view {
+  display: flex;
+  flex-direction: column;
+  margin-top: -70px;
+  border-radius: 10px;
+  width: 700px;
+  height: 245px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+
+  .repo_number_item_view {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 30px;
+
+    .repo_number_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .repo_number_title {
+      color: #333333;
+      font-size: 34px;
+    }
+  }
+
+  .share_button {
+    margin-top: 20px;
+    border-radius: 35px;
+    width: 200px;
+    height: 70px;
+    font-size: 34px;
+    color: #fff;
+    padding: 0 0;
+    line-height: 70px;
+    background-color: #D64337;
+  }
+}
+
+.repo_info_list_view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 700px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+
+  .repo_info_list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 90%;
+    height: 90px;
+
+    .list_title {
+      text-align: center;
+      color: #333;
+      font-size: 32px;
+    }
+
+    .list_content {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background-color: #fff;
+    }
+
+    .list_content_title {
+      color: #7f7f7f;
+      font-size: 30px;
+      background-color: #fff;
+      padding: 0 20px;
+    }
+
+    .tag {
+      margin-right: 20px;
+      background-color: #ff4949;
+      font-size: 30px;
+      height: 40px;
+      border-radius: 20px;
+      color: #fff;
+      padding: 0 20px;
+    }
+  }
+}
+
+.markdown {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+
+  .md_title {
+    color: #333;
+    font-size: 32px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+  }
+
+  .repo_md {
+    margin-bottom: 10px;
+    width: 700px;
+  }
+}
+
+.ad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 700px;
+
+  .support {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ff4949;
+    font-size: 30px;
+  }
+}
+
+.home_view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 50px;
+  bottom: 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: #D64337;
+}

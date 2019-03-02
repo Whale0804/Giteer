@@ -93,7 +93,7 @@ class RepoList extends Component{
   }
 
   handleClickedItem(item) {
-    let url = '/pages/repo/repo?url=' + decodeURI(item.url)
+    let url = '/pages/repo/repo?url=' + decodeURI(item.full_name)
     Taro.navigateTo({
       url: url
     })

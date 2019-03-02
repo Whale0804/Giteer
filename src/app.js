@@ -45,6 +45,7 @@ class App extends Component {
       'pages/mine/repo/repoStarOtherList',
       'pages/mine/follow/follower',
       'pages/mine/developerInfo/developerInfo',
+      'pages/repo/repo'
 
     ],
     window: {

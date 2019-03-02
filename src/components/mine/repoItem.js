@@ -15,6 +15,12 @@ export default class RepoItem extends Component{
     item: null,
   }
 
+  handleClickName(name){
+    Taro.navigateTo({
+      url:'/pages/mine/developerInfo/developerInfo?username='+name,
+    })
+  }
+
   render() {
     const { item } = this.props;
     if (!item) return <View/>

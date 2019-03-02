@@ -28,7 +28,7 @@ export default class SearchBar extends Component {
                  type='text'
                  placeholder='输入关键字搜索仓库/用户...'
                  confirmType='search'
-                 focus
+                 focus={false}
                  onConfirm={onClickSearch.bind(this)}
           />
           <View className='icon' />
