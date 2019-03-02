@@ -230,7 +230,7 @@ class DeveloperInfo extends Component {
         <View className='list_view'>
           <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.STARRED_REPOS)}>
             <View className='list_title'>Starred Repos</View>
-            <AtIcon prefixClass='ion' value='ios-arrow-forward' size='20' color='#7f7f7f' />
+            <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
           </View>
           {/*<View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.EVENTS)}>*/}
           {/*<View className='list_title'>Events</View>*/}
@@ -251,8 +251,7 @@ class DeveloperInfo extends Component {
         {
           isShare &&
           <View className='home_view' onClick={this.onClickedHome.bind(this)}>
-            <AtIcon prefixClass='ion'
-                    value='ios-home'
+            <AtIcon value='home'
                     size='30'
                     color='#fff' />
           </View>

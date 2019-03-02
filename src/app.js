@@ -10,7 +10,6 @@ import {hasLogin} from "./utils/common";
 import './app.scss'
 // 全局引入一次即可
 import 'taro-ui/dist/style/index.scss'
-import './asset/ionicons/css/ionicons.min.css'
 
 
 // 如果需要在 h5 环境中开启 React Devtools

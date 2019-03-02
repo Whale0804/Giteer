@@ -38,28 +38,28 @@ export default class RepoItem extends Component{
           {
             item.language.length > 0 &&
             <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-pricetag' size='16' color='#7f7f7f'/>
+              <AtIcon value='tag' size='16' color='#7f7f7f'/>
               <View className='repo_number_title'>{item.language}</View>
             </View>
           }
           {
             item.watchers_count > 0 &&
             <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-eye' size='16' color='#7f7f7f'/>
+              <AtIcon value='eye' size='16' color='#7f7f7f'/>
               <View className='repo_number_title'>{formatCount(item.watchers_count)}</View>
             </View>
           }
           {
             item.stargazers_count > 0 &&
             <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-star' size='16' color='#7f7f7f'/>
+              <AtIcon value='star' size='16' color='#7f7f7f'/>
               <View className='repo_number_title'>{formatCount(item.stargazers_count)}</View>
             </View>
           }
           {
             item.forks_count > 0 &&
             <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-git-network' size='16' color='#7f7f7f'/>
+              <AtIcon value='shuffle-play' size='16' color='#7f7f7f'/>
               <View className='repo_number_title'>{formatCount(item.forks_count)}</View>
             </View>
           }

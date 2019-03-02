@@ -35,6 +35,7 @@ class Repo extends Component {
       hasWatching: false,
       isWatch:false,
       isStar:false,
+      isFork:false,
       isShare: false,
       loadAd: true,
       baseUrl: null,
@@ -103,7 +104,8 @@ class Repo extends Component {
           repo: res
         },() =>{
           that.getReadme();
-          that.checkStarring()
+          that.checkStarring();
+          this.checkWatching();
         });
       }
     })
@@ -156,27 +158,6 @@ class Repo extends Component {
     }
   }
 
-  checkWatching() {
-    if (hasLogin()) {
-      const { repo } = this.state
-      let that = this
-      this.props.dispatch({
-        type: 'repo/checkWatch',
-        payload:{
-          url: repo.full_name
-        },
-        callback: (res) => {
-          console.log(res);
-          this.setState({
-            isWatch: res.isWatch
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-        }
-      });
-    }
-  }
-
   handleStar() {
     Taro.showLoading({title: LOADING_TEXT})
     const { isStar, repo } = this.state
@@ -215,24 +196,78 @@ class Repo extends Component {
     }
   }
 
+  checkWatching() {
+    if (hasLogin()) {
+      const { repo } = this.state
+      let that = this
+      this.props.dispatch({
+        type: 'repo/checkWatch',
+        payload:{
+          url: repo.full_name
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
+            isWatch: res.isWatch
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
+        }
+      });
+    }
+  }
+
+  handleWatch() {
+    Taro.showLoading({title: LOADING_TEXT})
+    const { isWatch, repo } = this.state
+    let that = this
+    if (isWatch) {
+      //取消收藏
+      this.props.dispatch({
+        type: 'repo/delWatch',
+        payload:{
+          url: repo.full_name
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
+            isWatch: false
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
+        }
+      });
+    } else {
+      this.props.dispatch({
+        type: 'repo/doWatch',
+        payload:{
+          url: repo.full_name
+        },
+        callback: (res) => {
+          console.log(res);
+          this.setState({
+            isWatch: true
+          });
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
+        }
+      });
+    }
+  }
+
   handleFork() {
-    Taro.showLoading({title: GLOBAL_CONFIG.LOADING_TEXT})
+    Taro.showLoading({title: LOADING_TEXT})
     const { repo } = this.state
-    let url = '/repos/' + repo.full_name + '/forks'
-    api.post(url).then((res)=>{
-      Taro.hideLoading()
-      if (res.statusCode === HTTP_STATUS.ACCEPTED) {
-        Taro.showToast({
-          title: 'Success!',
-          icon: 'success'
-        })
-      } else {
-        Taro.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
+    this.props.dispatch({
+      type: 'repo/doFork',
+      payload:{
+        url: repo.full_name
+      },
+      callback: (res) => {
+        Taro.stopPullDownRefresh();
+        Taro.hideLoading();
       }
-    })
+    });
   }
 
   handleNavigate(type) {
@@ -240,7 +275,7 @@ class Repo extends Component {
     switch (type) {
       case NAVIGATE_TYPE.USER: {
         Taro.navigateTo({
-          url: '/pages/account/developerInfo?username=' + repo.owner.login
+          url: '/pages/mine/developerInfo/developerInfo?username=' + repo.owner.login
         })
       }
         break
@@ -300,7 +335,7 @@ class Repo extends Component {
           {
             repo.fork &&
             <View className='fork'>
-              <AtIcon prefixClass='ion' value='ios-git-network' size='15' color='#fff' />
+              <AtIcon value='shuffle-play' size='15' color='#fff' />
               <Navigator url={'/pages/repo/repo?url=' + encodeURI(repo.parent.full_name)}>
                 <Text className='fork_title'>
                   {repo.parent.human_name}
@@ -312,19 +347,18 @@ class Repo extends Component {
         </View>
         <View className='repo_number_view'>
           <View className='repo_number_item_view'>
-            <View className='repo_number_item'>
-              <AtIcon prefixClass='ion' value='ios-eye' size='25' />
+            <View className='repo_number_item' onClick={this.handleWatch.bind(this)}>
+              <AtIcon value='eye' size='25' color={isWatch ? '#333' : '#ccc'}/>
               <Text className='repo_number_title'>{repo.watchers_count}</Text>
             </View>
             <View className='repo_number_item' onClick={this.handleStar.bind(this)}>
-              <AtIcon prefixClass='ion'
-                      value={isStar ? 'ios-star' : 'ios-star-outline'}
+              <AtIcon value='star'
                       size='25'
-                      color={isStar ? '#333' : '#333'} />
+                      color={isStar ? '#333' : '#ccc'} />
               <Text className='repo_number_title'>{repo.stargazers_count}</Text>
             </View>
             <View className='repo_number_item' onClick={this.handleFork.bind(this)}>
-              <AtIcon prefixClass='ion' value='ios-git-network' size='25' color='#333' />
+              <AtIcon value='shuffle-play' size='25' color={'#333'} />
               <Text className='repo_number_title'>{repo.forks_count}</Text>
             </View>
           </View>
@@ -335,12 +369,12 @@ class Repo extends Component {
             <View className='list_title'>Author</View>
             <View className='list_content'>
               <Text className='list_content_title'>{repo.owner.name}</Text>
-              <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />
+              <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
             </View>
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_CONTENT_LIST)}>
             <View className='list_title'>View Code</View>
-            <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />
+            <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
           <View className='repo_info_list'>
             <View className='list_title'>Branch</View>
@@ -365,16 +399,16 @@ class Repo extends Component {
                 repo.open_issues_count > 0 &&
                 <View className='tag'>{repo.open_issues_count}</View>
               }
-              <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />
+              <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
             </View>
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_EVENTS_LIST)}>
             <View className='list_title'>Events</View>
-            <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />
+            <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_CONTRIBUTORS_LIST)}>
             <View className='list_title'>Contributors</View>
-            <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />
+            <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
         </View>
         {
@@ -396,8 +430,7 @@ class Repo extends Component {
         {
           isShare &&
           <View className='home_view' onClick={this.onClickedHome.bind(this)}>
-            <AtIcon prefixClass='ion'
-                    value='ios-home'
+            <AtIcon value='home'
                     size='30'
                     color='#fff' />
           </View>

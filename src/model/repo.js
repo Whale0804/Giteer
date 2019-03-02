@@ -161,7 +161,11 @@ export default {
           isStar: false,
         },
       });
-    }
+    },
+    *doFork({payload, callback}, {call, put, select}){
+      const res = yield call(repos.doFork,payload);
+      callback(res);
+    },
   },
   reducers: {
     save(state, { payload: data }) {

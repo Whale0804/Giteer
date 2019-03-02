@@ -153,11 +153,11 @@ export default class Index extends Component {
             <View className='list_view'>
               <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.STARRED_REPOS)}>
                 <View className='list_title'>Starred Repos</View>
-                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+                <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </View>
               <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.ISSUES)}>
                 <View className='list_title'>Issues</View>
-                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+                <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </View>
             </View>
             <View className='list_view'>
@@ -181,15 +181,15 @@ export default class Index extends Component {
             <View className='list_view'>
               <Button className='list btn' openType="contact">
                 <View className='list_title'>客服反馈</View>
-                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+                <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </Button>
               <Button className='list btn' openType="share">
                 <View className='list_title'>分享Giteer</View>
-                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+                <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </Button>
               <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.ABOUT)}>
                 <View className='list_title'>关于</View>
-                <AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f'/>
+                <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </View>
             </View>
             <View className='bottom_view'/>

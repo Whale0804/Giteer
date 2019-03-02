@@ -18,12 +18,12 @@ export const getReadme = (data) =>Request({
  */
 //watch 一个仓库
 export const doWatch = (data) =>Request({
-  url: '/api/v5/subscriptions/'+data.url,
+  url: '/api/v5/user/subscriptions/'+data.url,
   method: 'PUT',
 });
 //检查授权用户是否 watch 了一个仓库
 export const checkWatch = (data) =>Request({
-  url: '/api/v5/subscriptions/'+data.url,
+  url: '/api/v5/user/subscriptions/'+data.url,
   method: 'GET',
   data: {
     METHOD_TYPE: METHOD_TYPE.CHECK_WATCH
@@ -31,7 +31,7 @@ export const checkWatch = (data) =>Request({
 });
 //取消 watch 一个仓库
 export const delWatch = (data) =>Request({
-  url: '/api/v5/subscriptions/'+data.url,
+  url: '/api/v5/user/subscriptions/'+data.url,
   method: 'DELETE',
 });
 /**
