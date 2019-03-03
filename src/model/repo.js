@@ -12,6 +12,7 @@ export default {
     readme: {},
     isWatch: false,
     isStar: false,
+    content: null
   },
   effects: {
     *getRepoList({payload, callback}, {call, put, select}){
@@ -165,6 +166,19 @@ export default {
     *doFork({payload, callback}, {call, put, select}){
       const res = yield call(repos.doFork,payload);
       callback(res);
+    },
+    *getContent({payload, callback}, {call, put, select}){
+      const res = yield call(repos.getConent,payload);
+      console.log(res)
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            content: res,
+          },
+        });
+      }
     },
   },
   reducers: {

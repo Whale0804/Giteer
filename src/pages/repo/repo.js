@@ -266,6 +266,10 @@ class Repo extends Component {
       callback: (res) => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
+        Taro.showToast({
+          title: 'fork成功~',
+          icon: 'none'
+        })
       }
     });
   }
@@ -281,7 +285,7 @@ class Repo extends Component {
         break
       case NAVIGATE_TYPE.REPO_CONTENT_LIST: {
         Taro.navigateTo({
-          url: '/pages/repo/contentList?repo=' + repo.full_name
+          url: '/pages/repo/contentList?repo=' + repo.full_name+'&branch='+repo.default_branch,
         })
       }
         break
