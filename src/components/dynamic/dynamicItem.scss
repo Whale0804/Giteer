@@ -14,7 +14,9 @@
   flex-direction: column;
 }
 .content-view{
-  width: 710px;
+  width: 100%;
+  word-break:break-all;
+  padding: 10px 0px 10px 5px;
 }
 .activity {
   display: flex;
