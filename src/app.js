@@ -48,7 +48,8 @@ class App extends Component {
       'pages/repo/contentList',
       'pages/repo/file',
       'pages/repo/contributors',
-      'pages/repo/repoEvents'
+      'pages/repo/repoEvents',
+      'pages/repo/issues'
 
     ],
     window: {

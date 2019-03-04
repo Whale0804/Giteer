@@ -57,7 +57,6 @@ export const doStar = (data) =>Request({
   method: 'PUT',
 });
 //取消 star 一个仓库
-//取消 watch 一个仓库
 export const delStar = (data) =>Request({
   url: '/api/v5/user/starred/'+data.url,
   method: 'DELETE',
@@ -131,6 +130,19 @@ export const getContributors = (data) =>Request({
 //列出仓库的所有动态
 export const getRepoEvents = (data) => Request({
   url: '/api/v5/repos/'+data.url+'/events',
+  method: 'GET',
+  data: data
+});
+/**
+ *  ###################################  贡献者  ######################################
+ */
+
+/**
+ *  ###################################  ISSUES  ######################################
+ */
+//仓库的所有Issues
+export const getRepoIssues = (data) => Request({
+  url: '/api/v5/repos/'+data.url+'/issues',
   method: 'GET',
   data: data
 });

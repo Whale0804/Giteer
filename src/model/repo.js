@@ -15,7 +15,8 @@ export default {
     content: null,
     file: null,
     contributors: [],
-    events: []
+    events: [],
+    issues_list: []
   },
   effects: {
     *getRepoList({payload, callback}, {call, put, select}){
@@ -229,6 +230,20 @@ export default {
           type: 'save',
           payload: {
             events: page > 1 ? [...events, ...res] : res,
+          },
+        });
+      }
+    },
+    *getRepoIssues({payload, callback}, {call, put, select}){
+      const { issues_list } = yield select(state => state.repo);
+      const { page } = payload;
+      const res = yield call(repos.getRepoIssues,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            events: page > 1 ? [...issues_list, ...res] : res,
           },
         });
       }
