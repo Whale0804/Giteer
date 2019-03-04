@@ -366,22 +366,22 @@ class Repo extends Component {
               <Text className='repo_number_title'>{repo.forks_count}</Text>
             </View>
           </View>
-          <Button className='share_button' openType='share'>Share</Button>
+          <Button className='share_button' openType='share'>分享</Button>
         </View>
         <View className='repo_info_list_view'>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.USER)}>
-            <View className='list_title'>Author</View>
+            <View className='list_title'>作者</View>
             <View className='list_content'>
               <Text className='list_content_title'>{repo.owner.name}</Text>
               <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
             </View>
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_CONTENT_LIST)}>
-            <View className='list_title'>View Code</View>
+            <View className='list_title'>查看代码</View>
             <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
           <View className='repo_info_list'>
-            <View className='list_title'>Branch</View>
+            <View className='list_title'>默认分支</View>
             <View className='list_content'>
               <Text className='list_content_title'>{repo.default_branch}</Text>
               {/*<AtIcon prefixClass='ion' value='ios-arrow-forward' size='18' color='#7f7f7f' />*/}
@@ -407,11 +407,11 @@ class Repo extends Component {
             </View>
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_EVENTS_LIST)}>
-            <View className='list_title'>Events</View>
+            <View className='list_title'>动态</View>
             <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_CONTRIBUTORS_LIST)}>
-            <View className='list_title'>Contributors</View>
+            <View className='list_title'>组织</View>
             <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
         </View>

@@ -229,7 +229,7 @@ class DeveloperInfo extends Component {
         </View>
         <View className='list_view'>
           <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.STARRED_REPOS)}>
-            <View className='list_title'>Starred Repos</View>
+            <View className='list_title'>收藏的仓库</View>
             <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
           </View>
           {/*<View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.EVENTS)}>*/}
