@@ -28,6 +28,8 @@ class Issues extends Component {
     this.state = {
       current: 0,
       url: null,
+      path: null,
+      repoPath: null,
       isUser: false,
       fixed: false,
       openList: [],
@@ -47,7 +49,9 @@ class Issues extends Component {
     let params = this.$router.params
     this.setState({
       url: params.url,
-      isUser: params.url.indexOf('user') !== -1
+      isUser: params.url.indexOf('user') !== -1,
+      path: params.path,
+      repoPath: params.repoPath
     })
   }
 
@@ -201,7 +205,7 @@ class Issues extends Component {
 
   addIssue() {
     Taro.navigateTo({
-      url: '/pages/repo/addIssue?url=' + this.state.url
+      url: '/pages/repo/addIssue?path=' + this.state.path + '&repoPath=' + this.state.repoPath
     })
   }
 
