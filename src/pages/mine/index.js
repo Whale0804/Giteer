@@ -30,19 +30,6 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
-    const {isLogin} = this.state;
-    if(isLogin){
-      if(!checkExpiresToken()){
-        Taro.startPullDownRefresh();
-        this.getMine();
-      }else {
-        this.setState({
-          isLogin: false,
-        },() => {
-          tokenRequest()
-        })
-      }
-    }
 
   }
 
@@ -51,7 +38,22 @@ export default class Index extends Component {
   componentDidShow () {
     this.setState({
       isLogin: hasLogin()
+    },() =>{
+      const {isLogin} = this.state;
+      if(isLogin){
+        if(!checkExpiresToken()){
+          Taro.startPullDownRefresh();
+          this.getMine();
+        }else {
+          this.setState({
+            isLogin: false,
+          },() => {
+            tokenRequest()
+          })
+        }
+      }
     });
+
   }
 
   componentDidHide () { }
