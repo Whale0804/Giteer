@@ -36,7 +36,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -44,7 +44,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>发表了对</Text>
               <Text className='reposname'>
                 {' '+item.repo.human_name+' '}
@@ -63,7 +63,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -71,10 +71,10 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
-              <Text className='textprefix'>收藏了仓库</Text>
-              <Text className='username'>
-                {item.repo.human_name}
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+              <Text className='textprefix'>关注了仓库</Text>
+              <Text className='reposname'>
+                {' ' + item.repo.human_name}
               </Text>
             </View>
           </View>
@@ -84,7 +84,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -92,7 +92,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>创建了一个新的仓库</Text>
               <Text className='reposname'>
                 {' '+item.repo.human_name}
@@ -105,7 +105,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -113,18 +113,20 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.payload.forkee.full_name)} >
-              <Text className='textprefix'>Fork了仓库</Text>
-              <Text className='reposname'>
-                {' ' + item.repo.name}
-              </Text>
+            <View className='content-view'>
+              <View onClick={this.handleClickRepos.bind(this,item.payload.forkee.full_name)} >
+                <Text className='textprefix'>Fork了仓库</Text>
+                <Text className='reposname'>
+                  {' ' + item.repo.full_name}
+                </Text>
+              </View>
+              <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+                <Text className='textprefix'>到仓库</Text>
+                <Text className='reposname'>
+                  {' ' + item.payload.full_name}
+                </Text>
+              </View>
             </View>
-            <Navigator onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
-              <Text className='textprefix'>到仓库</Text>
-              <Text className='reposname'>
-                {' ' + item.payload.forkee.full_name}
-              </Text>
-            </Navigator>
           </View>
         </View>
       )
@@ -132,7 +134,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -140,7 +142,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>对</Text>
               <Text className='reposname'>
                 {' '+item.repo.human_name+' '}
@@ -156,7 +158,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -164,7 +166,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>评论了</Text>
               <Text className='reposname'>
                 {' ' + item.repo.human_name + ' '}
@@ -184,7 +186,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -192,7 +194,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.payload.target.login)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.payload.target.login)} >
               <Text className='textprefix'>关注了</Text>
               <Text className='reposname'>
                 {' ' + item.payload.target.login}
@@ -206,7 +208,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this,item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -214,7 +216,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickAvatar.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickAvatar.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>推送到了</Text>
               <Text className='reposname'>
                 {' ' + item.repo.human_name + ' '}
@@ -230,18 +232,19 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
             </View>
-            <Navigator url='' hoverClass='none' >
-              <Text className='text'>{item.payload.action + ' a PullRequest in'}</Text>
-            </Navigator>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
-              <Text className='username'>
-                {item.repo.human_name}
-              </Text>
+            <View className='content-view'>
+              <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+                <Text className='textprefix'>对仓库</Text>
+                <Text className='username'>
+                  {item.repo.human_name}
+                </Text>
+                <Text className='textprefix'>进行了 PullRequest 操作</Text>
+              </View>
             </View>
           </View>
           <Text className='time'>
@@ -253,7 +256,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -261,7 +264,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>{item.payload.action + ' a pullRequest comment in' }</Text>
               <Text className='reposname'>
                 {item.repo.human_name}
@@ -274,7 +277,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -282,7 +285,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>creates a commit comment in </Text>
               <Text className='reposname'>
                 {item.repo.human_name}
@@ -295,7 +298,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -303,7 +306,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>删除了这个</Text>
               <Text className='reposname'>
                 {' ' + item.repo.human_name + ''}
@@ -317,7 +320,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -325,7 +328,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>{item.payload.action + ' a member in '}</Text>
               <Text className='reposname'>
                 {item.repo.full_name}
@@ -339,7 +342,7 @@ export default class DynamicItem extends Component {
       dynamic = (
         <View className='activity'>
           <View className='activity_desc'>
-            <View onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
+            <View className='info_view' onClick={this.handleClickAvatar.bind(this, item.actor.login)} >
               <Text className='username'>
                 {item.actor.name}
               </Text>
@@ -347,7 +350,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>将仓库</Text>
               <Text className='username'>
                 {' ' + item.repo.full_name + ' '}

@@ -13,7 +13,9 @@ export default {
     isWatch: false,
     isStar: false,
     content: null,
-    file: null
+    file: null,
+    contributors: [],
+    events: []
   },
   effects: {
     *getRepoList({payload, callback}, {call, put, select}){
@@ -192,7 +194,8 @@ export default {
           },
         });
       }
-    },*getFile2({payload, callback}, {call, put, select}){
+    },
+    *getFile2({payload, callback}, {call, put, select}){
       const res = yield call(repos.getFile2,payload);
       callback(res);
       if(res.length > 0){
@@ -200,6 +203,32 @@ export default {
           type: 'save',
           payload: {
             file: res,
+          },
+        });
+      }
+    },
+    *getContributors({payload, callback}, {call, put, select}){
+      const res = yield call(repos.getContributors,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            contributors: res,
+          },
+        });
+      }
+    },
+    *getRepoEvents({payload, callback}, {call, put, select}){
+      const { events } = yield select(state => state.repo);
+      const { page } = payload;
+      const res = yield call(repos.getRepoEvents,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            events: page > 1 ? [...events, ...res] : res,
           },
         });
       }

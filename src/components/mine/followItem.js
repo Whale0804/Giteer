@@ -8,19 +8,26 @@ import './followItem.scss'
 export default class FollowItem extends Component {
   static propTypes = {
     item: PropTypes.object,
+    isContributors: PropTypes.bool
   }
 
   static defaultProps = {
     item: null,
+    isContributors: false
   }
 
   render() {
-    const { item } = this.props
+    const { item, isContributors } = this.props
     if (!item) return <View />
     return (
-      <View className='content'>
-        <AtAvatar circle image={item.avatar_url} />
-        <View className='user_name'>{item.name}</View>
+      <View>
+        {isContributors ? (<View className='content'><View className='user_name'>{item.name}</View></View>) : (
+          <View className='content'>
+            <AtAvatar circle image={item.avatar_url} />
+            <View className='user_name'>{item.name}</View>
+          </View>
+          )
+        }
       </View>
     )
   }

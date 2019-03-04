@@ -297,14 +297,14 @@ class Repo extends Component {
       }
         break
       case NAVIGATE_TYPE.REPO_CONTRIBUTORS_LIST: {
-        let url = '/pages/repo/contributors?url=/repos/' + repo.full_name + '/contributors'
+        let url = '/pages/repo/contributors?url=' + repo.full_name;
         Taro.navigateTo({
           url: url
         })
       }
         break
       case NAVIGATE_TYPE.REPO_EVENTS_LIST: {
-        let url = '/pages/repo/repoEvents?url=/repos/' + repo.full_name + '/events'
+        let url = '/pages/repo/repoEvents?url='+repo.full_name
         Taro.navigateTo({
           url: url
         })
@@ -411,7 +411,7 @@ class Repo extends Component {
             <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.REPO_CONTRIBUTORS_LIST)}>
-            <View className='list_title'>组织</View>
+            <View className='list_title'>贡献者</View>
             <AtIcon value='chevron-right' size='18' color='#7f7f7f' />
           </View>
         </View>

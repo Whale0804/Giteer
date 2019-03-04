@@ -8,6 +8,14 @@
   margin: 25px 20px 0 20px;
 }
 
+
+.info_view {
+  display: flex;
+  flex-direction: column;
+}
+.content-view{
+  width: 710px;
+}
 .activity {
   display: flex;
   flex-direction: column;
@@ -53,7 +61,6 @@
 .time {
   color: #7f7f7f;
   font-size: 28px;
-  text-align: right;
   padding-right: 10px;
   flex-direction: row;
 }
