@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
 import ContentListItem from '../../components/repo/contentListItem'
+import ContentListNextItem from '../../components/repo/contentListNextItem'
 import {connect} from "@tarojs/redux";
 
 import './contentList.scss'
@@ -32,8 +33,8 @@ class ContentList extends Component {
   }
 
   componentWillMount() {
-    let params = this.$router.params
-    let path = params.path || null
+    let params = this.$router.params;
+    let path = params.path || null;
     this.setState({
       repo: params.repo,
       path: path,
@@ -59,7 +60,7 @@ class ContentList extends Component {
   getContents() {
     let that = this
     const { repo, branch, isDir, path} = this.state
-    Taro.showLoading({title: LOADING_TEXT})
+    Taro.showLoading({title: LOADING_TEXT});
     let parmas;
     if (isDir){
       parmas = {
@@ -78,39 +79,64 @@ class ContentList extends Component {
       type: 'repo/getContent',
       payload: parmas,
       callback: (res) => {
-        Taro.hideLoading();
         console.log(res)
-        that.setState({
-          dataList: res.tree
-        },() =>{
-        });
+        if(res.tree){
+          that.setState({
+            dataList: res.tree
+          },() =>{
+            Taro.hideLoading();
+          });
+        }else{
+          that.setState({
+            dataList: res
+          },() =>{
+            Taro.hideLoading();
+          });
+        }
       }
     })
   }
 
   handleItemClick(item) {
-    if (item.type === 'dir') {
-      // 文件夹
-      Taro.navigateTo({
-        url: '/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path
-      })
-    } else if (item.type === 'file') {
-      // 文件
-      Taro.navigateTo({
-        url: '/pages/repo/file?url=' + item.url
-      })
+    const { isDir } = this.state;
+    if(isDir){
+      if (item.type === 'dir') {
+        // 文件夹
+        Taro.redirectTo({
+          url: '/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
+        })
+      } else if (item.type === 'file') {
+        // 文件
+        Taro.navigateTo({
+          url: '/pages/repo/file?url=' + item.url + '&isDir=' + isDir
+        })
+      }
+    }else{
+      if (item.type === 'tree') {
+        // 文件夹
+        Taro.navigateTo({
+          url: '/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
+        })
+      } else if (item.type === 'blob') {
+        // 文件
+        Taro.navigateTo({
+          url: '/pages/repo/file?repo='+ this.state.repo + '&sha='+item.sha
+        })
+      }
     }
   }
 
   render () {
-    const { dataList } = this.state
+    const { dataList, isDir } = this.state;
     return (
       <View className='content'>
         {
           dataList.map((item, index) => {
             return (
               <View key={index} onClick={this.handleItemClick.bind(this, item)}>
-                <ContentListItem item={item} />
+                {
+                  isDir ? <ContentListNextItem item={item}/>:<ContentListItem item={item} />
+                }
               </View>
             )
           })

@@ -7,7 +7,7 @@ import Login from '../../components/login/login';
 import {connect} from "@tarojs/redux";
 
 import './index.scss'
-import {refreshToken} from "../../utils/refreshToken";
+import {tokenRequest} from "../../utils/otherRequest";
 
 @connect(({ user }) => ({
   ...user,
@@ -39,7 +39,7 @@ export default class Index extends Component {
         this.setState({
           isLogin: false,
         },() => {
-          refreshToken()
+          tokenRequest()
         })
       }
     }

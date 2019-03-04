@@ -4,7 +4,7 @@ import Index from './pages/index'
 import dva from './utils/dva'
 import models from './model'
 import {Provider} from '@tarojs/redux'
-import {refreshToken} from './utils/refreshToken'
+import {tokenRequest} from './utils/otherRequest'
 import {hasLogin,checkExpiresToken} from "./utils/common";
 
 import './app.scss'
@@ -45,7 +45,8 @@ class App extends Component {
       'pages/mine/follow/follower',
       'pages/mine/developerInfo/developerInfo',
       'pages/repo/repo',
-      'pages/repo/contentList'
+      'pages/repo/contentList',
+      'pages/repo/file'
 
     ],
     window: {
@@ -86,7 +87,7 @@ class App extends Component {
       })
     }else{
       if(checkExpiresToken()){
-        refreshToken()
+        tokenRequest()
       }
     }
     wx.cloud.init({

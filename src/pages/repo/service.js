@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import Request from '../../utils/request';
+import {fileRequest} from '../../utils/otherRequest';
 import {METHOD_TYPE} from "../../constants/methodType";
 
 //列出授权用户的某个仓库
@@ -82,10 +83,30 @@ export const doFork = (data) =>Request({
  *  ###################################  Tree  ######################################
  */
 //获取目录Tree（支持跨域）
-export const getConent = (data) =>Request({
-  url: '/api/v5/repos/'+data.url+'/git/gitee/trees/'+ data.sha,
+export const getConent = (data) =>{
+  let url;
+  if(data.isDir){
+    url = '/api/v5/repos/'+data.url+'/contents/'+data.path;
+  }else {
+    url = '/api/v5/repos/'+data.url+'/git/gitee/trees/'+ data.sha;
+  }
+  return Request({
+    url: url,
+    method: 'GET',
+    data: data
+  })
+};
+
+//获取一个文件内容
+export const getFile = (data) =>fileRequest({
+  url: data.url,
   method: 'GET',
-  data: data
+  data: {}
+});
+export const getFile2 = (data) =>Request({
+  url: '/api/v5/repos/'+ data.url +'/git/blobs/' + data.sha,
+  method: 'GET',
+  data: {}
 });
 /**
  *  ###################################  Tree  ######################################

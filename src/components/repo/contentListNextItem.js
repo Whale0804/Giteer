@@ -20,13 +20,13 @@ export default class ContentListItem extends Component {
     return (
       <View className='content'>
         <View className='title_view'>
-          <AtIcon value={item.type === 'tree' ? 'folder' : 'file-generic'}
+          <AtIcon value={item.type === 'dir' ? 'folder' : 'file-generic'}
                   size='20'
                   color='#7f7f7f' />
           <Text className='content_title'>{item.path}</Text>
         </View>
         {
-          item.type === 'tree' &&
+          item.type === 'dir' &&
           <AtIcon value='chevron-right' size='20' color='#7f7f7f' />
         }
       </View>

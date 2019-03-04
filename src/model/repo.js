@@ -12,7 +12,8 @@ export default {
     readme: {},
     isWatch: false,
     isStar: false,
-    content: null
+    content: null,
+    file: null
   },
   effects: {
     *getRepoList({payload, callback}, {call, put, select}){
@@ -176,6 +177,29 @@ export default {
           type: 'save',
           payload: {
             content: res,
+          },
+        });
+      }
+    },
+    *getFile({payload, callback}, {call, put, select}){
+      const res = yield call(repos.getFile,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            file: res,
+          },
+        });
+      }
+    },*getFile2({payload, callback}, {call, put, select}){
+      const res = yield call(repos.getFile2,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            file: res,
           },
         });
       }
