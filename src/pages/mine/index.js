@@ -7,6 +7,7 @@ import Login from '../../components/login/login';
 import {connect} from "@tarojs/redux";
 
 import './index.scss'
+import {refreshToken} from "../../utils/refreshToken";
 
 @connect(({ user }) => ({
   ...user,
@@ -38,9 +39,7 @@ export default class Index extends Component {
         this.setState({
           isLogin: false,
         },() => {
-          Taro.navigateTo({
-            url: '/pages/login/login'
-          })
+          refreshToken()
         })
       }
     }

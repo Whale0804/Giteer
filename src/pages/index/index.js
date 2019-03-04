@@ -8,6 +8,7 @@ import SearchHistory from '../../components/index/searchHistory'
 
 import './index.scss'
 import {LOADING_TEXT} from "../../constants/common";
+import {refreshToken} from "../../utils/refreshToken";
 
 export default class Index extends Component {
 
@@ -38,9 +39,7 @@ export default class Index extends Component {
         this.setState({
           isLogin: false,
         },() => {
-          Taro.navigateTo({
-            url: '/pages/login/login'
-          })
+          refreshToken()
         })
       }
     }

@@ -8,6 +8,7 @@ import Login from '../../components/login/login';
 import DynamicItem from "../../components/dynamic/dynamicItem";
 import LoadMore from "../../components/loadMore/loadMore"
 import './index.scss'
+import {refreshToken} from "../../utils/refreshToken";
 
 
 
@@ -44,9 +45,7 @@ export default class Index extends Component {
         this.setState({
           isLogin: false,
         },() => {
-          Taro.navigateTo({
-            url: '/pages/login/login'
-          })
+          refreshToken()
         })
       }
     }
