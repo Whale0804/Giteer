@@ -10,5 +10,6 @@ export const refreshToken = () => {
     console.log('刷新Token');
     console.log(res.data.access_token);
     Taro.setStorageSync('access_token', res.data.access_token);
+    Taro.setStorageSync('expires_in', new Date());
   })
 }

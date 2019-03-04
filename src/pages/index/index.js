@@ -1,12 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 import { AtNoticebar } from 'taro-ui'
-import {hasLogin} from "../../utils/common";
+import {checkExpiresToken, hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
 import SearchBar from '../../components/index/SearchBar'
 import SearchHistory from '../../components/index/searchHistory'
 
 import './index.scss'
+import {LOADING_TEXT} from "../../constants/common";
 
 export default class Index extends Component {
 
@@ -28,9 +29,21 @@ export default class Index extends Component {
   }
 
   componentDidMount () {
-    let that = this;
-    this.loadNotice();
-    this.loadHistory();
+    const {isLogin} = this.state;
+    if(isLogin){
+      if(!checkExpiresToken()){
+        this.loadNotice();
+        this.loadHistory();
+      }else {
+        this.setState({
+          isLogin: false,
+        },() => {
+          Taro.navigateTo({
+            url: '/pages/login/login'
+          })
+        })
+      }
+    }
   }
 
   componentWillUnmount () { }

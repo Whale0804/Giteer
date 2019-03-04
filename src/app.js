@@ -5,7 +5,7 @@ import dva from './utils/dva'
 import models from './model'
 import {Provider} from '@tarojs/redux'
 import {refreshToken} from './utils/refreshToken'
-import {hasLogin} from "./utils/common";
+import {hasLogin,checkExpiresToken} from "./utils/common";
 
 import './app.scss'
 // 全局引入一次即可
@@ -85,7 +85,9 @@ class App extends Component {
         url: '/pages/login/login'
       })
     }else{
-      //refreshToken()
+      if(checkExpiresToken()){
+        refreshToken()
+      }
     }
     wx.cloud.init({
       env: 'giteer-36a385',

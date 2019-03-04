@@ -1,5 +1,15 @@
 import Taro from '@tarojs/taro'
 
+export const checkExpiresToken = () => {
+  let date = Taro.getStorageSync('expires_in');
+  console.log('登录时间：'+date.getTime());
+  console.log('当前时间：'+new Date().getTime());
+  let x = (Math.round(new Date().getTime()/1000) - Math.round(date.getTime()/1000));
+  console.log('距离过期时间：'+ (86000 - x));
+  //小于就是未超时
+  return x >= 86000;
+};
+
 export const hasLogin = () => {
   return Taro.getStorageSync('access_token').length > 0
 }

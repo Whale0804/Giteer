@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux';
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
 import Empty from '../../components/empty'
-import {hasLogin} from "../../utils/common";
+import {hasLogin,checkExpiresToken} from "../../utils/common";
 import Login from '../../components/login/login';
 import DynamicItem from "../../components/dynamic/dynamicItem";
 import LoadMore from "../../components/loadMore/loadMore"
@@ -36,9 +36,19 @@ export default class Index extends Component {
   componentDidMount () {
     const {isLogin} = this.state;
     if(isLogin){
-      Taro.startPullDownRefresh();
-      Taro.showLoading({title: LOADING_TEXT});
-      this.getDynamicList();
+      if(!checkExpiresToken()){
+        Taro.startPullDownRefresh();
+        Taro.showLoading({title: LOADING_TEXT});
+        this.getDynamicList();
+      }else {
+        this.setState({
+          isLogin: false,
+        },() => {
+          Taro.navigateTo({
+            url: '/pages/login/login'
+          })
+        })
+      }
     }
   }
 

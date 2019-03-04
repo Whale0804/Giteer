@@ -17,6 +17,7 @@ export default {
         Taro.setStorageSync('user_info', user);
         Taro.setStorageSync('access_token', res.access_token);
         Taro.setStorageSync('refresh_token', res.refresh_token);
+        Taro.setStorageSync('expires_in', new Date());
         yield put({
           type: 'common/save',
           payload: {

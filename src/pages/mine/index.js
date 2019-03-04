@@ -2,12 +2,11 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text,Button } from '@tarojs/components'
 import { NAVIGATE_TYPE } from '../../constants/navigateType'
 import { AtAvatar, AtIcon } from 'taro-ui'
-import {hasLogin} from "../../utils/common";
+import {checkExpiresToken, hasLogin} from "../../utils/common";
 import Login from '../../components/login/login';
 import {connect} from "@tarojs/redux";
 
 import './index.scss'
-import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 
 @connect(({ user }) => ({
   ...user,
@@ -30,8 +29,22 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
-    Taro.startPullDownRefresh();
-    this.getMine();
+    const {isLogin} = this.state;
+    if(isLogin){
+      if(!checkExpiresToken()){
+        Taro.startPullDownRefresh();
+        this.getMine();
+      }else {
+        this.setState({
+          isLogin: false,
+        },() => {
+          Taro.navigateTo({
+            url: '/pages/login/login'
+          })
+        })
+      }
+    }
+
   }
 
   componentWillUnmount () { }
