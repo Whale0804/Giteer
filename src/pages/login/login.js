@@ -100,7 +100,7 @@ export default class Login extends Component {
           </View>
           <View className='login_button'
                 onClick={this.getUserInfo.bind(this)}>
-            Login
+            登录
           </View>
         </View>
         <View className='info_view'>
@@ -108,7 +108,7 @@ export default class Login extends Component {
             1、由于小程序的限制，无法使用OAuth跳转认证，推荐使用Token认证方式；
           </Text>
           <Text className='info_text'>
-            2、Token及用户名密码仅用于GitHub Api权限校验，不会被上传服务器；
+            2、用户名密码仅用于Gitee Api权限校验，不会被上传服务器；
           </Text>
         </View>
       </View>
