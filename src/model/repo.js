@@ -16,7 +16,9 @@ export default {
     file: null,
     contributors: [],
     events: [],
-    issues_list: []
+    issues_list: [],
+    issue: null,
+    comment_list: [],
   },
   effects: {
     *getRepoList({payload, callback}, {call, put, select}){
@@ -63,7 +65,6 @@ export default {
     },
     *getRepo({payload, callback}, {call, put, select}){
       const res = yield call(repos.getRepo,payload);
-      console.log(res)
       callback(res);
       if(res.length > 0){
         yield put({
@@ -78,13 +79,15 @@ export default {
       const res = yield call(repos.getReadme,payload);
       console.log(res)
       callback(res);
-      if(res.length > 0){
-        yield put({
-          type: 'save',
-          payload: {
-            repo: res,
-          },
-        });
+      if(res){
+        if(res.length > 0){
+          yield put({
+            type: 'save',
+            payload: {
+              repo: res,
+            },
+          });
+        }
       }
     },
     *checkWatch({payload, callback}, {call, put, select}){
@@ -173,7 +176,6 @@ export default {
     },
     *getContent({payload, callback}, {call, put, select}){
       const res = yield call(repos.getConent,payload);
-      console.log(res)
       callback(res);
       if(res.length > 0){
         yield put({
@@ -243,10 +245,59 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            events: page > 1 ? [...issues_list, ...res] : res,
+            issues_list: page > 1 ? [...issues_list, ...res] : res,
           },
         });
       }
+    },
+    *getUserIssues({payload, callback}, {call, put, select}){
+      const { issues_list } = yield select(state => state.repo);
+      const { page } = payload;
+      const res = yield call(repos.getUserIssues,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            issues_list: page > 1 ? [...issues_list, ...res] : res,
+          },
+        });
+      }
+    },
+    *addIssue({payload, callback}, {call, put, select}){
+      const res = yield call(repos.addIssue,payload);
+      callback(res);
+    },
+    *getIssues({payload, callback}, {call, put, select}){
+      const res = yield call(repos.getIssues,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            issue: res,
+          },
+        });
+      }
+    },
+    *getIssuesComments({payload, callback}, {call, put, select}){
+      const { comment_list } = yield select(state => state.repo);
+      const { page } = payload;
+      const res = yield call(repos.getIssuesComments,payload);
+      callback(res);
+      if(res.length > 0){
+        yield put({
+          type: 'save',
+          payload: {
+            comment_list: page > 1 ? [...comment_list, ...res] : res,
+          },
+        });
+      }
+    },
+    *addIssueComments({payload, callback}, {call, put, select}){
+      console.log(payload)
+      const res = yield call(repos.addComments,payload);
+      callback(res);
     },
   },
   reducers: {

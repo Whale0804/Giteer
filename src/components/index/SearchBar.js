@@ -15,6 +15,7 @@ export default class SearchBar extends Component {
     onClickSearch: () => {}
   }
 
+
   componentWillMount() {
   }
 
@@ -34,7 +35,7 @@ export default class SearchBar extends Component {
           <View className='icon' />
           {/*<AtIcon className='icon'*/}
           {/*value='close'*/}
-          {/*size='18'*/}
+          {/*size='12'*/}
           {/*color='#666'*/}
           {/*onClick={this.onClickClear.bind(this)} />*/}
         </View>

@@ -3,7 +3,6 @@ import {client_id,client_secret,scope} from '../../config'
 
 // 获取token
 export const getAccessToken = data => {
-  console.log(data)
   var v1 = {
     ...data,
     client_id: client_id,

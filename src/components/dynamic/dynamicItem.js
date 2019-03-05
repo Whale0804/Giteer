@@ -329,10 +329,11 @@ export default class DynamicItem extends Component {
               </Text>
             </View>
             <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
-              <Text className='textprefix'>{item.payload.action + ' a member in '}</Text>
+              <Text className='textprefix'>对仓库</Text>
               <Text className='reposname'>
-                {item.repo.full_name}
+                {' ' + item.repo.human_name + ' '}
               </Text>
+              <Text className='textprefix'>添加了新成员</Text>
             </View>
           </View>
 

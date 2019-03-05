@@ -39,7 +39,6 @@ export default class Markdown extends Component {
       Taro.getStorage({
         key: cacheKey,
         complete(res) {
-          console.log('markdown complete', res)
           if (res.data) {
             that.setState({
               fail: false,
@@ -120,7 +119,7 @@ export default class Markdown extends Component {
           </View>
         ) : (
           <View className='loading' onLongClick={this.onTap}>
-            <AtActivityIndicator size={20} color='#2d8cf0' content='loading...' />
+            <AtActivityIndicator size={20} color='#D64337' content='loading...' />
           </View>
         )
       }

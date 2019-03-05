@@ -27,7 +27,7 @@ export default class LoadMore extends Component {
       case REFRESH_STATUS.REFRESHING: {
         view = (
           <View className='loading'>
-            <AtActivityIndicator size={15} color='#2d8cf0' content='loading...' />
+            <AtActivityIndicator size={15} color='#D64337' content='loading...' />
           </View>
         )
       }

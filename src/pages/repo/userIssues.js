@@ -27,10 +27,6 @@ class Issues extends Component {
     super(props)
     this.state = {
       current: 0,
-      url: null,
-      path: null,
-      repoPath: null,
-      isUser: false,
       fixed: false,
       openList: [],
       closedList: [],
@@ -46,13 +42,7 @@ class Issues extends Component {
   }
 
   componentWillMount() {
-    let params = this.$router.params
-    this.setState({
-      url: params.url,
-      isUser: params.url.indexOf('user') !== -1,
-      path: params.path,
-      repoPath: params.repoPath
-    })
+
   }
 
   componentDidMount() {
@@ -134,13 +124,14 @@ class Issues extends Component {
       url: url,
       page: open_page,
       per_page: PER_PAGE,
+      filter: 'all',
       state: 'open',
       sort: 'updated',
       direction:'desc'
     }
 
     this.props.dispatch({
-      type: 'repo/getRepoIssues',
+      type: 'repo/getUserIssues',
       payload: params,
       callback: (res) => {
         Taro.stopPullDownRefresh();
@@ -175,13 +166,14 @@ class Issues extends Component {
       url: url,
       page: close_page,
       per_page: PER_PAGE,
+      filter: 'all',
       state: 'closed',
       sort: 'updated',
       direction:'desc'
     }
 
     this.props.dispatch({
-      type: 'repo/getRepoIssues',
+      type: 'repo/getUserIssues',
       payload: params,
       callback: (res) => {
         Taro.stopPullDownRefresh();
@@ -203,12 +195,6 @@ class Issues extends Component {
     })
   }
 
-  addIssue() {
-    Taro.navigateTo({
-      url: '/pages/repo/addIssue?path=' + this.state.path + '&repoPath=' + this.state.repoPath
-    })
-  }
-
   onTabChange(index) {
     this.setState({
       current: index
@@ -216,7 +202,7 @@ class Issues extends Component {
   }
 
   render () {
-    const { openList, closedList, isUser, fixed, current, open_status, close_status } = this.state
+    const { openList, closedList, fixed, current, open_status, close_status } = this.state
     const count = current === 0 ? openList.length : closedList.length
     return (
       <View className='content'>
@@ -236,14 +222,6 @@ class Issues extends Component {
             current === 0 ? <IssueList itemList={openList} /> : <IssueList itemList={closedList} />
         )}
         <LoadMore status={current === 0 ? open_status : close_status} />
-        {
-          !isUser &&
-          <View className='add_issue' onClick={this.addIssue.bind(this)}>
-            <AtIcon value='add'
-                    size='26'
-                    color='#fff' />
-          </View>
-        }
       </View>
     )
   }

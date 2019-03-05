@@ -86,7 +86,6 @@ class DeveloperInfo extends Component {
           username: username
         },
         callback: (res) => {
-          console.log(res);
           this.setState({
             isFollowed: res.isFollow
           });
@@ -123,7 +122,6 @@ class DeveloperInfo extends Component {
           username: username
         },
         callback: (res) => {
-          console.log(res);
           this.setState({
             isFollowed: true
           });

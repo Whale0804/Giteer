@@ -10,7 +10,6 @@ export default {
   effects: {
     *login({ payload }, { call, put, }){
       const res = yield call(login.getAccessToken, payload);
-      console.log(res);
       if(res.access_token){
         var token = {access_token: res.access_token}
         const user = yield call(login.getUserInfo,token);

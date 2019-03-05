@@ -49,8 +49,11 @@ class App extends Component {
       'pages/repo/file',
       'pages/repo/contributors',
       'pages/repo/repoEvents',
-      'pages/repo/issues'
-
+      'pages/repo/issues',
+      'pages/repo/userIssues',
+      'pages/repo/addIssue',
+      'pages/repo/issueDetail',
+      'pages/repo/addComment'
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -79,7 +82,10 @@ class App extends Component {
       selectedColor: '#000000',
       backgroundColor: '#ffffff',
       borderStyle: 'white'
-    }
+    },
+    navigateToMiniProgramAppIdList: [
+      'wx8abaf00ee8c3202e'
+    ]
   };
 
   componentDidMount () {

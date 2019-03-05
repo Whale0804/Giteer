@@ -2,13 +2,17 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
 import { AtIcon } from 'taro-ui'
+import {connect} from "@tarojs/redux";
 import IssueCommentItem from '../../components/repo/issueCommentItem'
 import Markdown from '../../components/repo/markdown'
 import LoadMore from '../../components/loadMore/loadMore'
 
-import api from '../../service/api'
-import './issueDetail.less'
 
+import './issueDetail.scss'
+
+@connect(({ repo }) => ({
+  ...repo,
+}))
 class IssueDetail extends Component {
 
   config = {
@@ -19,6 +23,8 @@ class IssueDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      url: '',
+      number: '',
       issue: null,
       page: 1,
       comments: [],
@@ -31,14 +37,15 @@ class IssueDetail extends Component {
   }
 
   componentWillMount() {
-    let params = this.$router.params
+    let params = this.$router.params;
     this.setState({
-      url: params.url
+      url: params.url,
+      number: params.number
     })
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT})
+    Taro.showLoading({title: LOADING_TEXT});
     this.getIssue()
   }
 
@@ -49,7 +56,7 @@ class IssueDetail extends Component {
   componentDidHide () { }
 
   onPullDownRefresh() {
-    let that = this
+    let that = this;
     this.setState({
       page: 1
     }, ()=>{
@@ -58,9 +65,9 @@ class IssueDetail extends Component {
   }
 
   onReachBottom() {
-    const { page, refresh_status } = this.state
+    const { page, refresh_status } = this.state;
     if (refresh_status !== REFRESH_STATUS.NO_MORE_DATA) {
-      let that = this
+      let that = this;
       this.setState({
         page: page + 1
       }, ()=>{
@@ -71,55 +78,67 @@ class IssueDetail extends Component {
 
   getComments() {
     let that = this
-    const { url, page, comments } = this.state
+    const { url, page, comments, number } = this.state;
 
     if (page !== 1) {
       that.setState({
         refresh_status: REFRESH_STATUS.REFRESHING
       })
     }
-
-    let comments_url = url + '/comments'
     let params = {
       page: page,
-      per_page: PER_PAGE
-    }
-    api.get(comments_url, params).then((res)=>{
-      if (page === 1) {
+      per_page: PER_PAGE,
+      url: url,
+      number: number,
+    };
+    this.props.dispatch({
+      type: 'repo/getIssuesComments',
+      payload: params,
+      callback: (res) => {
+        Taro.stopPullDownRefresh();
+        Taro.hideLoading();
+        if (page === 1) {
+          that.setState({
+            comments: res
+          })
+        } else {
+          that.setState({
+            comments: comments.concat(res)
+          })
+        }
+        let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL;
         that.setState({
-          comments: res.data
-        })
-      } else {
-        that.setState({
-          comments: comments.concat(res.data)
+          refresh_status: status,
         })
       }
-      let status = res.data.length < GLOBAL_CONFIG.PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
-      that.setState({
-        refresh_status: status
-      })
-      Taro.stopPullDownRefresh()
-      Taro.hideLoading()
     })
   }
 
   getIssue() {
-    const { url } = this.state
-    let that = this
-    api.get(url).then((res)=>{
-      that.setState({
-        issue: res.data
-      }, ()=>{
-        that.getComments()
-      })
-      Taro.hideLoading()
+    const { url, number } = this.state;
+    let that = this;
+    this.props.dispatch({
+      type: 'repo/getIssues',
+      payload: {
+        url: url,
+        number: number
+      },
+      callback: (res) => {
+        Taro.hideLoading();
+        that.setState({
+          issue: res,
+        },() => {
+          this.getComments();
+        })
+      }
     })
+
   }
 
   addComment() {
-    const { url } = this.state
+    const { url, number } = this.state
     Taro.navigateTo({
-      url: '/pages/repo/addComment?url=' + encodeURI(url + '/comments')
+      url: '/pages/repo/addComment?url=' + url + '&number=' + number
     })
   }
 
@@ -139,7 +158,7 @@ class IssueDetail extends Component {
               </View>
             ) : (
               <Text className='description'>
-                no description
+                暂无描述~
               </Text>
             )
           }
@@ -153,9 +172,8 @@ class IssueDetail extends Component {
         }
         <LoadMore status={refresh_status} />
         <View className='add_comment' onClick={this.addComment.bind(this)}>
-          <AtIcon prefixClass='ion'
-                  value='ios-add'
-                  size='40'
+          <AtIcon value='add'
+                  size='26'
                   color='#fff' />
         </View>
       </View>

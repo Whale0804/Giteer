@@ -17,7 +17,7 @@ export default class IssueList extends Component {
 
   handleClicked(item) {
     Taro.navigateTo({
-      url: '/pages/repo/issueDetail?url=' + item.url
+      url: '/pages/repo/issueDetail?number=' + item.number + '&url=' + item.repository.full_name
     })
   }
 

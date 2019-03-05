@@ -79,7 +79,6 @@ class ContentList extends Component {
       type: 'repo/getContent',
       payload: parmas,
       callback: (res) => {
-        console.log(res)
         if(res.tree){
           that.setState({
             dataList: res.tree

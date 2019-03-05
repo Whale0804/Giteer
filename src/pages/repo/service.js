@@ -146,6 +146,42 @@ export const getRepoIssues = (data) => Request({
   method: 'GET',
   data: data
 });
+
+//仓库的所有Issues
+export const getUserIssues = (data) => Request({
+  url: '/api/v5/user/issues',
+  method: 'GET',
+  data: data
+});
+
+//仓库的某个Issue
+export const getIssues = (data) => Request({
+  url: '/api/v5/repos/'+data.url+'/issues/' + data.number,
+  method: 'GET',
+  data: data
+});
+
+//仓库的某个Issue
+export const getIssuesComments = (data) => Request({
+  url: '/api/v5/repos/'+data.url+'/issues/' + data.number + '/comments',
+  method: 'GET',
+  data: data
+});
+
+//创建Issue
+export const addIssue = (data) =>Request({
+  url: '/api/v5/repos/' + data.owner + '/issues',
+  method: 'POST',
+  data: data
+});
+
+// 创建某个Issue评论
+export const addComments = (data) =>Request({
+  url: '/api/v5/repos/' + data.url + '/issues/'+ data.number + '/comments',
+  method: 'POST',
+  data: data
+});
+
 /**
- *  ###################################  贡献者  ######################################
+ *  ###################################  ISSUES  ######################################
  */

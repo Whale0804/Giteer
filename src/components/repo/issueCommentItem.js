@@ -26,11 +26,11 @@ export default class IssueCommentItem extends Component {
       <View className='content'>
         <View className='info_view'>
           <View className='avatar'>
-            <AtAvatar circle image={item.user.avatar_url}/>
+            <AtAvatar image={item.user.avatar_url}/>
           </View>
           <View className='text_view'>
-            <Text className='username'>{item.user.login}</Text>
-            <Text className='time'>{'commented ' + timeago(Date.parse(new Date(item.created_at)))}</Text>
+            <Text className='username'>{item.user.name}</Text>
+            <Text className='time'>{'发表于 ' + timeago(Date.parse(new Date(item.created_at)))}</Text>
           </View>
         </View>
         <View className='markdown'>

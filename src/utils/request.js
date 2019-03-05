@@ -52,19 +52,21 @@ export default (options = {method: 'GET',data: {} }) =>{
       // }else
       if(statusCode == 404){
         //Api返回404即未关注此用户
-        console.log(statusCode)
-        if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_FOLLOW){
-          return {
-            isFollow:false
-          };
-        }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_WATCH) {
-          return {
-            isWatch:false
-          };
-        }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_STAR) {
-          return {
-            isStar:false
-          };
+        console.log(options)
+        if(options.data !=  undefined){
+          if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_FOLLOW){
+            return {
+              isFollow:false
+            };
+          }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_WATCH) {
+            return {
+              isWatch:false
+            };
+          }else if(options.data.METHOD_TYPE == METHOD_TYPE.CHECK_STAR) {
+            return {
+              isStar:false
+            };
+          }
         }
       }else {
         Taro.showToast({

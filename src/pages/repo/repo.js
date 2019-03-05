@@ -99,7 +99,6 @@ class Repo extends Component {
       callback: (res) => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
-        console.log(res)
         that.setState({
           repo: res
         },() =>{
@@ -120,13 +119,14 @@ class Repo extends Component {
       callback: (res) => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
-        console.log(res)
-        that.setState({
-          readme: res,
-          baseUrl: res.download_url
-        },() =>{
-          that.parseReadme();
-        });
+        if(res){
+          that.setState({
+            readme: res,
+            baseUrl: res.download_url
+          },() =>{
+            that.parseReadme();
+          });
+        }
       }
     });
   }
@@ -147,7 +147,6 @@ class Repo extends Component {
           url: repo.full_name
         },
         callback: (res) => {
-          console.log(res);
           this.setState({
             isStar: res.isStar
           });
@@ -185,7 +184,6 @@ class Repo extends Component {
           url: repo.full_name
         },
         callback: (res) => {
-          console.log(res);
           this.setState({
             isStar: true
           });
@@ -229,7 +227,6 @@ class Repo extends Component {
           url: repo.full_name
         },
         callback: (res) => {
-          console.log(res);
           this.setState({
             isWatch: false
           });
@@ -326,7 +323,6 @@ class Repo extends Component {
     this.setState({
       loadAd: false
     })
-    console.log(event.detail)
   }
 
   render () {
@@ -347,7 +343,7 @@ class Repo extends Component {
               </Navigator>
             </View>
           }
-          <Text className='repo_info_desc'>{repo.description || 'no description'}</Text>
+          <Text className='repo_info_desc'>{repo.description || '暂无描述~'}</Text>
         </View>
         <View className='repo_number_view'>
           <View className='repo_number_item_view'>

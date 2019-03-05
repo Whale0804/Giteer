@@ -105,7 +105,7 @@ export default class Index extends Component {
         break
       case NAVIGATE_TYPE.ISSUES: {
         Taro.navigateTo({
-          url: '/pages/repo/issues?url=/user/issues'
+          url: '/pages/repo/userIssues'
         })
       }
         break
@@ -119,6 +119,16 @@ export default class Index extends Component {
         this.handleStar()
       }
         break
+      case NAVIGATE_TYPE.FEEDBACK: {
+        Taro.navigateToMiniProgram({
+          appId: 'wx8abaf00ee8c3202e',
+          extraData: {
+            id: '55714',
+            customData: {}
+          }
+        })
+      }
+      break
       default: {
       }
     }
@@ -194,11 +204,11 @@ export default class Index extends Component {
             </View>
             <View className='list_view'>
               <Button className='list btn' openType="contact">
-                <View className='list_title'>客服反馈</View>
+                <View className='list_title'>客服</View>
                 <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </Button>
-              <Button className='list btn' openType="share">
-                <View className='list_title'>分享Giteer</View>
+              <Button className='list btn' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.FEEDBACK)}>
+                <View className='list_title'>意见反馈</View>
                 <AtIcon value='chevron-right' size='18' color='#7f7f7f'/>
               </Button>
               <View className='list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.ABOUT)}>
