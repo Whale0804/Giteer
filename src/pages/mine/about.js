@@ -76,7 +76,7 @@ class About extends Component {
           小程序版码云 ❤ 此源码仅供交流学习，严禁以任何形式独立发布或用于商业用途；
         </Text>
         <Text className='version'>
-          Gitter v0.2.6
+          Giteer v1.0.1
         </Text>
         <Navigator url='./author'>
           <Text className='link'>
