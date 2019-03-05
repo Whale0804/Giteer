@@ -216,7 +216,7 @@ export default class DynamicItem extends Component {
                 {created_at}
               </Text>
             </View>
-            <View className='content-view' onClick={this.handleClickAvatar.bind(this,item.repo.full_name)} >
+            <View className='content-view' onClick={this.handleClickRepos.bind(this,item.repo.full_name)} >
               <Text className='textprefix'>推送到了</Text>
               <Text className='reposname'>
                 {' ' + item.repo.human_name + ' '}

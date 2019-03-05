@@ -10,13 +10,15 @@ export default {
     *getUser({payload, callback}, {call, put, select}){
       const res = yield call(user.getUser,payload);
       callback(res);
-      if(res.length > 0){
-        yield put({
-          type: 'save',
-          payload: {
-            user_info: res,
-          },
-        });
+      if(res){
+        if(res.length > 0){
+          yield put({
+            type: 'save',
+            payload: {
+              user_info: res,
+            },
+          });
+        }
       }
     },
     *getMine({payload, callback}, {call, put, select}){

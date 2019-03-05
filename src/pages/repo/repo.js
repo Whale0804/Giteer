@@ -48,6 +48,7 @@ class Repo extends Component {
 
   componentWillMount() {
     let params = this.$router.params
+    console.log(decodeURI(params.url))
     this.setState({
       url: decodeURI(params.url),
       isShare: params.share
