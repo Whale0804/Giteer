@@ -29,14 +29,13 @@ npm run dev:weapp
 
 ### Giteer预览图
 
-![](./screenshot/Screenshot_20190305_185653_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_185700_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_185705_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_185718_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_185922_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_190021_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_190031_com.tencent.mm.jpg)
-![](./screenshot/Screenshot_20190305_190326_com.tencent.mm.jpg)
+|            |    |
+|:-------------:|:------:|
+|  ![](./screenshot/Screenshot_20190305_185653_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_185700_com.tencent.mm.jpg)  | 
+|  ![](./screenshot/Screenshot_20190305_185705_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_185718_com.tencent.mm.jpg)  |
+|  ![](./screenshot/Screenshot_20190305_185922_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_190021_com.tencent.mm.jpg)  |
+|  ![](./screenshot/Screenshot_20190305_190031_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_190326_com.tencent.mm.jpg)  |
+
 
 ### 开发计划
 - [ ] 代码重构，分包开发，由于使用Dva.js会增加代码体积
