@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
-import Request from '../../utils/request';
-import {fileRequest} from '../../utils/otherRequest';
-import {METHOD_TYPE} from "../../constants/methodType";
+import Request from '../utils/request';
+import {fileRequest} from '../utils/otherRequest';
+import {METHOD_TYPE} from "../constants/methodType";
 
 //列出授权用户的某个仓库
 export const getRepo = (data) =>Request({

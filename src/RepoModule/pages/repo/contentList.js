@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
-import ContentListItem from '../../components/repo/contentListItem'
-import ContentListNextItem from '../../components/repo/contentListNextItem'
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
+import ContentListItem from '../../../components/repo/contentListItem'
+import ContentListNextItem from '../../../components/repo/contentListNextItem'
 import {connect} from "@tarojs/redux";
 
 import './contentList.scss'
@@ -102,24 +102,24 @@ class ContentList extends Component {
       if (item.type === 'dir') {
         // 文件夹
         Taro.redirectTo({
-          url: '/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
+          url: '/RepoModule/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
         })
       } else if (item.type === 'file') {
         // 文件
         Taro.navigateTo({
-          url: '/pages/repo/file?url=' + item.url + '&isDir=' + isDir
+          url: '/RepoModule/pages/repo/file?url=' + item.url + '&isDir=' + isDir
         })
       }
     }else{
       if (item.type === 'tree') {
         // 文件夹
         Taro.navigateTo({
-          url: '/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
+          url: '/RepoModule/pages/repo/contentList?repo=' + this.state.repo + '&path=' + item.path + '&isDir='+true
         })
       } else if (item.type === 'blob') {
         // 文件
         Taro.navigateTo({
-          url: '/pages/repo/file?repo='+ this.state.repo + '&sha='+item.sha
+          url: '/RepoModule/pages/repo/file?repo='+ this.state.repo + '&sha='+item.sha
         })
       }
     }

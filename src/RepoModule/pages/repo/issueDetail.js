@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import { AtIcon } from 'taro-ui'
 import {connect} from "@tarojs/redux";
-import IssueCommentItem from '../../components/repo/issueCommentItem'
-import Markdown from '../../components/repo/markdown'
-import LoadMore from '../../components/loadMore/loadMore'
+import IssueCommentItem from '../../../components/repo/issueCommentItem'
+import Markdown from '../../../components/repo/markdown'
+import LoadMore from '../../../components/loadMore/loadMore'
 
 
 import './issueDetail.scss'
@@ -138,7 +138,7 @@ class IssueDetail extends Component {
   addComment() {
     const { url, number } = this.state
     Taro.navigateTo({
-      url: '/pages/repo/addComment?url=' + url + '&number=' + number
+      url: '/RepoModule/pages/repo/addComment?url=' + url + '&number=' + number
     })
   }
 

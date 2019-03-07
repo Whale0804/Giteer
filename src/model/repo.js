@@ -1,7 +1,6 @@
 import Taro from '@tarojs/taro';
 import * as repo from '../pages/mine/repo/service';
-import * as repos from '../pages/repo/service';
-import * as follow from "../pages/mine/follow/service";
+import * as repos from '../service/service';
 
 
 export default {

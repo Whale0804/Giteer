@@ -44,21 +44,21 @@ class App extends Component {
       'pages/mine/repo/repoStarOtherList',
       'pages/mine/follow/follower',
       'pages/mine/developerInfo/developerInfo',
-      'pages/repo/repo',
-      'pages/repo/contentList',
-      'pages/repo/file',
-      'pages/repo/contributors',
-      'pages/repo/repoEvents',
-      'pages/repo/issues',
-      'pages/repo/userIssues',
-      'pages/repo/addIssue',
-      'pages/repo/issueDetail',
-      'pages/repo/addComment'
+
     ],
     subPackages: [{
       root: 'RepoModule',
       pages: [
-
+        'pages/repo/repo',
+        'pages/repo/contentList',
+        'pages/repo/file',
+        'pages/repo/contributors',
+        'pages/repo/repoEvents',
+        'pages/repo/issues',
+        'pages/repo/userIssues',
+        'pages/repo/addIssue',
+        'pages/repo/issueDetail',
+        'pages/repo/addComment'
       ]
     }],
     preloadRule: {

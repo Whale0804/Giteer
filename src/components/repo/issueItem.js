@@ -19,7 +19,7 @@ export default class IssueItem extends Component {
   onClickRepo(e) {
     e.stopPropagation()
     const { item } = this.props
-    const url = '/pages/repo/repo?url=' + encodeURI(item.repository.full_name)
+    const url = '/RepoModule/pages/repo/repo?url=' + encodeURI(item.repository.full_name)
     Taro.navigateTo({
       url: url
     })

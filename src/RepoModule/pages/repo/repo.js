@@ -1,17 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Button, Navigator, Ad,Image } from '@tarojs/components'
 import { AtIcon, AtFloatLayout  } from 'taro-ui'
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
-import Empty from '../../components/empty'
-import { base64_decode } from '../../utils/base64'
-import { NAVIGATE_TYPE } from '../../constants/navigateType'
-import {hasLogin} from "../../utils/common";
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
+import Empty from '../../../components/empty/index'
+import { base64_decode } from '../../../utils/base64'
+import { NAVIGATE_TYPE } from '../../../constants/navigateType'
+import {hasLogin} from "../../../utils/common";
 import {connect} from "@tarojs/redux";
-import Markdown from '../../components/repo/markdown'
-import Painter from '../../components/repo/painter'
-import line from '../../asset/images/share/share_line.png';
-import quan from '../../asset/images/share/share_pengyouquan.png'
-import wechat from '../../asset/images/share/share_wechat.png'
+import Markdown from '../../../components/repo/markdown'
+import Painter from '../../../components/repo/painter'
+import line from '../../../asset/images/share/share_line.png';
+import quan from '../../../asset/images/share/share_pengyouquan.png'
+import wechat from '../../../asset/images/share/share_wechat.png'
 
 import './repo.scss'
 
@@ -88,7 +88,7 @@ class Repo extends Component {
   onShareAppMessage(obj) {
     const { repo } = this.state
     const { url } = this.state
-    let path = '/pages/repo/repo?url=' + encodeURI(url) + '&share=true'
+    let path = '/RepoModule/pages/repo/repo?url=' + encodeURI(url) + '&share=true'
     return {
       title: `「${repo.name}」★${repo.stargazers_count} - 来自 Gitee 的开源项目，快来看看吧~~`,
       path: path
@@ -290,26 +290,26 @@ class Repo extends Component {
         break
       case NAVIGATE_TYPE.REPO_CONTENT_LIST: {
         Taro.navigateTo({
-          url: '/pages/repo/contentList?repo=' + repo.full_name+'&branch='+repo.default_branch,
+          url: '/RepoModule/pages/repo/contentList?repo=' + repo.full_name+'&branch='+repo.default_branch,
         })
       }
         break
       case NAVIGATE_TYPE.ISSUES: {
-        let url = '/pages/repo/issues?url=' + repo.full_name +'&path=' + repo.namespace.path + '&repoPath=' + repo.path
+        let url = '/RepoModule/pages/repo/issues?url=' + repo.full_name +'&path=' + repo.namespace.path + '&repoPath=' + repo.path
         Taro.navigateTo({
           url: url
         })
       }
         break
       case NAVIGATE_TYPE.REPO_CONTRIBUTORS_LIST: {
-        let url = '/pages/repo/contributors?url=' + repo.full_name;
+        let url = '/RepoModule/pages/repo/contributors?url=' + repo.full_name;
         Taro.navigateTo({
           url: url
         })
       }
         break
       case NAVIGATE_TYPE.REPO_EVENTS_LIST: {
-        let url = '/pages/repo/repoEvents?url='+repo.full_name
+        let url = '/RepoModule/pages/repo/repoEvents?url='+repo.full_name
         Taro.navigateTo({
           url: url
         })
@@ -365,9 +365,9 @@ class Repo extends Component {
 
   loadWXACode = () =>{
     const { repo, url } = this.state;
-    let path = '/pages/repo/repo?url=' + encodeURI(url) + '&share=true';
+    let path = '/RepoModule/pages/repo/repo?url=' + encodeURI(url) + '&share=true';
     let that = this;
-    //Taro.showLoading({title: LOADING_TEXT})
+    Taro.showLoading({title: LOADING_TEXT})
     wx.cloud.callFunction({
       // 要调用的云函数名称
       name: 'painter',
@@ -381,10 +381,10 @@ class Repo extends Component {
       if (res.result && res.result.length > 0) {
         that.generatePoster(res.result[0].tempFileURL)
       } else {
-        //Taro.hideLoading()
+        Taro.hideLoading()
       }
     }).catch(err => {
-      //Taro.hideLoading()
+      Taro.hideLoading()
     })
   }
 
@@ -565,7 +565,7 @@ class Repo extends Component {
             repo.fork &&
             <View className='fork'>
               <AtIcon value='shuffle-play' size='15' color='#fff' />
-              <Navigator url={'/pages/repo/repo?url=' + encodeURI(repo.parent.full_name)}>
+              <Navigator url={'/RepoModule/pages/repo/repo?url=' + encodeURI(repo.parent.full_name)}>
                 <Text className='fork_title'>
                   {repo.parent.human_name}
                 </Text>

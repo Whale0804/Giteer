@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import {LOADING_TEXT} from "../../constants/common";
+import {LOADING_TEXT} from "../../../constants/common";
 import { AtTextarea } from 'taro-ui'
 import {connect} from "@tarojs/redux";
 

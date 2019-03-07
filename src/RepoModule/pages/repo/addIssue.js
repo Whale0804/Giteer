@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
+import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import { AtInput, AtTextarea } from 'taro-ui'
 import {connect} from "@tarojs/redux";
 

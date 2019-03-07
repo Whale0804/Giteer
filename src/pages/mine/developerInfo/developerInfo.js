@@ -161,7 +161,7 @@ class DeveloperInfo extends Component {
         break
       case NAVIGATE_TYPE.ISSUES: {
         Taro.navigateTo({
-          url: '/pages/repo/issues?url=/user/issues'
+          url: '/RepoModule/pages/repo/issues?url=/user/issues'
         })
       }
         break

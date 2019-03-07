@@ -105,7 +105,7 @@ export default class Index extends Component {
         break
       case NAVIGATE_TYPE.ISSUES: {
         Taro.navigateTo({
-          url: '/pages/repo/userIssues'
+          url: '/RepoModule/pages/repo/userIssues'
         })
       }
         break

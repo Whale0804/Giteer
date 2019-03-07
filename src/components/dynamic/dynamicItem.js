@@ -23,7 +23,7 @@ export default class DynamicItem extends Component {
 
   handleClickRepos(url){
     Taro.navigateTo({
-      url: '/pages/repo/repo?url='+encodeURI(url)
+      url: '/RepoModule/pages/repo/repo?url='+encodeURI(url)
     })
   }
 
