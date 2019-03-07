@@ -93,6 +93,9 @@ class Repo extends Component {
       title: `「${repo.name}」★${repo.stargazers_count} - 来自 Gitee 的开源项目，快来看看吧~~`,
       path: path
     }
+    this.setState({
+      isOpened: false
+    })
   }
 
   getRepo() {
@@ -339,13 +342,24 @@ class Repo extends Component {
   onClickedActionButton(index) {
     console.log(index)
     const { repo } = this.state
-    if (index === 1) {
-      this.loadWXACode()
-    } else if (index === 2) {
-      const url = `https://gitee.com/${repo.full_name}`
-      Taro.setClipboardData({
-        data: url
-      })
+    switch(index) {
+      case 0:
+        setTimeout(() => {
+          this.setState({
+              isOpened: false,
+            })
+        }, 1000);
+        break;
+      case 1:
+        this.loadWXACode()
+        break;
+      case 2:
+        const url = `https://gitee.com/${repo.full_name}`
+        Taro.setClipboardData({
+          data: url
+        })
+        break;
+      default:
     }
   }
 
@@ -655,7 +669,7 @@ class Repo extends Component {
         }
         <AtFloatLayout isOpened={isOpened} title="分享" onClose={this.handleCloseClick.bind(this)}>
           <View className='share_item_view'>
-            <View className='repo_share_item'>
+            <View className='repo_share_item' onClick={this.onClickedActionButton.bind(this,0)}>
               <Button className='action_button'
                       openType='share'>
                 <Image className='btn-img' src={wechat}/>

@@ -55,6 +55,18 @@ class App extends Component {
       'pages/repo/issueDetail',
       'pages/repo/addComment'
     ],
+    subPackages: [{
+      root: 'RepoModule',
+      pages: [
+
+      ]
+    }],
+    preloadRule: {
+      "pages/index/index": {
+        "network": "all",
+        "packages": ["RepoModule"]
+      },
+    },
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#D64337',
