@@ -77,7 +77,7 @@ export default class Index extends Component {
       })
       .catch(err => {
         console.log(err)
-      })
+      });
   }
 
   onCloseNotice() {

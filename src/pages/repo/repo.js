@@ -1,15 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button, Navigator, Ad } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
+import { View, Text, Button, Navigator, Ad,Image } from '@tarojs/components'
+import { AtIcon, AtFloatLayout  } from 'taro-ui'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
 import Empty from '../../components/empty'
 import { base64_decode } from '../../utils/base64'
 import { NAVIGATE_TYPE } from '../../constants/navigateType'
 import {hasLogin} from "../../utils/common";
 import {connect} from "@tarojs/redux";
-import Towxml from '../../components/towxml/main'
 import Markdown from '../../components/repo/markdown'
-const render = new Towxml()
+import Painter from '../../components/repo/painter'
+import line from '../../asset/images/share/share_line.png';
+import quan from '../../asset/images/share/share_pengyouquan.png'
+import wechat from '../../asset/images/share/share_wechat.png'
 
 import './repo.scss'
 
@@ -39,7 +41,9 @@ class Repo extends Component {
       isShare: false,
       loadAd: true,
       baseUrl: null,
-      md: null
+      md: null,
+      isOpened: false,
+      posterData: null
     }
   }
 
@@ -86,7 +90,7 @@ class Repo extends Component {
     const { url } = this.state
     let path = '/pages/repo/repo?url=' + encodeURI(url) + '&share=true'
     return {
-      title: `「${repo.name}」★${repo.stargazers_count} - 来自Gitee的开源项目，快来看看吧~~`,
+      title: `「${repo.name}」★${repo.stargazers_count} - 来自 Gitee 的开源项目，快来看看吧~~`,
       path: path
     }
   }
@@ -320,6 +324,216 @@ class Repo extends Component {
     })
   }
 
+  handleShareClick = (e) =>{
+    this.setState({
+      isOpened: true
+    })
+  };
+
+  handleCloseClick = (e) =>{
+    this.setState({
+      isOpened: false
+    })
+  };
+
+  onClickedActionButton(index) {
+    console.log(index)
+    const { repo } = this.state
+    if (index === 1) {
+      this.loadWXACode()
+    } else if (index === 2) {
+      const url = `https://gitee.com/${repo.full_name}`
+      Taro.setClipboardData({
+        data: url
+      })
+    }
+  }
+
+  loadWXACode = () =>{
+    const { repo, url } = this.state;
+    let path = '/pages/repo/repo?url=' + encodeURI(url) + '&share=true';
+    let that = this;
+    //Taro.showLoading({title: LOADING_TEXT})
+    wx.cloud.callFunction({
+      // 要调用的云函数名称
+      name: 'painter',
+      // 传递给云函数的event参数
+      data: {
+        path: path,
+        name: `${repo.owner.login}_${repo.name}`
+      }
+    }).then(res => {
+      console.log('painter', res)
+      if (res.result && res.result.length > 0) {
+        that.generatePoster(res.result[0].tempFileURL)
+      } else {
+        //Taro.hideLoading()
+      }
+    }).catch(err => {
+      //Taro.hideLoading()
+    })
+  }
+
+  generatePoster(imgUrl) {
+    const { repo } = this.state
+    const data = {
+      background: '#f7f7f7',
+      width: '750rpx',
+      height: '1100rpx',
+      borderRadius: '0rpx',
+      views: [
+        {
+          type: 'rect',
+          css: {
+            left: '50rpx',
+            width: '650rpx',
+            top: '50rpx',
+            color: '#ffffff',
+            height: '900rpx',
+            borderRadius: '20rpx',
+            shadow: '10rpx 10rpx 5rpx #888888',
+          }
+        },
+        {
+          type: 'rect',
+          css: {
+            left: '50rpx',
+            width: '650rpx',
+            height: '640rpx',
+            top: '50rpx',
+            color: '#D64337',
+            borderRadius: '20rpx',
+          }
+        },
+        {
+          type: 'rect',
+          css: {
+            left: '50rpx',
+            width: '650rpx',
+            height: '50rpx',
+            top: '640rpx',
+            color: '#D64337',
+          }
+        },
+        {
+          type: 'text',
+          text: `「${repo.name}」`,
+          css: {
+            top: '80rpx',
+            left: '375rpx',
+            align: 'center',
+            fontSize: '38rpx',
+            color: '#ffffff',
+            width: '550rpx',
+            maxLines: '1',
+          }
+        },
+        {
+          type: 'text',
+          text: `Stars：★${repo.stargazers_count}  ${repo.stargazers_count > 99 ? '🔥' : ''}`,
+          css: {
+            top: '150rpx',
+            left: '80rpx',
+            width: '550rpx',
+            maxLines: '1',
+            fontSize: '28rpx',
+            color: '#ffffff'
+          }
+        },
+        {
+          type: 'text',
+          text: `作者：${repo.owner.name}`,
+          css: {
+            top: '250rpx',
+            left: '80rpx',
+            width: '550rpx',
+            maxLines: '1',
+            fontSize: '28rpx',
+            color: '#ffffff'
+          }
+        },
+        {
+          type: 'text',
+          text: `GitHub：https://github.com/${repo.full_name}`,
+          css: {
+            top: '350rpx',
+            left: '80rpx',
+            width: '550rpx',
+            fontSize: '28rpx',
+            color: '#ffffff',
+            lineHeight: '36rpx',
+            maxLines: '2',
+          }
+        },
+        {
+          type: 'text',
+          text: `项目描述：${repo.description || '暂无描述'}`,
+          css: {
+            top: '450rpx',
+            left: '80rpx',
+            width: '550rpx',
+            fontSize: '28rpx',
+            maxLines: '4',
+            color: '#ffffff',
+            lineHeight: '36rpx'
+          }
+        },
+        {
+          type: 'image',
+          url: `${imgUrl}`,
+          css: {
+            bottom: '180rpx',
+            left: '120rpx',
+            width: '200rpx',
+            height: '200rpx',
+          },
+        },
+        {
+          type: 'text',
+          text: '长按识别，查看项目详情',
+          css: {
+            bottom: '290rpx',
+            left: '350rpx',
+            fontSize: '28rpx',
+            color: '#666666'
+          }
+        },
+        {
+          type: 'text',
+          text: '分享自「Gitter」',
+          css: {
+            bottom: '230rpx',
+            left: '350rpx',
+            fontSize: '28rpx',
+            color: '#666666',
+          }
+        },
+        {
+          type: 'text',
+          text: '开源的世界，有你才更精彩',
+          css: {
+            bottom: '60rpx',
+            left: '375rpx',
+            align: 'center',
+            fontSize: '28rpx',
+            color: '#666666',
+          }
+        }
+      ],
+    }
+    this.setState({
+      posterData: data
+    })
+  }
+
+  onPainterFinished() {
+    console.log('onPainterFinished');
+    this.setState({
+      posterData: null,
+      isOpened: false
+    })
+  }
+
   loadError(event) {
     this.setState({
       loadAd: false
@@ -327,7 +541,7 @@ class Repo extends Component {
   }
 
   render () {
-    const { repo, isShare, md, baseUrl, loadAd, isStar, isWatch} = this.state
+    const { repo, isShare, md, baseUrl, loadAd, isStar, isWatch, isOpened, posterData} = this.state;
     if (!repo) return <View />
     return (
       <View className='content'>
@@ -363,7 +577,7 @@ class Repo extends Component {
               <Text className='repo_number_title'>{repo.forks_count}</Text>
             </View>
           </View>
-          <Button className='share_button' openType='share'>分享</Button>
+          <Button className='share_button' onClick={this.handleShareClick.bind(this)}>分享</Button>
         </View>
         <View className='repo_info_list_view'>
           <View className='repo_info_list' onClick={this.handleNavigate.bind(this, NAVIGATE_TYPE.USER)}>
@@ -424,7 +638,7 @@ class Repo extends Component {
         {
           (md && loadAd) &&
           <View className='ad'>
-            <Text className='support'>Support Gitter ❤</Text>
+            <Text className='support'>Support Giteer ❤</Text>
             <Ad unitId='adunit-04a1d10f49572d65' onError={this.loadError.bind(this)} />
           </View>
         }
@@ -436,6 +650,34 @@ class Repo extends Component {
                     color='#fff' />
           </View>
         }
+        {
+          posterData && <Painter style='position:fixed;top:-9999rpx' data={posterData} save onPainterFinished={this.onPainterFinished}/>
+        }
+        <AtFloatLayout isOpened={isOpened} title="分享" onClose={this.handleCloseClick.bind(this)}>
+          <View className='share_item_view'>
+            <View className='repo_share_item'>
+              <Button className='action_button'
+                      openType='share'>
+                <Image className='btn-img' src={wechat}/>
+                <Text className='action_button_title'>发给朋友</Text>
+              </Button>
+            </View>
+            <View className='repo_share_item'>
+              <Button className='action_button'
+                      onClick={this.onClickedActionButton.bind(this, 1)}>
+                <Image className='btn-img' src={quan}/>
+                <Text className='action_button_title'>分享到朋友圈</Text>
+              </Button>
+            </View>
+            <View className='repo_share_item'>
+              <Button className='action_button'
+                      onClick={this.onClickedActionButton.bind(this, 2)}>
+                <Image className='btn-img' src={line}/>
+                <Text className='action_button_title'>复制链接</Text>
+              </Button>
+            </View>
+          </View>
+        </AtFloatLayout>
       </View>
     )
   }
