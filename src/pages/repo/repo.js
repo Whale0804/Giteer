@@ -454,7 +454,7 @@ class Repo extends Component {
         },
         {
           type: 'text',
-          text: `GitHub：https://github.com/${repo.full_name}`,
+          text: `Gitee：https://gitee.com/${repo.full_name}`,
           css: {
             top: '350rpx',
             left: '80rpx',
