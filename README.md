@@ -1,4 +1,4 @@
-![](./screenshot/128.png)
+![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/128.png)
 ### Giteer For 码云
 
 基于小程序快速开发框架[Taro-Kit](https://github.com/githinkcn/Taro-Kit)开发的线上产品。分享自己在使用[Taro](https://taro.aotu.io/)和[Dva.js](https://dvajs.com/)开发小程序的经验，
@@ -25,16 +25,16 @@ npm run dev:weapp
 ```
 ### 扫码体验
 
-![](./screenshot/Giteer.png)
+![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Giteer.png)
 
 ### Giteer预览图
 
 |            |    |
 |:-------------:|:------:|
-|  ![](./screenshot/Screenshot_20190305_185653_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_185700_com.tencent.mm.jpg)  | 
-|  ![](./screenshot/Screenshot_20190305_185705_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_185718_com.tencent.mm.jpg)  |
-|  ![](./screenshot/Screenshot_20190305_185922_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_190021_com.tencent.mm.jpg)  |
-|  ![](./screenshot/Screenshot_20190305_190031_com.tencent.mm.jpg) |  ![](./screenshot/Screenshot_20190305_190326_com.tencent.mm.jpg)  |
+|  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_185653_com.tencent.mm.jpg) |  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_185700_com.tencent.mm.jpg)  | 
+|  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_185705_com.tencent.mm.jpg) |  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_185718_com.tencent.mm.jpg)  |
+|  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_185922_com.tencent.mm.jpg) |  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_190021_com.tencent.mm.jpg)  |
+|  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_190031_com.tencent.mm.jpg) |  ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/Screenshot_20190305_190326_com.tencent.mm.jpg)  |
 
 
 ### 开发计划
