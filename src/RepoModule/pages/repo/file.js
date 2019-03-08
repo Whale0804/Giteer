@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import {Text, View} from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import { base64_decode } from '../../../utils/base64'
-import Markdown from '../../../components/repo/markdown'
+import Markdown from '../../components/repo/markdown'
 import {connect} from "@tarojs/redux";
 
 import './file.scss'

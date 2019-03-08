@@ -7,11 +7,11 @@ import { base64_decode } from '../../../utils/base64'
 import { NAVIGATE_TYPE } from '../../../constants/navigateType'
 import {hasLogin} from "../../../utils/common";
 import {connect} from "@tarojs/redux";
-import Markdown from '../../../components/repo/markdown'
-import Painter from '../../../components/repo/painter'
-import line from '../../../asset/images/share/share_line.png';
-import quan from '../../../asset/images/share/share_pengyouquan.png'
-import wechat from '../../../asset/images/share/share_wechat.png'
+import Markdown from '../../components/repo/markdown'
+import Painter from '../../components/repo/painter'
+import line from '../../asset/images/share/share_line.png';
+import quan from '../../asset/images/share/share_pengyouquan.png'
+import wechat from '../../asset/images/share/share_wechat.png'
 
 import './repo.scss'
 

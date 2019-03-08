@@ -1,10 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 
-import IssueList from '../../../components/repo/issueList'
+import IssueList from '../../components/repo/issueList'
 import Segment from '../../../components/index/segment'
 import Empty from '../../../components/empty/index'
 import LoadMore from '../../../components/loadMore/loadMore'

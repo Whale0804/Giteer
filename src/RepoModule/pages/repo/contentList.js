@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
-import ContentListItem from '../../../components/repo/contentListItem'
-import ContentListNextItem from '../../../components/repo/contentListNextItem'
+import ContentListItem from '../../components/repo/contentListItem'
+import ContentListNextItem from '../../components/repo/contentListNextItem'
 import {connect} from "@tarojs/redux";
 
 import './contentList.scss'

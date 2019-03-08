@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import PropTypes from 'prop-types';
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtAvatar } from 'taro-ui'
-import { timeago } from '../../utils/common'
+import { timeago } from '../../../utils/common'
 import Markdown from '../repo/markdown'
 
 import './issueCommentItem.scss'

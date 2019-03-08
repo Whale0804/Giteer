@@ -3,8 +3,8 @@ import { View, Text } from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import { AtIcon } from 'taro-ui'
 import {connect} from "@tarojs/redux";
-import IssueCommentItem from '../../../components/repo/issueCommentItem'
-import Markdown from '../../../components/repo/markdown'
+import IssueCommentItem from '../../components/repo/issueCommentItem'
+import Markdown from '../../components/repo/markdown'
 import LoadMore from '../../../components/loadMore/loadMore'
 
 
