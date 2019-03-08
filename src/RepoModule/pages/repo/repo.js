@@ -551,7 +551,7 @@ class Repo extends Component {
           text: `Powered by${' ' + repo.owner.name}`,
           css: {
             top: '435rpx',
-            left: '350rpx',
+            left: '370rpx',
             width: '550rpx',
             maxLines: '1',
             fontSize: '28rpx',
