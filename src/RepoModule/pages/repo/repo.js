@@ -550,7 +550,7 @@ class Repo extends Component {
           type: 'text',
           text: `Powered by${' ' + repo.owner.name}`,
           css: {
-            top: '410rpx',
+            top: '430rpx',
             left: '350rpx',
             width: '550rpx',
             maxLines: '1',
@@ -564,7 +564,7 @@ class Repo extends Component {
           type: 'text',
           text: `${repo.description.toString().replace(/[ ]/g, "").replace(/[\\r\\n]/g, "") || '暂无描述'}`,
           css: {
-            top: '480rpx',
+            top: '490rpx',
             left: '100rpx',
             width: '550rpx',
             fontSize: '28rpx',
