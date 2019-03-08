@@ -44,7 +44,7 @@ class App extends Component {
       'pages/mine/repo/repoStarOtherList',
       'pages/mine/follow/follower',
       'pages/mine/developerInfo/developerInfo',
-
+      'pages/chat/index'
     ],
     subPackages: [{
       root: 'RepoModule',
@@ -60,15 +60,20 @@ class App extends Component {
         'pages/repo/issueDetail',
         'pages/repo/addComment'
       ]
+    },{
+      root: 'ChatModule',
+      pages: [
+        'pages/chat/index',
+      ]
     }],
     preloadRule: {
       "pages/index/index": {
         "network": "all",
-        "packages": ["RepoModule"]
+        "packages": ["RepoModule","ChatModule"]
       },
       'pages/login/login': {
         "network": "all",
-        "packages": ["RepoModule"]
+        "packages": ["RepoModule","ChatModule"]
       },
     },
     window: {
@@ -88,6 +93,11 @@ class App extends Component {
         text: '动态',
         iconPath: './asset/images/tab/dynamic.png',
         selectedIconPath: './asset/images/tab/dynamic_focus.png'
+      }, {
+        pagePath: 'pages/chat/index',
+        text: '私信',
+        iconPath: './asset/images/tab/chat.png',
+        selectedIconPath: './asset/images/tab/chat_focus.png'
       }, {
         pagePath: 'pages/mine/index',
         text: '我的',
