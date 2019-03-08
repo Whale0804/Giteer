@@ -193,7 +193,7 @@
   bottom:0;
   width:100%;
   max-height: 100Px !important;
-  min-height: auto !important;
+  min-height: 100Px !important;
   border-top-left-radius: 10px!important;
   border-top-right-radius: 10px!important;
   background-color:#FFF;
@@ -217,8 +217,8 @@
 .at-float-layout .layout-body {
   font-size:28rpx;
   padding:18rpx;
-  max-height: none !important;
-  min-height: auto  !important;
+  max-height: 100Px !important;
+  min-height: 100Px !important;
   border-top-left-radius: 3px!important;
   border-top-right-radius: 3px!important;
 }

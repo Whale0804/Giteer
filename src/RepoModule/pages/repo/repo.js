@@ -348,16 +348,21 @@ class Repo extends Component {
           this.setState({
               isOpened: false,
             })
-        }, 1000);
+        }, 800);
         break;
       case 1:
-        this.loadWXACode()
+        this.loadWXACode();
         break;
       case 2:
-        const url = `https://gitee.com/${repo.full_name}`
+        const url = `https://gitee.com/${repo.full_name}`;
         Taro.setClipboardData({
           data: url
         })
+        setTimeout(() => {
+          this.setState({
+            isOpened: false,
+          })
+        }, 800);
         break;
       default:
     }
@@ -389,7 +394,7 @@ class Repo extends Component {
   }
 
   generatePoster(imgUrl) {
-    const { repo } = this.state
+    const { repo } = this.state;
     const data = {
       background: '#f7f7f7',
       width: '750rpx',
@@ -443,48 +448,124 @@ class Repo extends Component {
           }
         },
         {
-          type: 'text',
-          text: `Stars：★${repo.stargazers_count}  ${repo.stargazers_count > 99 ? '🔥' : ''}`,
-          css: {
-            top: '150rpx',
-            left: '80rpx',
+          type: 'rect',
+          css:{
+            left: '100rpx',
             width: '550rpx',
+            height: '150rpx',
+            top: '160rpx',
+            color: '#E6655A',
+            borderRadius: '10px'
+          }
+        },
+        {
+          type:'text',
+          text: '⚡',
+          css: {
+            top: '190rpx',
+            left: '190rpx',
+            width: '50rpx',
             maxLines: '1',
-            fontSize: '28rpx',
-            color: '#ffffff'
+            fontSize: '40rpx',
+          }
+        },
+        {
+          type:'text',
+          text: '⭐',
+          css: {
+            top: '190rpx',
+            left: '345rpx',
+            width: '50rpx',
+            maxLines: '1',
+            fontSize: '40rpx',
+          }
+        },
+        {
+          type:'text',
+          text: '🔥',
+          css: {
+            top: '190rpx',
+            left: '500rpx',
+            width: '50rpx',
+            maxLines: '1',
+            fontSize: '40rpx',
           }
         },
         {
           type: 'text',
-          text: `作者：${repo.owner.name}`,
+          text: `${repo.watchers_count}`,
           css: {
             top: '250rpx',
-            left: '80rpx',
-            width: '550rpx',
+            left: '210rpx',
+            width: '100rpx',
             maxLines: '1',
-            fontSize: '28rpx',
-            color: '#ffffff'
+            align: 'center',
+            fontSize: '30rpx',
+            fontWeight: 'bold',
+            color: '#FFF'
           }
         },
         {
           type: 'text',
-          text: `Gitee：https://gitee.com/${repo.full_name}`,
+          text: `${repo.stargazers_count}`,
+          css: {
+            top: '250rpx',
+            left: '370rpx',
+            width: '100rpx',
+            maxLines: '1',
+            align: 'center',
+            fontSize: '30rpx',
+            fontWeight: 'bold',
+            color: '#FFF'
+          }
+        },
+        {
+          type: 'text',
+          text: `${repo.forks_count}`,
+          css: {
+            top: '250rpx',
+            left: '520rpx',
+            width: '100rpx',
+            align: 'center',
+            fontSize: '30rpx',
+            fontWeight: 'bold',
+            color: '#FFF'
+          }
+        },
+        {
+          type: 'text',
+          text: `https://gitee.com/${repo.full_name}`,
           css: {
             top: '350rpx',
-            left: '80rpx',
+            left: '370rpx',
             width: '550rpx',
             fontSize: '28rpx',
             color: '#ffffff',
+            align: 'center',
             lineHeight: '36rpx',
             maxLines: '2',
           }
         },
         {
           type: 'text',
-          text: `项目描述：${repo.description || '暂无描述'}`,
+          text: `Powered by${' ' + repo.owner.name}`,
           css: {
-            top: '450rpx',
-            left: '80rpx',
+            top: '410rpx',
+            left: '350rpx',
+            width: '550rpx',
+            maxLines: '1',
+            fontSize: '28rpx',
+            fontWeight: 'bold',
+            align: 'center',
+            color: '#ffffff'
+          }
+        },
+        {
+          type: 'text',
+          text: `${repo.description.toString().replace(/[ ]/g, "").replace(/[\\r\\n]/g, "") || '暂无描述'}`,
+          css: {
+            top: '480rpx',
+            left: '100rpx',
             width: '550rpx',
             fontSize: '28rpx',
             maxLines: '4',
@@ -514,7 +595,7 @@ class Repo extends Component {
         },
         {
           type: 'text',
-          text: '分享自「Gitter」',
+          text: '分享自「Giteer」',
           css: {
             bottom: '230rpx',
             left: '350rpx',
