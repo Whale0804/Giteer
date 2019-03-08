@@ -66,6 +66,10 @@ class App extends Component {
         "network": "all",
         "packages": ["RepoModule"]
       },
+      'pages/login/login': {
+        "network": "all",
+        "packages": ["RepoModule"]
+      },
     },
     window: {
       backgroundTextStyle: 'dark',

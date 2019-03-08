@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { timeago } from '../../../utils/common'
-import IssueLabels from './issueLabels'
 
 import './issueItem.scss'
 
