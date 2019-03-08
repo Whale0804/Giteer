@@ -30,19 +30,7 @@ export default class Index extends Component {
   }
 
   componentDidMount () {
-    const {isLogin} = this.state;
-    if(isLogin){
-      if(!checkExpiresToken()){
-        this.loadNotice();
-        this.loadHistory();
-      }else {
-        this.setState({
-          isLogin: false,
-        },() => {
-          tokenRequest()
-        })
-      }
-    }
+
   }
 
   componentWillUnmount () { }
@@ -50,6 +38,20 @@ export default class Index extends Component {
   componentDidShow () {
     this.setState({
       isLogin: hasLogin()
+    },()=>{
+      const {isLogin} = this.state;
+      if(isLogin){
+        if(!checkExpiresToken()){
+          this.loadNotice();
+          this.loadHistory();
+        }else {
+          this.setState({
+            isLogin: false,
+          },() => {
+            tokenRequest()
+          })
+        }
+      }
     })
   }
 

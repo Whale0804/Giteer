@@ -105,6 +105,10 @@ class App extends Component {
   };
 
   componentDidMount () {
+    wx.cloud.init({
+      env: 'giteer-36a385',
+      traceUser: true
+    })
     this.updateApp();
     if(!hasLogin()){
       Taro.navigateTo({
@@ -115,10 +119,6 @@ class App extends Component {
         tokenRequest()
       }
     }
-    wx.cloud.init({
-      env: 'giteer-36a385',
-      traceUser: true
-    })
   }
 
   componentDidShow () {}

@@ -4,6 +4,7 @@ import { AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux';
 
 import './login.scss';
+import {scope} from "../../config";
 
 @connect(({ login }) => ({
   ...login,
@@ -46,24 +47,35 @@ export default class Login extends Component {
   }
 
   getUserInfo () {
-    const { username, password } = this.state
-    if (username.length === 0) {
-      Taro.showToast({
-        title: '请输入邮箱',
-        icon: 'none'
-      })
-    } else if (password.length === 0) {
-      Taro.showToast({
-        title: '请输入密码',
-        icon: 'none'
-      })
-    }
-    this.props.dispatch({
-      type: 'login/login',
-      payload: {
-        username: username,
-        password: password,
-      },
+    const db = wx.cloud.database();
+    db.collection('settings').where({
+      _id: 'XIDHWVsqTi00toxp'
+    }).get().then(res =>{
+      Taro.setStorageSync('client_id', res.data[0].client_id);
+      Taro.setStorageSync('client_secret', res.data[0].client_secret);
+      const { username, password } = this.state
+      if (username.length === 0) {
+        Taro.showToast({
+          title: '请输入邮箱',
+          icon: 'none'
+        })
+      } else if (password.length === 0) {
+        Taro.showToast({
+          title: '请输入密码',
+          icon: 'none'
+        })
+      }
+      this.props.dispatch({
+        type: 'login/login',
+        payload: {
+          client_id: res.data[0].client_id,
+          client_secret: res.data[0].client_secret,
+          scope: res.data[0].scope,
+          grant_type: res.data[0].grant_type,
+          username: username,
+          password: password,
+        },
+      });
     });
   }
 
