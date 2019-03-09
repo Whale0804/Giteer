@@ -57,6 +57,24 @@ class About extends Component {
 
   }
 
+  handleClick(){
+    Taro.navigateTo({
+      url: '/RepoModule/pages/repo/repo?url=327926/Giteer'
+    })
+  }
+
+  previewImage =()=>{
+    Taro.previewImage({
+      urls:[
+        'https://6769-giteer-36a385-1254197862.tcb.qcloud.la/nice.jpeg?sign=b90b56eae6d6bdab660ec361263f6e8a&t=1552142531'
+      ],
+      current: 'https://6769-giteer-36a385-1254197862.tcb.qcloud.la/nice.jpeg?sign=b90b56eae6d6bdab660ec361263f6e8a&t=1552142531',
+      complete(res){
+        console.log(res)
+      }
+    })
+  }
+
   loadError(event) {
     this.setState({
       loadAd: false
@@ -78,16 +96,21 @@ class About extends Component {
         <Text className='version'>
           Giteer v1.0.3
         </Text>
-        <Navigator url='./author'>
+        <View onClick={this.handleClick}>
           <Text className='link'>
-            https://jl.githink.cn
+            https://github.com/githinkcn/Giteer
           </Text>
-        </Navigator>
+        </View>
         <View className='logout' onClick={this.logout.bind(this)}>
           退出
         </View>
         <View className='ad'>
-          <Text className='support'>UI借鉴于Gitter，thx!</Text>
+          <Text className='support'>Support Gitter ❤</Text>
+          <Image onClick={this.previewImage}
+            mode='aspectFit'
+            className='ad-image'
+            src={require('../../asset/images/nice.jpeg')}/>
+          <Text className='support'>点击长按识别</Text>
         </View>
       </View>
     )

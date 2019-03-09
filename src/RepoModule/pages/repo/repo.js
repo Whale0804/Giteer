@@ -369,8 +369,9 @@ class Repo extends Component {
   }
 
   loadWXACode = () =>{
-    const { repo, url } = this.state;
-    let path = '/RepoModule/pages/repo/repo?url=' + encodeURI(url) + '&share=true';
+    const { repo } = this.state;
+    let path = '/RepoModule/pages/repo/repo?url=' + encodeURI(repo.full_name) + '&share=true';
+    console.log(path)
     let that = this;
     Taro.showLoading({title: LOADING_TEXT})
     wx.cloud.callFunction({
@@ -410,7 +411,6 @@ class Repo extends Component {
             color: '#ffffff',
             height: '900rpx',
             borderRadius: '20rpx',
-            shadow: '10rpx 10rpx 5rpx #888888',
           }
         },
         {
