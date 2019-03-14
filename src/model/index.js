@@ -5,6 +5,7 @@ import repo from './repo';
 import follow from './follow';
 import user from './user';
 import search from './search';
+import chat from './chat';
 
 export default [
   common,
@@ -14,4 +15,5 @@ export default [
   follow,
   user,
   search,
+  chat
 ]

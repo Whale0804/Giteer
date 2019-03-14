@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Button, Navigator, Ad,Image } from '@tarojs/components'
-import { AtIcon, AtFloatLayout  } from 'taro-ui'
+import { AtIcon, AtFloatLayout, AtMessage   } from 'taro-ui'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
 import Empty from '../../../components/empty/index'
 import { base64_decode } from '../../../utils/base64'
@@ -183,6 +183,10 @@ class Repo extends Component {
           });
           Taro.stopPullDownRefresh();
           Taro.hideLoading();
+          Taro.atMessage({
+            'message': '取消收藏',
+            'type': 'error',
+          })
         }
       });
     } else {
@@ -197,6 +201,10 @@ class Repo extends Component {
           });
           Taro.stopPullDownRefresh();
           Taro.hideLoading();
+          Taro.atMessage({
+            'message': '已收藏',
+            'type': 'error',
+          })
         }
       });
     }
@@ -240,6 +248,10 @@ class Repo extends Component {
           });
           Taro.stopPullDownRefresh();
           Taro.hideLoading();
+          Taro.atMessage({
+            'message': '取消关注',
+            'type': 'error',
+          })
         }
       });
     } else {
@@ -255,6 +267,10 @@ class Repo extends Component {
           });
           Taro.stopPullDownRefresh();
           Taro.hideLoading();
+          Taro.atMessage({
+            'message': '已关注',
+            'type': 'error',
+          })
         }
       });
     }
@@ -271,9 +287,9 @@ class Repo extends Component {
       callback: (res) => {
         Taro.stopPullDownRefresh();
         Taro.hideLoading();
-        Taro.showToast({
-          title: 'fork成功~',
-          icon: 'none'
+        Taro.atMessage({
+          'message': 'Fork成功~',
+          'type': 'error',
         })
       }
     });
@@ -640,6 +656,7 @@ class Repo extends Component {
     if (!repo) return <View />
     return (
       <View className='content'>
+        <AtMessage />
         <View className='repo_bg_view'>
           <Text className='repo_info_title'>{repo.name}</Text>
           {

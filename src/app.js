@@ -131,7 +131,12 @@ class App extends Component {
     }
   }
 
-  componentDidShow () {}
+  componentDidShow () {
+    Taro.setTabBarBadge({
+      index: 2,
+      text: '1'
+    })
+  }
 
   componentDidHide () {}
 
