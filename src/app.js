@@ -93,7 +93,12 @@ class App extends Component {
         text: '动态',
         iconPath: './asset/images/tab/dynamic.png',
         selectedIconPath: './asset/images/tab/dynamic_focus.png'
-      },{
+      }, {
+        pagePath: 'pages/chat/index',
+        text: '私信',
+        iconPath: './asset/images/tab/chat.png',
+        selectedIconPath: './asset/images/tab/chat_focus.png'
+      }, {
         pagePath: 'pages/mine/index',
         text: '我的',
         iconPath: './asset/images/tab/mine.png',
@@ -119,7 +124,10 @@ class App extends Component {
       if(checkExpiresToken()){
         tokenRequest()
       }else {
-
+        Taro.setTabBarBadge({
+          index: 2,
+          text: '1'
+        })
       }
     }
   }
