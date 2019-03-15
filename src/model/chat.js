@@ -12,11 +12,11 @@ export default {
       const { page } = payload;
       const res = yield call(chat.getAllChats,payload);
       callback(res);
-      if(res.length > 0){
+      if(res.list.length > 0){
         yield put({
           type: 'save',
           payload: {
-            chat_list: page > 1 ? [...chat_list, ...res] : res,
+            chat_list: page > 1 ? [...chat_list, ...res.list] : res.list,
           },
         });
       }

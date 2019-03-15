@@ -1,13 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtSwipeAction, AtList, AtListItem } from "taro-ui"
+import {Text, View} from '@tarojs/components'
+import {AtSwipeAction, AtList, AtAvatar} from "taro-ui"
 import {connect} from "@tarojs/redux";
-import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../constants/common";
-import LoadMore from "../../../components/loadMore/loadMore";
+import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
+import LoadMore from "../../components/loadMore/loadMore";
 import Empty from '../../components/empty'
-import {hasLogin,checkExpiresToken} from "../../utils/common";
+import {hasLogin, checkExpiresToken, timeago} from "../../utils/common";
 import Login from '../../components/login/login';
 import {tokenRequest} from "../../utils/otherRequest";
+import Markdown from "../../RepoModule/components/repo/markdown";
 
 @connect(({ chat }) => ({
   ...chat,
@@ -52,7 +53,7 @@ export default class Index extends Component {
   componentDidShow () {
     this.setState({
       isLogin: hasLogin()
-    })
+    });
     if(hasLogin()){
       if(!checkExpiresToken()) {
         this.props.dispatch({
@@ -128,65 +129,56 @@ export default class Index extends Component {
     })
   }
 
+  subContent = content =>{
+    return content.length > 30 ? content.substring(0,15) + '...' : content;
+  };
+
+
   render () {
     const {chat_list} = this.props;
+    const {isLogin,refresh_status} = this.state;
     console.log(chat_list);
     return (
-      <View className='chat'>
-        <AtList>
-          <AtSwipeAction autoClose onClick={(e)=>{
-
-          }} options={[
-            {
-              text: '标记为已读',
-              style: {
-                backgroundColor: '#6190E8'
-              }
-            }
-          ]}>
-            <AtListItem
-              title='标题文字'
-              arrow='right'
-              thumb='https://avatar.gitee.com/uploads/1/1_oschina-org.png?1524465517'
-              note='详细信息详细信息详细信息详细信息'
-            />
-          </AtSwipeAction>
-          <AtSwipeAction autoClose onClick={(e)=>{
-
-          }} options={[
-            {
-              text: '标记为已读',
-              style: {
-                backgroundColor: '#6190E8'
-              }
-            }
-          ]}>
-            <AtListItem
-              title='标题文字'
-              arrow='right'
-              thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-              note='详细信息详细信息详细信息详细信息'
-            />
-          </AtSwipeAction>
-          <AtSwipeAction autoClose onClick={(e)=>{
-
-          }} options={[
+      <View>
+        {
+          isLogin ? (
+            <View className='chat'>
               {
-                text: '标记为已读',
-                style: {
-                  backgroundColor: '#6190E8'
-                }
+                chat_list.length > 0 ? (
+                  <AtList>
+                    {
+                      chat_list.map((item, index) => (
+                        <AtSwipeAction autoClose onClick={(e)=>{
+                          console.log(e)
+                        }} options={[
+                          {
+                            text: '标记为已读',
+                            style: {
+                              backgroundColor: '#DD6157'
+                            }
+                          }
+                        ]}>
+                          <View className='list-item'>
+                            <View className='info_view'>
+                              <View className='avatar'>
+                                <AtAvatar image={item.sender.avatar_url}/>
+                              </View>
+                              <View className='text_view'>
+                                <Text className='username'>{item.sender.name}</Text>
+                                <Text className='time'>{this.subContent(item.content)}</Text>
+                              </View>
+                            </View>
+                          </View>
+                        </AtSwipeAction>
+                      ))
+                    }
+                  </AtList>
+                ):<Empty/>
               }
-            ]}
-          >
-            <AtListItem
-              title='标题文字'
-              arrow='right'
-              thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-              note='详细信息详细信息详细信息详细信息'
-            />
-          </AtSwipeAction>
-        </AtList>
+              <LoadMore status={refresh_status} />
+            </View>
+          ):<Login/>
+        }
       </View>
     )
   }
