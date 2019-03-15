@@ -1,5 +1,5 @@
 import Taro from "@tarojs/taro";
-
+import {baseUrl} from "../config";
 export const tokenRequest = () => {
   Taro.request({
     url: 'https://gitee.com/oauth/token',
@@ -16,6 +16,24 @@ export const tokenRequest = () => {
 
 export const fileRequest = (options) => Taro.request({
   url: options.url,
+  data: { ...options.data },
+  header: { 'content-type': 'application/json' },
+  method: options.method.toUpperCase()
+}).then(res => {
+  return res.data;
+});
+
+export const searchRequest = (options) => Taro.request({
+  url: baseUrl+options.url,
+  data: { ...options.data },
+  header: { 'content-type': 'application/json' },
+  method: options.method.toUpperCase()
+}).then(res => {
+  return res.data;
+});
+
+export const repoRequest = (options) => Taro.request({
+  url: baseUrl+options.url,
   data: { ...options.data },
   header: { 'content-type': 'application/json' },
   method: options.method.toUpperCase()

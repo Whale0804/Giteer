@@ -166,47 +166,53 @@ class Repo extends Component {
   }
 
   handleStar() {
-    Taro.showLoading({title: LOADING_TEXT})
-    const { isStar, repo } = this.state
-    let that = this
-    if (isStar) {
-      //取消收藏
-      this.props.dispatch({
-        type: 'repo/delStar',
-        payload:{
-          url: repo.full_name
-        },
-        callback: (res) => {
-          console.log(res);
-          this.setState({
-            isStar: false
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-          Taro.atMessage({
-            'message': '取消收藏',
-            'type': 'error',
-          })
-        }
-      });
-    } else {
-      this.props.dispatch({
-        type: 'repo/doStar',
-        payload:{
-          url: repo.full_name
-        },
-        callback: (res) => {
-          this.setState({
-            isStar: true
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-          Taro.atMessage({
-            'message': '已收藏',
-            'type': 'error',
-          })
-        }
-      });
+    if(hasLogin()){
+      Taro.showLoading({title: LOADING_TEXT})
+      const { isStar, repo } = this.state
+      let that = this
+      if (isStar) {
+        //取消收藏
+        this.props.dispatch({
+          type: 'repo/delStar',
+          payload:{
+            url: repo.full_name
+          },
+          callback: (res) => {
+            console.log(res);
+            this.setState({
+              isStar: false
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+            Taro.atMessage({
+              'message': '取消收藏',
+              'type': 'error',
+            })
+          }
+        });
+      } else {
+        this.props.dispatch({
+          type: 'repo/doStar',
+          payload:{
+            url: repo.full_name
+          },
+          callback: (res) => {
+            this.setState({
+              isStar: true
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+            Taro.atMessage({
+              'message': '已收藏',
+              'type': 'error',
+            })
+          }
+        });
+      }
+    }else{
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
     }
   }
 
@@ -232,67 +238,79 @@ class Repo extends Component {
   }
 
   handleWatch() {
-    Taro.showLoading({title: LOADING_TEXT})
-    const { isWatch, repo } = this.state
-    let that = this
-    if (isWatch) {
-      //取消收藏
-      this.props.dispatch({
-        type: 'repo/delWatch',
-        payload:{
-          url: repo.full_name
-        },
-        callback: (res) => {
-          this.setState({
-            isWatch: false
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-          Taro.atMessage({
-            'message': '取消关注',
-            'type': 'error',
-          })
-        }
-      });
-    } else {
-      this.props.dispatch({
-        type: 'repo/doWatch',
-        payload:{
-          url: repo.full_name
-        },
-        callback: (res) => {
-          console.log(res);
-          this.setState({
-            isWatch: true
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-          Taro.atMessage({
-            'message': '已关注',
-            'type': 'error',
-          })
-        }
-      });
+    if(hasLogin()){
+      Taro.showLoading({title: LOADING_TEXT})
+      const { isWatch, repo } = this.state
+      let that = this
+      if (isWatch) {
+        //取消收藏
+        this.props.dispatch({
+          type: 'repo/delWatch',
+          payload:{
+            url: repo.full_name
+          },
+          callback: (res) => {
+            this.setState({
+              isWatch: false
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+            Taro.atMessage({
+              'message': '取消关注',
+              'type': 'error',
+            })
+          }
+        });
+      } else {
+        this.props.dispatch({
+          type: 'repo/doWatch',
+          payload:{
+            url: repo.full_name
+          },
+          callback: (res) => {
+            console.log(res);
+            this.setState({
+              isWatch: true
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+            Taro.atMessage({
+              'message': '已关注',
+              'type': 'error',
+            })
+          }
+        });
+      }
+    }else{
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
     }
   }
 
   handleFork() {
-    Taro.showLoading({title: LOADING_TEXT})
-    const { repo } = this.state
-    this.props.dispatch({
-      type: 'repo/doFork',
-      payload:{
-        url: repo.full_name
-      },
-      callback: (res) => {
-        Taro.stopPullDownRefresh();
-        Taro.hideLoading();
-        Taro.atMessage({
-          'message': 'Fork成功~',
-          'type': 'error',
-        })
-      }
-    });
+    if(hasLogin()){
+      Taro.showLoading({title: LOADING_TEXT})
+      const { repo } = this.state
+      this.props.dispatch({
+        type: 'repo/doFork',
+        payload:{
+          url: repo.full_name
+        },
+        callback: (res) => {
+          Taro.stopPullDownRefresh();
+          Taro.hideLoading();
+          Taro.atMessage({
+            'message': 'Fork成功~',
+            'type': 'error',
+          })
+        }
+      });
+    }else{
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
+    }
   }
 
   handleNavigate(type) {

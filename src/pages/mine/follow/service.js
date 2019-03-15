@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import Request from '../../../utils/request';
+import {repoRequest} from '../../../utils/otherRequest';
 import {METHOD_TYPE} from '../../../constants/methodType'
 
 //列出授权用户的所有仓库

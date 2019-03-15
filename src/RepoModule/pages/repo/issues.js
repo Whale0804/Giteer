@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
-
+import { hasLogin } from '../../../utils/common'
 import IssueList from '../../components/repo/issueList'
 import Segment from '../../../components/index/segment'
 import Empty from '../../../components/empty/index'
@@ -204,9 +204,16 @@ class Issues extends Component {
   }
 
   addIssue() {
-    Taro.navigateTo({
-      url: '/RepoModule/pages/repo/addIssue?path=' + this.state.path + '&repoPath=' + this.state.repoPath
-    })
+    if(hasLogin()){
+      Taro.navigateTo({
+        url: '/RepoModule/pages/repo/addIssue?path=' + this.state.path + '&repoPath=' + this.state.repoPath
+      })
+    }else{
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
+    }
+
   }
 
   onTabChange(index) {

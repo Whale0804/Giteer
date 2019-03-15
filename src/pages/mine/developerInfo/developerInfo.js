@@ -71,64 +71,73 @@ class DeveloperInfo extends Component {
         this.setState({
           developerInfo: res
         }, ()=>{
-          this.checkFollowing()
+          if(hasLogin()){
+            this.checkFollowing()
+          }else{
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+          }
         })
       }
     });
   }
 
   checkFollowing() {
-    if (hasLogin()) {
-      const { username } = this.state;
-      this.props.dispatch({
-        type: 'follow/checkFollowing',
-        payload:{
-          username: username
-        },
-        callback: (res) => {
-          this.setState({
-            isFollowed: res.isFollow
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-        }
-      });
-    }
+    const { username } = this.state;
+    this.props.dispatch({
+      type: 'follow/checkFollowing',
+      payload:{
+        username: username
+      },
+      callback: (res) => {
+        this.setState({
+          isFollowed: res.isFollow
+        });
+        Taro.stopPullDownRefresh();
+        Taro.hideLoading();
+      }
+    });
   }
 
   handleFollow() {
-    const { isFollowed, username } = this.state;
-    if (isFollowed) {
-      //取消关注
-      this.props.dispatch({
-        type: 'follow/unFollowed',
-        payload:{
-          username: username
-        },
-        callback: (res) => {
-          console.log(res);
-          this.setState({
-            isFollowed: false
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-        }
-      });
-    } else {
-      //添加关注
-      this.props.dispatch({
-        type: 'follow/doFollowed',
-        payload:{
-          username: username
-        },
-        callback: (res) => {
-          this.setState({
-            isFollowed: true
-          });
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
-        }
-      });
+    if(hasLogin()){
+      const { isFollowed, username } = this.state;
+      if (isFollowed) {
+        //取消关注
+        this.props.dispatch({
+          type: 'follow/unFollowed',
+          payload:{
+            username: username
+          },
+          callback: (res) => {
+            console.log(res);
+            this.setState({
+              isFollowed: false
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+          }
+        });
+      } else {
+        //添加关注
+        this.props.dispatch({
+          type: 'follow/doFollowed',
+          payload:{
+            username: username
+          },
+          callback: (res) => {
+            this.setState({
+              isFollowed: true
+            });
+            Taro.stopPullDownRefresh();
+            Taro.hideLoading();
+          }
+        });
+      }
+    }else{
+      Taro.navigateTo({
+        url: '/pages/login/login'
+      })
     }
   }
 

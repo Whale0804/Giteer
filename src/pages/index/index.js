@@ -40,11 +40,10 @@ export default class Index extends Component {
       isLogin: hasLogin()
     },()=>{
       const {isLogin} = this.state;
+      this.loadNotice();
+      this.loadHistory();
       if(isLogin){
-        if(!checkExpiresToken()){
-          this.loadNotice();
-          this.loadHistory();
-        }else {
+        if(checkExpiresToken()) {
           this.setState({
             isLogin: false,
           },() => {
@@ -163,39 +162,36 @@ export default class Index extends Component {
     }
     return (
       <View>
-        {
-          isLogin ? (
-            <View className='content'>
-              {
-                (notice.status && !notice_closed) &&
-                <AtNoticebar icon='volume-plus'
-                             close
-                             onClose={this.onCloseNotice.bind(this)}>
-                  {notice.notice_content}
-                </AtNoticebar>
-              }
-              <View className='search-bar-fixed'>
-                <SearchBar onClickSearch={this.onClickSearch} />
+        <View className='content'>
+          {
+            (notice.status && !notice_closed) &&
+            <AtNoticebar icon='volume-plus'
+                         close
+                         onClose={this.onCloseNotice.bind(this)}>
+              {notice.notice_content}
+              </AtNoticebar>
+          }
+          <View className='search-bar-fixed'>
+            <SearchBar onClickSearch={this.onClickSearch} />
+          </View>
+          {
+            history.length > 0 &&
+            <View className='search-history-bg'>
+              <View className='search-history'>
+                <SearchHistory items={history} onTagClick={this.onTagClick}/>
               </View>
-              {
-                history.length > 0 &&
-                <View className='search-history-bg'>
-                  <View className='search-history'>
-                    <SearchHistory items={history} onTagClick={this.onTagClick}/>
-                  </View>
-                  <View className='clear' onClick={this.clear_history.bind(this)}>Clear All</View>
-                </View>
-              }
-              { history.length == 0 &&
-                <View style={{textAlign: 'center', marginTop: '90px'}}>
-                  <Image mode='aspectFit'
-                         className='logo'
-                         src={require('../../asset/images/octocat.png')}/>
-                  <Text className='text'>Giteer For 码云</Text>
-                </View>
-              }
-            </View>):<Login/>
-        }
+              <View className='clear' onClick={this.clear_history.bind(this)}>Clear All</View>
+            </View>
+          }
+          { history.length == 0 &&
+          <View style={{textAlign: 'center', marginTop: '90px'}}>
+            <Image mode='aspectFit'
+                   className='logo'
+                   src={require('../../asset/images/octocat.png')}/>
+            <Text className='text'>Giteer For 码云</Text>
+          </View>
+          }
+          </View>
       </View>
     )
   }
