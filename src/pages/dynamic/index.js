@@ -12,8 +12,9 @@ import {tokenRequest} from "../../utils/otherRequest";
 
 
 
-@connect(({ dynamic }) => ({
+@connect(({ dynamic,chat }) => ({
   ...dynamic,
+  ...chat
 }))
 export default class Index extends Component {
 
@@ -56,7 +57,30 @@ export default class Index extends Component {
   componentDidShow () {
     this.setState({
       isLogin: hasLogin()
-    })
+    });
+    if(hasLogin()){
+      if(!checkExpiresToken()) {
+        this.props.dispatch({
+          type: 'chat/getAllChats',
+          payload: {
+            page: 1,
+            per_page: 1,
+            unread: true
+          },
+          callback: (res) => {
+            console.log(res.total_count);
+            if (res.total_count > 0) {
+              Taro.setTabBarBadge({
+                index: 2,
+                text: res.total_count + ''
+              })
+            }
+          }
+        })
+      }else{
+        tokenRequest();
+      }
+    }
   }
 
   componentDidHide () { }

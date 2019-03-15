@@ -2,14 +2,19 @@ import Taro, { Component } from '@tarojs/taro'
 import {View, Text, Image} from '@tarojs/components'
 import { AtNoticebar } from 'taro-ui'
 import {checkExpiresToken, hasLogin} from "../../utils/common";
-import Login from '../../components/login/login';
 import SearchBar from '../../components/index/SearchBar'
 import SearchHistory from '../../components/index/searchHistory'
+import {tokenRequest} from "../../utils/otherRequest";
+import {connect} from "@tarojs/redux";
 
 import './index.scss'
+import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 
-import {tokenRequest} from "../../utils/otherRequest";
 
+
+@connect(({ chat }) => ({
+  ...chat,
+}))
 export default class Index extends Component {
 
   config = {
@@ -48,6 +53,24 @@ export default class Index extends Component {
             isLogin: false,
           },() => {
             tokenRequest()
+          })
+        }else{
+          this.props.dispatch({
+            type: 'chat/getAllChats',
+            payload: {
+              page: 1,
+              per_page:1,
+              unread: true
+            },
+            callback: (res) => {
+              console.log(res.total_count);
+              if(res.total_count > 0){
+                Taro.setTabBarBadge({
+                  index: 2,
+                  text: res.total_count+''
+                })
+              }
+            }
           })
         }
       }

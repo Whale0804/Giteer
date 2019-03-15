@@ -11,8 +11,8 @@ export default {
       const { chat_list } = yield select(state => state.chat);
       const { page } = payload;
       const res = yield call(chat.getAllChats,payload);
+      callback(res);
       if(res.length > 0){
-        callback(res)
         yield put({
           type: 'save',
           payload: {

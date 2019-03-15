@@ -123,17 +123,12 @@ class App extends Component {
     if(hasLogin()){
       if(checkExpiresToken()){
         tokenRequest()
-      }else {
-        Taro.setTabBarBadge({
-          index: 2,
-          text: '1'
-        })
       }
     }
   }
 
   componentDidShow () {
-
+    console.log(1)
   }
 
   componentDidHide () {}
