@@ -4,8 +4,12 @@ import { View, Text } from '@tarojs/components'
 import { AtAvatar, AtBadge } from 'taro-ui'
 
 import './chatItem.scss'
+import {connect} from "@tarojs/redux";
 
-export default class ChatItem extends Component {
+@connect(({ chat }) => ({
+  ...chat,
+}))
+export default class  ChatItem extends Component {
   static propTypes = {
     item: PropTypes.object,
   }
@@ -15,9 +19,7 @@ export default class ChatItem extends Component {
   }
 
   handleClickItem(name){
-    Taro.navigateTo({
-      url:'/pages/mine/developerInfo/developerInfo?username='+name,
-    })
+
   }
 
   subContent = content =>{
@@ -31,9 +33,15 @@ export default class ChatItem extends Component {
     return (
       <View className='content' onClick={this.handleClickItem.bind(this,item.sender.login)}>
         <View className='avatar'>
-          <AtBadge value='12'>
-            <AtAvatar image={item.sender.avatar_url}/>
-          </AtBadge>
+          {
+            item.unread ? (
+              <AtBadge dot>
+                <AtAvatar image={item.sender.avatar_url}/>
+              </AtBadge>
+            ):(
+              <AtAvatar image={item.sender.avatar_url}/>
+            )
+          }
         </View>
         <View className='chat-item'>
           <View className='chat_desc'>

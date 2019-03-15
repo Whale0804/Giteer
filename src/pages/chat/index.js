@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import {Text, View} from '@tarojs/components'
-import {AtSwipeAction, AtList, AtAvatar} from "taro-ui"
+import {Text, View, Image} from '@tarojs/components'
+import {AtSwipeAction, AtList, AtAvatar, AtIcon} from "taro-ui"
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 import LoadMore from "../../components/loadMore/loadMore";
@@ -26,7 +26,9 @@ export default class Index extends Component {
       isLogin: false,
       page: 1,
       refresh_status: REFRESH_STATUS.NORMAL,
-      user: Taro.getStorageSync('user_info')
+      user: Taro.getStorageSync('user_info'),
+      chat_list: [],
+      sub_chat_list: []
     }
   }
 
@@ -64,7 +66,6 @@ export default class Index extends Component {
             unread: true
           },
           callback: (res) => {
-            console.log(res.total_count);
             if (res.total_count > 0) {
               Taro.setTabBarBadge({
                 index: 2,
@@ -105,7 +106,7 @@ export default class Index extends Component {
   }
 
   getAllChats = () =>{
-    const {user,page} = this.state;
+    const {chat_list,page} = this.state;
     let that = this;
 
     if (page !== 1) {
@@ -121,6 +122,15 @@ export default class Index extends Component {
       },
       callback: (res) => {
         Taro.stopPullDownRefresh();
+        if (page === 1) {
+          that.setState({
+            chat_list: res.list
+          })
+        } else {
+          that.setState({
+            chat_list: chat_list.concat(res.list)
+          })
+        }
         let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
         that.setState({
           refresh_status: status
@@ -129,20 +139,51 @@ export default class Index extends Component {
     })
   }
 
+  arrayUnique2(arr, name) {
+    let hash = {};
+    let its = [];
+    let list = arr.reduce((item, next) => {
+      hash[next.sender[name]] ? '' : hash[next.sender[name]] = true && item.push(next);
+      return item;
+    }, []);
+    this.setState({
+      sub_chat_list: list
+    })
+    return list;
+  }
+
+  handleItemClick = item =>{
+    const {chat_list,sub_chat_list} = this.state;
+    let chatIds = {};
+    sub_chat_list.map((sub,index)=>{
+      let ids = [];
+      chat_list.map((chat,idx)=>{
+        if(sub.sender.login == chat.sender.login){
+          if(item.sender.login == sub.sender.login){
+            ids.push(chat.id);
+          }
+        }
+      })
+      if(ids.length > 0){
+        chatIds.ids = ids;
+      }
+    })
+    console.log(chatIds)
+  }
+
   render () {
-    const {chat_list} = this.props;
-    const {isLogin,refresh_status} = this.state;
-    console.log(chat_list);
+    const {isLogin, refresh_status} = this.state;
+    let chatList = this.arrayUnique2(this.state.chat_list,'login');
     return (
       <View>
         {
           isLogin ? (
             <View className='chat'>
               {
-                chat_list.length > 0 ? (
+                chatList.length > 0 ? (
                   <AtList>
                     {
-                      chat_list.map((item, index) => (
+                      chatList.map((item, index) => (
                         <AtSwipeAction autoClose onClick={(e)=>{
                           console.log(e)
                         }} options={[
@@ -152,8 +193,8 @@ export default class Index extends Component {
                               backgroundColor: '#DD6157'
                             }
                           }
-                        ]}>
-                          <View className='list-item'>
+                        ]} key={index}>
+                          <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
                             <ChatItem item={item}/>
                           </View>
                         </AtSwipeAction>
@@ -166,6 +207,9 @@ export default class Index extends Component {
             </View>
           ):<Login/>
         }
+        <View className='add_chat' onClick={this.addIssue.bind(this)}>
+          <Image src={require('../../asset/images/add_chat.png')} />
+        </View>
       </View>
     )
   }
