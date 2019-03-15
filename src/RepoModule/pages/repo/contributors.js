@@ -37,7 +37,7 @@ class Contributors extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT});
+    Taro.startPullDownRefresh();
     this.getContributors()
   }
 
@@ -60,7 +60,7 @@ class Contributors extends Component {
         this.setState({
           dataList: res
         });
-        Taro.hideLoading();
+        Taro.stopPullDownRefresh();
       }
     });
   }

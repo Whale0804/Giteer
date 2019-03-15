@@ -45,7 +45,6 @@ class DeveloperInfo extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT});
     Taro.startPullDownRefresh();
     this.getDeveloperInfo()
   }
@@ -75,7 +74,6 @@ class DeveloperInfo extends Component {
             this.checkFollowing()
           }else{
             Taro.stopPullDownRefresh();
-            Taro.hideLoading();
           }
         })
       }
@@ -94,7 +92,6 @@ class DeveloperInfo extends Component {
           isFollowed: res.isFollow
         });
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
       }
     });
   }
@@ -114,8 +111,6 @@ class DeveloperInfo extends Component {
             this.setState({
               isFollowed: false
             });
-            Taro.stopPullDownRefresh();
-            Taro.hideLoading();
           }
         });
       } else {
@@ -130,7 +125,6 @@ class DeveloperInfo extends Component {
               isFollowed: true
             });
             Taro.stopPullDownRefresh();
-            Taro.hideLoading();
           }
         });
       }

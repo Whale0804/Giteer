@@ -43,6 +43,7 @@ export default class Index extends Component {
       const {isLogin} = this.state;
       if(isLogin){
         if(!checkExpiresToken()){
+          Taro.startPullDownRefresh();
           this.getMine();
           this.props.dispatch({
             type: 'chat/getAllChats',

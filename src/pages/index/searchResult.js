@@ -57,7 +57,7 @@ class SearchResult extends Component {
       user_page: 1,
       repo_page: 1
     }, () => {
-      Taro.showLoading({title: LOADING_TEXT});
+      Taro.startPullDownRefresh();
       that.searchRepo();
       that.searchUsers();
     })
@@ -145,7 +145,6 @@ class SearchResult extends Component {
       payload: parmas,
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         if (repo_page === 1) {
           that.setState({
             repos: res
@@ -290,7 +289,6 @@ class SearchResult extends Component {
             user_sort: itemList[res.tapIndex],
             user_sort_value: value
           }, ()=>{
-            Taro.showLoading({title: LOADING_TEXT});
             that.refresh()
           })
         }

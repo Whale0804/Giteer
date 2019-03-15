@@ -45,7 +45,7 @@ class IssueDetail extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT});
+    Taro.startPullDownRefresh();
     this.getIssue()
   }
 
@@ -96,7 +96,6 @@ class IssueDetail extends Component {
       payload: params,
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         if (page === 1) {
           that.setState({
             comments: res
@@ -124,7 +123,6 @@ class IssueDetail extends Component {
         number: number
       },
       callback: (res) => {
-        Taro.hideLoading();
         that.setState({
           issue: res,
         },() => {

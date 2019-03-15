@@ -30,7 +30,6 @@ class RepoEvents extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
   }
 
   componentWillMount() {
@@ -41,7 +40,7 @@ class RepoEvents extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT})
+    Taro.startPullDownRefresh();
     this.getEvents()
   }
 
@@ -93,7 +92,6 @@ class RepoEvents extends Component {
       payload: params,
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL;
         that.setState({
           refresh_status: status

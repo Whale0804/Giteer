@@ -39,7 +39,6 @@ class RepoList extends Component{
 
   componentDidMount() {
     Taro.startPullDownRefresh();
-    Taro.showLoading({title: LOADING_TEXT});
     this.getRepoList()
   }
 
@@ -83,7 +82,6 @@ class RepoList extends Component{
       },
       callback: res => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL;
         that.setState({
           refresh_status: status

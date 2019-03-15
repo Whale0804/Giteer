@@ -60,7 +60,7 @@ class Repo extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT})
+    Taro.startPullDownRefresh();
     this.getRepo()
   }
 
@@ -106,7 +106,6 @@ class Repo extends Component {
       payload: { url: url},
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         that.setState({
           repo: res
         },() =>{
@@ -126,7 +125,6 @@ class Repo extends Component {
       payload: { url: url},
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         if(res){
           that.setState({
             readme: res,
@@ -159,7 +157,6 @@ class Repo extends Component {
             isStar: res.isStar
           });
           Taro.stopPullDownRefresh();
-          Taro.hideLoading();
         }
       });
     }
@@ -167,7 +164,6 @@ class Repo extends Component {
 
   handleStar() {
     if(hasLogin()){
-      Taro.showLoading({title: LOADING_TEXT})
       const { isStar, repo } = this.state
       let that = this
       if (isStar) {
@@ -182,8 +178,6 @@ class Repo extends Component {
             this.setState({
               isStar: false
             });
-            Taro.stopPullDownRefresh();
-            Taro.hideLoading();
             Taro.atMessage({
               'message': '取消收藏',
               'type': 'error',
@@ -200,8 +194,6 @@ class Repo extends Component {
             this.setState({
               isStar: true
             });
-            Taro.stopPullDownRefresh();
-            Taro.hideLoading();
             Taro.atMessage({
               'message': '已收藏',
               'type': 'error',
@@ -231,7 +223,6 @@ class Repo extends Component {
             isWatch: res.isWatch
           });
           Taro.stopPullDownRefresh();
-          Taro.hideLoading();
         }
       });
     }
@@ -239,7 +230,6 @@ class Repo extends Component {
 
   handleWatch() {
     if(hasLogin()){
-      Taro.showLoading({title: LOADING_TEXT})
       const { isWatch, repo } = this.state
       let that = this
       if (isWatch) {
@@ -253,8 +243,6 @@ class Repo extends Component {
             this.setState({
               isWatch: false
             });
-            Taro.stopPullDownRefresh();
-            Taro.hideLoading();
             Taro.atMessage({
               'message': '取消关注',
               'type': 'error',
@@ -272,8 +260,6 @@ class Repo extends Component {
             this.setState({
               isWatch: true
             });
-            Taro.stopPullDownRefresh();
-            Taro.hideLoading();
             Taro.atMessage({
               'message': '已关注',
               'type': 'error',
@@ -290,7 +276,6 @@ class Repo extends Component {
 
   handleFork() {
     if(hasLogin()){
-      Taro.showLoading({title: LOADING_TEXT})
       const { repo } = this.state
       this.props.dispatch({
         type: 'repo/doFork',
@@ -298,8 +283,6 @@ class Repo extends Component {
           url: repo.full_name
         },
         callback: (res) => {
-          Taro.stopPullDownRefresh();
-          Taro.hideLoading();
           Taro.atMessage({
             'message': 'Fork成功~',
             'type': 'error',

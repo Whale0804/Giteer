@@ -57,13 +57,13 @@ class File extends Component {
   getFile() {
     let that = this;
     const { url, isDir, repo, sha } = this.state;
-    Taro.showLoading({title: LOADING_TEXT});
+    Taro.startPullDownRefresh();
     if(isDir){
       this.props.dispatch({
         type: 'repo/getFile',
         payload: {url:url},
         callback: (res) => {
-          Taro.hideLoading();
+          Taro.stopPullDownRefresh();
           console.log(res);
           that.setState({
             file: res
@@ -78,7 +78,7 @@ class File extends Component {
         type: 'repo/getFile2',
         payload: {url:repo, sha: sha},
         callback: (res) => {
-          Taro.hideLoading();
+          Taro.stopPullDownRefresh();
           console.log(res);
           that.setState({
             file: res

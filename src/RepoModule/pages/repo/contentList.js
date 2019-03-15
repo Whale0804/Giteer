@@ -60,7 +60,7 @@ class ContentList extends Component {
   getContents() {
     let that = this
     const { repo, branch, isDir, path} = this.state
-    Taro.showLoading({title: LOADING_TEXT});
+    Taro.startPullDownRefresh();
     let parmas;
     if (isDir){
       parmas = {
@@ -83,13 +83,13 @@ class ContentList extends Component {
           that.setState({
             dataList: res.tree
           },() =>{
-            Taro.hideLoading();
+            Taro.stopPullDownRefresh();
           });
         }else{
           that.setState({
             dataList: res
           },() =>{
-            Taro.hideLoading();
+            Taro.stopPullDownRefresh();
           });
         }
       }

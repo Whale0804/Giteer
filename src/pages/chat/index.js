@@ -36,7 +36,6 @@ export default class Index extends Component {
     if(isLogin){
       if(!checkExpiresToken()){
         Taro.startPullDownRefresh();
-        Taro.showLoading({title: LOADING_TEXT});
         this.getAllChats();
       }else {
         this.setState({
@@ -120,8 +119,7 @@ export default class Index extends Component {
         per_page:PER_PAGE
       },
       callback: (res) => {
-        Taro.stopPullDownRefresh()
-        Taro.hideLoading()
+        Taro.stopPullDownRefresh();
         let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
         that.setState({
           refresh_status: status

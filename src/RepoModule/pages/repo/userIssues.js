@@ -45,9 +45,9 @@ class Issues extends Component {
   }
 
   componentDidMount() {
-    Taro.showLoading({title: LOADING_TEXT})
-    this.getOpenIssuesList()
-    this.getClosedIssuesList()
+    Taro.startPullDownRefresh();
+    this.getOpenIssuesList();
+    this.getClosedIssuesList();
   }
 
   componentWillUnmount () { }
@@ -134,7 +134,6 @@ class Issues extends Component {
       payload: params,
       callback: (res) => {
         Taro.stopPullDownRefresh();
-        Taro.hideLoading();
         if (open_page === 1) {
           that.setState({
             openList: res
