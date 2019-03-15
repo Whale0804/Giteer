@@ -8,7 +8,7 @@ import Empty from '../../components/empty'
 import {hasLogin, checkExpiresToken, timeago} from "../../utils/common";
 import Login from '../../components/login/login';
 import {tokenRequest} from "../../utils/otherRequest";
-import Markdown from "../../RepoModule/components/repo/markdown";
+import ChatItem from '../../components/chat/chatItem';
 
 @connect(({ chat }) => ({
   ...chat,
@@ -129,11 +129,6 @@ export default class Index extends Component {
     })
   }
 
-  subContent = content =>{
-    return content.length > 30 ? content.substring(0,15) + '...' : content;
-  };
-
-
   render () {
     const {chat_list} = this.props;
     const {isLogin,refresh_status} = this.state;
@@ -159,15 +154,7 @@ export default class Index extends Component {
                           }
                         ]}>
                           <View className='list-item'>
-                            <View className='info_view'>
-                              <View className='avatar'>
-                                <AtAvatar image={item.sender.avatar_url}/>
-                              </View>
-                              <View className='text_view'>
-                                <Text className='username'>{item.sender.name}</Text>
-                                <Text className='time'>{this.subContent(item.content)}</Text>
-                              </View>
-                            </View>
+                            <ChatItem item={item}/>
                           </View>
                         </AtSwipeAction>
                       ))

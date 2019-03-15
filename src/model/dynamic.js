@@ -11,8 +11,8 @@ export default {
       const { dynamic_list } = yield select(state => state.dynamic);
       const { page } = payload;
       const res = yield call(dynamic.getDynamicList,payload);
+      callback(res)
       if(res.length > 0){
-        callback(res)
         yield put({
           type: 'save',
           payload: {

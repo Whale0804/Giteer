@@ -1,0 +1,45 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+}
+.avatar{
+  padding: 20px 0px 20px 20px;
+}
+
+.info_view {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-item {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  border-bottom: 1px #CCCCCC solid;
+  width: 100%;
+}
+
+.chat_desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 0px;
+}
+
+.username {
+  color: #333;
+  font-size: 38px;
+  display: flex;
+  flex-direction: row;
+  word-break:break-all;
+}
+
+.item-content {
+  color: #7f7f7f;
+  font-size: 34px;
+  padding-right: 10px;
+  flex-direction: row;
+}
+
