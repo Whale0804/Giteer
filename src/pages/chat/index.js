@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import {Text, View, Image} from '@tarojs/components'
-import {AtSwipeAction, AtList, AtAvatar, AtIcon} from "taro-ui"
+import {AtSwipeAction, AtList, AtFloatLayout, AtIcon} from "taro-ui"
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 import LoadMore from "../../components/loadMore/loadMore";
@@ -9,6 +9,8 @@ import {hasLogin, checkExpiresToken, timeago} from "../../utils/common";
 import Login from '../../components/login/login';
 import {tokenRequest} from "../../utils/otherRequest";
 import ChatItem from '../../components/chat/chatItem';
+
+import './index.scss'
 
 @connect(({ chat }) => ({
   ...chat,
@@ -28,7 +30,8 @@ export default class Index extends Component {
       refresh_status: REFRESH_STATUS.NORMAL,
       user: Taro.getStorageSync('user_info'),
       chat_list: [],
-      sub_chat_list: []
+      sub_chat_list: [],
+      isOpen:false
     }
   }
 
@@ -58,6 +61,7 @@ export default class Index extends Component {
     });
     if(hasLogin()){
       if(!checkExpiresToken()) {
+        this.getAllChats();
         this.props.dispatch({
           type: 'chat/getAllChats',
           payload: {
@@ -152,64 +156,100 @@ export default class Index extends Component {
     return list;
   }
 
+  // handleItemClick = item =>{
+  //   const {chat_list,sub_chat_list} = this.state;
+  //   let chatIds = {};
+  //   sub_chat_list.map((sub,index)=>{
+  //     let ids = [];
+  //     chat_list.map((chat,idx)=>{
+  //       if(sub.sender.login == chat.sender.login){
+  //         if(item.sender.login == sub.sender.login){
+  //           ids.push(chat.id);
+  //         }
+  //       }
+  //     })
+  //     if(ids.length > 0){
+  //       chatIds.ids = ids;
+  //     }
+  //   })
+  //   console.log(chatIds)
+  // }
+
   handleItemClick = item =>{
-    const {chat_list,sub_chat_list} = this.state;
-    let chatIds = {};
-    sub_chat_list.map((sub,index)=>{
-      let ids = [];
-      chat_list.map((chat,idx)=>{
-        if(sub.sender.login == chat.sender.login){
-          if(item.sender.login == sub.sender.login){
-            ids.push(chat.id);
-          }
-        }
-      })
-      if(ids.length > 0){
-        chatIds.ids = ids;
-      }
+
+  }
+
+  handleAddChatClick = () =>{
+    this.setState({
+      isOpen: true
     })
-    console.log(chatIds)
+  }
+
+  handleClose = (e) =>{
+    this.setState({
+      isOpen: false
+    })
   }
 
   render () {
-    const {isLogin, refresh_status} = this.state;
-    let chatList = this.arrayUnique2(this.state.chat_list,'login');
+    const {isLogin, chat_list, refresh_status,isOpen} = this.state;
     return (
-      <View>
+      <View className='chat'>
         {
           isLogin ? (
-            <View className='chat'>
+            <View>
               {
-                chatList.length > 0 ? (
+                chat_list.length > 0 ? (
                   <AtList>
                     {
-                      chatList.map((item, index) => (
-                        <AtSwipeAction autoClose onClick={(e)=>{
-                          console.log(e)
-                        }} options={[
+                      chat_list.map((item, index) => (
+                        <View className='chat'>
                           {
-                            text: '标记为已读',
-                            style: {
-                              backgroundColor: '#DD6157'
-                            }
+                            item.unread ? (
+                              <AtSwipeAction autoClose onClick={(e)=>{
+                                if(e.text == '标记为已读'){
+
+                                }
+                              }} options={[
+                                {
+                                  text: '标记为已读',
+                                  style: {
+                                    backgroundColor: '#DD6157'
+                                  }
+                                }
+                              ]} key={index}>
+                                <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
+                                  <ChatItem item={item}/>
+                                </View>
+                              </AtSwipeAction>
+                            ):(
+                              <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
+                                <ChatItem item={item}/>
+                              </View>
+                            )
                           }
-                        ]} key={index}>
-                          <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
-                            <ChatItem item={item}/>
-                          </View>
-                        </AtSwipeAction>
+                        </View>
                       ))
                     }
                   </AtList>
                 ):<Empty/>
+
               }
               <LoadMore status={refresh_status} />
+              <AtFloatLayout isOpened={isOpen} title="这是个标题" onClose={this.handleClose.bind(this)}>
+                这是内容区 随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写这是内容区
+                随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写
+              </AtFloatLayout>
             </View>
           ):<Login/>
         }
-        <View className='add_chat' onClick={this.addIssue.bind(this)}>
-          <Image src={require('../../asset/images/add_chat.png')} />
-        </View>
+        {
+          isLogin && (
+            <View className='add_chat' onClick={this.handleAddChatClick}>
+              <Image className='chat_icon' src={require('../../asset/images/add_chat.png')} />
+            </View>
+          )
+        }
       </View>
     )
   }
