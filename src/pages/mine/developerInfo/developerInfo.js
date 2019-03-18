@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import {Image, Text, View, Button} from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
-import { AtAvatar, AtIcon } from 'taro-ui'
+import { AtAvatar, AtIcon, AtFloatLayout,AtInput, AtTextarea } from 'taro-ui'
 import { NAVIGATE_TYPE } from '../../../constants/navigateType'
 import { hasLogin } from '../../../utils/common'
 import {connect} from "@tarojs/redux";
@@ -28,7 +28,10 @@ class DeveloperInfo extends Component {
       username: '',
       developerInfo: null,
       isFollowed: false,
-      isShare: false
+      isShare: false,
+      isOpen:false,
+      commentName: '',
+      commentBody: '',
     }
   }
 
@@ -187,8 +190,36 @@ class DeveloperInfo extends Component {
     })
   }
 
+  handleAddChatClick = () =>{
+    this.setState({
+      isOpen: true
+    })
+  }
+
+  handleClose = (e) =>{
+    this.setState({
+      isOpen: false
+    })
+  }
+
+  handleChange =(value)=>{
+    this.setState({
+      commentName: value
+    })
+  };
+
+  handleTextareaChange =(event)=>{
+    this.setState({
+      commentBody: event.target.value
+    })
+  };
+
+  handleSubmit(){
+
+  }
+
   render() {
-    const { developerInfo, isFollowed, isShare } = this.state;
+    const { developerInfo, isFollowed, isShare, isOpen } = this.state;
     if (!developerInfo) return <View />
     return (
       <View className='content'>
@@ -257,6 +288,27 @@ class DeveloperInfo extends Component {
                     color='#fff' />
           </View>
         }
+        <AtFloatLayout isOpened={isOpen} onClose={this.handleClose.bind(this)}>
+          <View className='comment-content'>
+            <View className='chat_comment'>
+              <AtTextarea
+                className='input_comment'
+                height={200}
+                count={false}
+                maxlength={10000}
+                value={commentBody}
+                onChange={this.handleTextareaChange.bind(this)}
+                placeholder='请输入内容...'
+              />
+            </View>
+            <View className='submit' onClick={this.handleSubmit.bind(this)}>
+              发送
+            </View>
+          </View>
+        </AtFloatLayout>
+        <View className='add_chat' onClick={this.handleAddChatClick}>
+          <Image className='chat_icon' src={require('../../../asset/images/add_chat.png')} />
+        </View>
       </View>
     )
   }

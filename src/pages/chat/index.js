@@ -32,7 +32,6 @@ export default class Index extends Component {
       chat_list: [],
       sub_chat_list: [],
       isOpen:false,
-      commentName: '',
       commentBody: '',
     }
   }
@@ -179,28 +178,29 @@ export default class Index extends Component {
 
   handleItemClick = item =>{
 
-  }
+  };
 
   handleAddChatClick = () =>{
     this.setState({
       isOpen: true
     })
-  }
+  };
 
   handleClose = (e) =>{
     this.setState({
       isOpen: false
     })
-  }
+  };
 
   handleChange =(value)=>{
     this.setState({
       commentName: value
     })
   };
-  handleTextareaChange =(value)=>{
+
+  handleTextareaChange =(event)=>{
     this.setState({
-      commentBody: value
+      commentBody: event.target.value
     })
   };
 
