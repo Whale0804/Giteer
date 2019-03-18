@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import {Text, View, Image} from '@tarojs/components'
-import {AtSwipeAction, AtList, AtFloatLayout, AtIcon} from "taro-ui"
+import {Text, View, Image,} from '@tarojs/components'
+import {AtSwipeAction, AtList, AtFloatLayout,AtInput, AtTextarea} from "taro-ui"
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 import LoadMore from "../../components/loadMore/loadMore";
@@ -31,7 +31,9 @@ export default class Index extends Component {
       user: Taro.getStorageSync('user_info'),
       chat_list: [],
       sub_chat_list: [],
-      isOpen:false
+      isOpen:false,
+      commentName: '',
+      commentBody: '',
     }
   }
 
@@ -191,8 +193,23 @@ export default class Index extends Component {
     })
   }
 
+  handleChange =(value)=>{
+    this.setState({
+      commentName: value
+    })
+  };
+  handleTextareaChange =(value)=>{
+    this.setState({
+      commentBody: value
+    })
+  };
+
+  handleSubmit(){
+
+  }
+
   render () {
-    const {isLogin, chat_list, refresh_status,isOpen} = this.state;
+    const {isLogin, chat_list, refresh_status,isOpen, commentName, commentBody} = this.state;
     return (
       <View className='chat'>
         {
@@ -236,9 +253,35 @@ export default class Index extends Component {
 
               }
               <LoadMore status={refresh_status} />
-              <AtFloatLayout isOpened={isOpen} title="这是个标题" onClose={this.handleClose.bind(this)}>
-                这是内容区 随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写这是内容区
-                随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写
+              <AtFloatLayout isOpened={isOpen} onClose={this.handleClose.bind(this)}>
+                <View className='comment-content'>
+                  <View className='chat_title'>
+                    <AtInput
+                      className='input_title'
+                      name='title'
+                      title=''
+                      type='text'
+                      placeholder='接收者名'
+                      value={commentName}
+                      border={false}
+                      onChange={this.handleChange.bind(this)}
+                    />
+                  </View>
+                  <View className='chat_comment'>
+                    <AtTextarea
+                      className='input_comment'
+                      height={200}
+                      count={false}
+                      maxlength={10000}
+                      value={commentBody}
+                      onChange={this.handleTextareaChange.bind(this)}
+                      placeholder='请输入内容...'
+                    />
+                  </View>
+                  <View className='submit' onClick={this.handleSubmit.bind(this)}>
+                    发送
+                  </View>
+                </View>
               </AtFloatLayout>
             </View>
           ):<Login/>

@@ -35,7 +35,7 @@ export default class  ChatItem extends Component {
         <View className='avatar'>
           {
             item.unread ? (
-              <AtBadge dot>
+              <AtBadge value="1">
                 <AtAvatar image={item.sender.avatar_url}/>
               </AtBadge>
             ):(
