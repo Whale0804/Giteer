@@ -39,19 +39,6 @@ export default class Index extends Component {
   componentWillMount () { }
 
   componentDidMount () {
-    const {isLogin} = this.state;
-    if(isLogin){
-      if(!checkExpiresToken()){
-        Taro.startPullDownRefresh();
-        this.getAllChats();
-      }else {
-        this.setState({
-          isLogin: false,
-        },() => {
-          tokenRequest()
-        })
-      }
-    }
   }
 
   componentWillUnmount () { }
@@ -62,6 +49,7 @@ export default class Index extends Component {
     });
     if(hasLogin()){
       if(!checkExpiresToken()) {
+        Taro.startPullDownRefresh();
         this.getAllChats();
         this.props.dispatch({
           type: 'chat/getAllChats',
