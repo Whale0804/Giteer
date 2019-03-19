@@ -25,8 +25,8 @@ export default {
       const res = yield call(chat.setRead,payload);
       callback(res);
     },
-    *put({ payload, callback }, { call, put, select}){
-      const res = yield call(chat.put,payload);
+    *putChat({ payload, callback }, { call, put, select}){
+      const res = yield call(chat.putChat,payload);
       callback(res);
     },
     *getChat({ payload, callback }, { call, put, select}){

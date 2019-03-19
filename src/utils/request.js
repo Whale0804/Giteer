@@ -5,12 +5,7 @@ import {METHOD_TYPE} from '../constants/methodType';
 
 export default (options = {method: 'GET',data: {} }) =>{
   var data = {};
-  //输出请求日志
-  if (!noConsole){
-    console.log(
-      `${new Date().toLocaleDateString()}【M=${options.url}】P=${JSON.stringify(options.data)}`
-    );
-  }
+
   //判断是否登录，自动封装TOKEN
   if(hasLogin()){
     data = {
@@ -21,6 +16,13 @@ export default (options = {method: 'GET',data: {} }) =>{
     data = {
       ...options.data
     }
+  }
+
+  //输出请求日志
+  if (!noConsole){
+    console.log(
+      `${new Date().toLocaleDateString()}【M=${options.url}】P=${JSON.stringify(data)}`
+    );
   }
 
   return Taro.request({

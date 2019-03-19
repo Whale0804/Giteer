@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import Request from '../utils/request';
+import {chatRequest} from '../utils/otherRequest';
 
 //列出授权用户的某个仓库
 export const getAllChats = (data) =>Request({
@@ -11,7 +12,7 @@ export const getAllChats = (data) =>Request({
 //标记一条私信为已读
 export const setRead = (data) =>Request({
   url: '/api/v5/notifications/messages/'+data.id,
-  method: 'PUT',
+  method: 'PATCH',
   data: data
 });
 
@@ -23,7 +24,7 @@ export const getChat = (data) =>Request({
 });
 
 //发送私信给指定用户
-export const put = (data) =>Request({
+export const putChat = (data) => Request({
   url: '/api/v5/notifications/messages',
   method: 'POST',
   data: data

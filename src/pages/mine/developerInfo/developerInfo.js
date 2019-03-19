@@ -333,7 +333,6 @@ class DeveloperInfo extends Component {
                 name='title'
                 title=''
                 type='text'
-                placeholder='接收者名'
                 value={commentName}
                 border={false}
                 onChange={this.handleChange.bind(this)}

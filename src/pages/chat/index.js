@@ -231,14 +231,12 @@ export default class Index extends Component {
       });
       return false;
     }
-    let comment = {
-      username: commentName,
-      content: commentBody
-    }
+
     this.props.dispatch({
-      type: 'chat/put',
+      type: 'chat/putChat',
       payload: {
-        data: comment
+        username: commentName,
+        content: commentBody
       },
       callback: (res) => {
         if(res.id){
@@ -264,31 +262,10 @@ export default class Index extends Component {
                   <AtList>
                     {
                       chat_list.map((item, index) => (
-                        <View className='chat'>
-                          {
-                            item.unread ? (
-                              <AtSwipeAction autoClose onClick={(e)=>{
-                                if(e.text == '标记为已读'){
-                                  this.handleUnReadClick(item);
-                                }
-                              }} options={[
-                                {
-                                  text: '标记为已读',
-                                  style: {
-                                    backgroundColor: '#DD6157'
-                                  }
-                                }
-                              ]} key={index}>
-                                <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
-                                  <ChatItem item={item}/>
-                                </View>
-                              </AtSwipeAction>
-                            ):(
-                              <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
-                                <ChatItem item={item}/>
-                              </View>
-                            )
-                          }
+                        <View className='chat' key={index}>
+                          <View className='list-item' onClick={this.handleItemClick.bind(this,item)}>
+                            <ChatItem item={item}/>
+                          </View>
                         </View>
                       ))
                     }
