@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import {Image, Text, View, Button} from '@tarojs/components'
 import {PER_PAGE, LOADING_TEXT, REFRESH_STATUS} from "../../../constants/common";
-import { AtAvatar, AtIcon, AtFloatLayout,AtInput, AtTextarea } from 'taro-ui'
+import {AtAvatar, AtIcon, AtFloatLayout, AtInput, AtTextarea, AtMessage} from 'taro-ui'
 import { NAVIGATE_TYPE } from '../../../constants/navigateType'
 import { hasLogin } from '../../../utils/common'
 import {connect} from "@tarojs/redux";
@@ -9,9 +9,10 @@ import {connect} from "@tarojs/redux";
 import './developerInfo.scss'
 
 
-@connect(({ user,follow }) => ({
+@connect(({ user,follow, chat }) => ({
   ...user,
-  ...follow
+  ...follow,
+  ...chat
 }))
 class DeveloperInfo extends Component {
 
@@ -43,6 +44,7 @@ class DeveloperInfo extends Component {
     let params = this.$router.params;
     this.setState({
       username: params.username,
+      commentName: params.username,
       isShare: params.share
     })
   }
@@ -215,7 +217,41 @@ class DeveloperInfo extends Component {
   };
 
   handleSubmit(){
-
+    const {commentName, commentBody} = this.state;
+    if(commentName == ''){
+      Taro.showToast({
+        title: '请输入接收者...',
+        icon: 'none',
+        mask: true,
+      });
+      return false;
+    }
+    if(commentBody == ''){
+      Taro.showToast({
+        title: '请输入私信内容...',
+        icon: 'none',
+        mask: true,
+      });
+      return false;
+    }
+    let comment = {
+      username: commentName,
+      content: commentBody
+    }
+    this.props.dispatch({
+      type: 'chat/put',
+      payload: {
+        data: comment
+      },
+      callback: (res) => {
+        if(res.id){
+          Taro.atMessage({
+            'message': '私信成功',
+            'type': 'error',
+          })
+        }
+      }
+    })
   }
 
   render() {
@@ -223,6 +259,7 @@ class DeveloperInfo extends Component {
     if (!developerInfo) return <View />
     return (
       <View className='content'>
+        <AtMessage />
         <Image className='account_bg' src={require('../../../asset/images/account_bg.png')}/>
         <View className='user_info'>
           <AtAvatar className='avatar' circle image={developerInfo.avatar_url}/>
@@ -290,6 +327,19 @@ class DeveloperInfo extends Component {
         }
         <AtFloatLayout isOpened={isOpen} onClose={this.handleClose.bind(this)}>
           <View className='comment-content'>
+            <View className='chat_title'>
+              <AtInput
+                className='input_title'
+                name='title'
+                title=''
+                type='text'
+                placeholder='接收者名'
+                value={commentName}
+                border={false}
+                onChange={this.handleChange.bind(this)}
+                disabled={true}
+              />
+            </View>
             <View className='chat_comment'>
               <AtTextarea
                 className='input_comment'

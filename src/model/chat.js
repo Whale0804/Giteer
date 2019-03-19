@@ -20,6 +20,18 @@ export default {
           },
         });
       }
+    },
+    *setRead({ payload, callback }, { call, put, select}){
+      const res = yield call(chat.setRead,payload);
+      callback(res);
+    },
+    *put({ payload, callback }, { call, put, select}){
+      const res = yield call(chat.put,payload);
+      callback(res);
+    },
+    *getChat({ payload, callback }, { call, put, select}){
+      const res = yield call(chat.getChat,payload);
+      callback(res);
     }
   },
   reducers: {

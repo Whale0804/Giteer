@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import {Text, View, Image,} from '@tarojs/components'
-import {AtSwipeAction, AtList, AtFloatLayout,AtInput, AtTextarea} from "taro-ui"
+import {AtSwipeAction, AtList, AtFloatLayout,AtInput, AtTextarea, AtMessage} from "taro-ui"
 import {connect} from "@tarojs/redux";
 import {PER_PAGE, REFRESH_STATUS} from "../../constants/common";
 import LoadMore from "../../components/loadMore/loadMore";
@@ -33,6 +33,7 @@ export default class Index extends Component {
       sub_chat_list: [],
       isOpen:false,
       commentBody: '',
+      commentName: '',
     }
   }
 
@@ -51,22 +52,7 @@ export default class Index extends Component {
       if(!checkExpiresToken()) {
         Taro.startPullDownRefresh();
         this.getAllChats();
-        this.props.dispatch({
-          type: 'chat/getAllChats',
-          payload: {
-            page: 1,
-            per_page: 1,
-            unread: true
-          },
-          callback: (res) => {
-            if (res.total_count > 0) {
-              Taro.setTabBarBadge({
-                index: 2,
-                text: res.total_count + ''
-              })
-            }
-          }
-        })
+        this.getChatCount();
       }else {
         tokenRequest()
       }
@@ -96,6 +82,25 @@ export default class Index extends Component {
         that.getAllChats()
       })
     }
+  }
+
+  getChatCount(){
+    this.props.dispatch({
+      type: 'chat/getAllChats',
+      payload: {
+        page: 1,
+        per_page: 1,
+        unread: true
+      },
+      callback: (res) => {
+        if (res.total_count > 0) {
+          Taro.setTabBarBadge({
+            index: 2,
+            text: res.total_count + ''
+          })
+        }
+      }
+    })
   }
 
   getAllChats = () =>{
@@ -164,8 +169,24 @@ export default class Index extends Component {
   //   console.log(chatIds)
   // }
 
-  handleItemClick = item =>{
+  handleUnReadClick = ({id}) => {
+    this.props.dispatch({
+      type: 'chat/setRead',
+      payload: {
+        id: id
+      },
+      callback: (res) => {
+        this.getChatCount();
+        this.getAllChats();
+      }
+    })
+  }
 
+  handleItemClick = item =>{
+    this.handleUnReadClick(item);
+    Taro.navigateTo({
+      url: ''
+    })
   };
 
   handleAddChatClick = () =>{
@@ -193,13 +214,48 @@ export default class Index extends Component {
   };
 
   handleSubmit(){
-
+    const {commentName, commentBody} = this.state;
+    if(commentName == ''){
+      Taro.showToast({
+        title: '请输入接收者...',
+        icon: 'none',
+        mask: true,
+      });
+      return false;
+    }
+    if(commentBody == ''){
+      Taro.showToast({
+        title: '请输入私信内容...',
+        icon: 'none',
+        mask: true,
+      });
+      return false;
+    }
+    let comment = {
+      username: commentName,
+      content: commentBody
+    }
+    this.props.dispatch({
+      type: 'chat/put',
+      payload: {
+        data: comment
+      },
+      callback: (res) => {
+        if(res.id){
+          Taro.atMessage({
+            'message': '私信成功',
+            'type': 'error',
+          })
+        }
+      }
+    })
   }
 
   render () {
     const {isLogin, chat_list, refresh_status,isOpen, commentName, commentBody} = this.state;
     return (
       <View className='chat'>
+        <AtMessage />
         {
           isLogin ? (
             <View>
@@ -213,7 +269,7 @@ export default class Index extends Component {
                             item.unread ? (
                               <AtSwipeAction autoClose onClick={(e)=>{
                                 if(e.text == '标记为已读'){
-
+                                  this.handleUnReadClick(item);
                                 }
                               }} options={[
                                 {
