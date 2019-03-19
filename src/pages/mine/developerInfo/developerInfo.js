@@ -200,6 +200,8 @@ class DeveloperInfo extends Component {
 
   handleClose = (e) =>{
     this.setState({
+      commentName: '',
+      commentBody: '',
       isOpen: false
     })
   }
@@ -248,6 +250,11 @@ class DeveloperInfo extends Component {
           Taro.atMessage({
             'message': '私信成功',
             'type': 'error',
+          })
+          this.setState({
+            commentName: '',
+            commentBody: '',
+            isOpen: false
           })
         }
       }
