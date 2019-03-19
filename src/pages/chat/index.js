@@ -129,7 +129,7 @@ export default class Index extends Component {
             chat_list: chat_list.concat(res.list)
           })
         }
-        let status = res.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
+        let status = res.list.length < PER_PAGE ? REFRESH_STATUS.NO_MORE_DATA : REFRESH_STATUS.NORMAL
         that.setState({
           refresh_status: status
         })
