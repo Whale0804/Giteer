@@ -236,14 +236,11 @@ class DeveloperInfo extends Component {
       });
       return false;
     }
-    let comment = {
-      username: commentName,
-      content: commentBody
-    }
     this.props.dispatch({
       type: 'chat/putChat',
       payload: {
-        comment
+        username: commentName,
+        content: commentBody
       },
       callback: (res) => {
         if(res.id){
