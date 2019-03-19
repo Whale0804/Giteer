@@ -241,9 +241,9 @@ class DeveloperInfo extends Component {
       content: commentBody
     }
     this.props.dispatch({
-      type: 'chat/put',
+      type: 'chat/putChat',
       payload: {
-        data: comment
+        comment
       },
       callback: (res) => {
         if(res.id){
