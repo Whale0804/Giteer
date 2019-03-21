@@ -1,7 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import {Text, View} from '@tarojs/components'
+import { AtAvatar } from 'taro-ui'
 import {connect} from "@tarojs/redux";
-
+import { timeago } from '../../../utils/common'
+import Markdown from '../../components/repo/markdown'
 import './index.scss'
 
 @connect(({ chat }) => ({
@@ -60,9 +62,23 @@ export default class Index extends Component {
   }
 
   render () {
+    const {chat} = this.props;
     return (
-      <View className='index'>
-
+      <View className='content'>
+        <View className='info_view'>
+          <View className='avatar'>
+            <AtAvatar image={chat.sender.avatar_url}/>
+          </View>
+          <View className='text_view'>
+            <Text className='username'>{chat.sender.name}</Text>
+            <Text className='time'>{'发表于 ' + timeago(Date.parse(new Date(chat.updated_at)))}</Text>
+          </View>
+        </View>
+        <View className='markdown'>
+          <View className='md'>
+            {chat.content}
+          </View>
+        </View>
       </View>
     )
   }

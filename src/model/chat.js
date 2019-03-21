@@ -4,7 +4,8 @@ import * as chat from '../service/chat'
 export default {
   namespace: 'chat',
   state: {
-    chat_list: []
+    chat_list: [],
+    chat: {}
   },
   effects: {
     *getAllChats({ payload, callback }, { call, put, select}){
@@ -32,6 +33,12 @@ export default {
     *getChat({ payload, callback }, { call, put, select}){
       const res = yield call(chat.getChat,payload);
       callback(res);
+      yield put({
+        type: 'save',
+        payload: {
+          chat: res,
+        },
+      });
     }
   },
   reducers: {
