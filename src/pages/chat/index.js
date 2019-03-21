@@ -178,14 +178,15 @@ export default class Index extends Component {
       callback: (res) => {
         this.getChatCount();
         this.getAllChats();
+
       }
     })
   }
 
   handleItemClick = item =>{
-    this.handleUnReadClick(item);
+    //this.handleUnReadClick(item);
     Taro.navigateTo({
-      url: ''
+      url: '/ChatModule/pages/chat/index?id='+item.id,
     })
   };
 
