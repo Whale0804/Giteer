@@ -45,23 +45,23 @@ export default class Index extends Component {
         if(!checkExpiresToken()){
           Taro.startPullDownRefresh();
           this.getMine();
-          this.props.dispatch({
-            type: 'chat/getAllChats',
-            payload: {
-              page: 1,
-              per_page: 1,
-              unread: true
-            },
-            callback: (res) => {
-              console.log(res.total_count);
-              if (res.total_count > 0) {
-                Taro.setTabBarBadge({
-                  index: 2,
-                  text: res.total_count + ''
-                })
-              }
-            }
-          })
+          // this.props.dispatch({
+          //   type: 'chat/getAllChats',
+          //   payload: {
+          //     page: 1,
+          //     per_page: 1,
+          //     unread: true
+          //   },
+          //   callback: (res) => {
+          //     console.log(res.total_count);
+          //     if (res.total_count > 0) {
+          //       Taro.setTabBarBadge({
+          //         index: 2,
+          //         text: res.total_count + ''
+          //       })
+          //     }
+          //   }
+          // })
         }else {
           this.setState({
             isLogin: false,

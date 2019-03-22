@@ -5,6 +5,7 @@ import { AtAvatar, AtBadge } from 'taro-ui'
 
 import './chatItem.scss'
 import {connect} from "@tarojs/redux";
+import {timeago} from "../../utils/common";
 
 @connect(({ chat }) => ({
   ...chat,
@@ -33,24 +34,16 @@ export default class  ChatItem extends Component {
     return (
       <View className='content' onClick={this.handleClickItem.bind(this,item.sender.login)}>
         <View className='avatar'>
-          {
-            item.unread ? (
-              <AtBadge value="1">
-                <AtAvatar image={item.sender.avatar_url}/>
-              </AtBadge>
-            ):(
-              <AtAvatar image={item.sender.avatar_url}/>
-            )
-          }
+          <AtAvatar image={item.sender.avatar_url}/>
         </View>
         <View className='chat-item'>
           <View className='chat_desc'>
             <View className='info_view'>
-              <Text className='username'>
-                {item.sender.name}
-              </Text>
+              <View className='username-content'>
+                <View className='username'>{item.sender.name}</View>
+              </View>
               <Text className='item-content'>
-                {this.subContent(item.content)}
+                {item.content}
               </Text>
             </View>
           </View>

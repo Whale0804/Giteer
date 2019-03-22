@@ -52,7 +52,7 @@ export default class Index extends Component {
       if(!checkExpiresToken()) {
         Taro.startPullDownRefresh();
         this.getAllChats();
-        this.getChatCount();
+        //this.getChatCount();
       }else {
         tokenRequest()
       }
@@ -176,7 +176,7 @@ export default class Index extends Component {
         id: id
       },
       callback: (res) => {
-        this.getChatCount();
+        //this.getChatCount();
         this.getAllChats();
 
       }

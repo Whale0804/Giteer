@@ -247,7 +247,7 @@ class Issues extends Component {
           <View className='add_issue' onClick={this.addIssue.bind(this)}>
             <AtIcon value='add'
                     size='26'
-                    color='#fff' />
+                    color='#fff' style={{marginBottom:'2Px'}} />
           </View>
         }
       </View>

@@ -169,10 +169,10 @@ class IssueDetail extends Component {
           })
         }
         <LoadMore status={refresh_status} />
-        <View className='add_comment' onClick={this.addComment.bind(this)}>
+        <View className='add_chat' onClick={this.addComment.bind(this)}>
           <AtIcon value='add'
                   size='26'
-                  color='#fff' />
+                  color='#fff' style={{marginBottom:'2Px'}} />
         </View>
       </View>
     )

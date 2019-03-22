@@ -28,12 +28,16 @@
   padding: 20px 0px;
 }
 
-.username {
-  color: #333;
-  font-size: 38px;
+.username-content {
   display: flex;
   flex-direction: row;
   word-break:break-all;
+  width: 600px;
+}
+
+.username {
+  color: #333;
+  font-size: 38px;
 }
 
 .item-content {
@@ -41,5 +45,15 @@
   font-size: 34px;
   padding-right: 10px;
   flex-direction: row;
+  width: 600px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
+.send-time{
+  font-size: 22px;
+  color: #7f7f7f;
+  float: right;
+  text-align: right;
+  line-height: 100%;
+}
