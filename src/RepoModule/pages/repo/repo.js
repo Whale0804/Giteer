@@ -356,7 +356,6 @@ class Repo extends Component {
   };
 
   onClickedActionButton(index) {
-    console.log(index)
     const { repo } = this.state
     switch(index) {
       case 0:
@@ -387,7 +386,6 @@ class Repo extends Component {
   loadWXACode = () =>{
     const { repo } = this.state;
     let path = '/RepoModule/pages/repo/repo?url=' + encodeURI(repo.full_name) + '&share=true';
-    console.log(path)
     let that = this;
     Taro.showLoading({title: LOADING_TEXT})
     wx.cloud.callFunction({
@@ -396,16 +394,18 @@ class Repo extends Component {
       // 传递给云函数的event参数
       data: {
         path: path,
-        name: `${repo.owner.login}_${repo.name}`
+        name: `${repo.owner.login}_${repo.name.replace(/\s+/g,"")}`
       }
     }).then(res => {
       console.log('painter', res)
+      console.log('1111')
       if (res.result && res.result.length > 0) {
         that.generatePoster(res.result[0].tempFileURL)
       } else {
         Taro.hideLoading()
       }
     }).catch(err => {
+      console.log(err)
       Taro.hideLoading()
     })
   }

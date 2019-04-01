@@ -276,7 +276,6 @@ class SearchResult extends Component {
             repo_sort: itemList[res.tapIndex],
             repo_sort_value: value
           }, ()=>{
-            Taro.showLoading({title: LOADING_TEXT})
             that.refresh()
           })
         } else {
