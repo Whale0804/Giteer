@@ -1,7 +1,7 @@
 ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/128.png)
 ### Giteer For 码云
 
-基于小程序快速开发框架[Taro-Kit](https://github.com/githinkcn/Taro-Kit)开发的线上产品。分享自己在使用[Taro](https://taro.aotu.io/)和[Dva.js](https://dvajs.com/)开发小程序的经验，
+基于小程序快速开发框架[Taro-Kit](https://github.com/wahle4cloud/Taro-Kit)开发的线上产品。分享自己在使用[Taro](https://taro.aotu.io/)和[Dva.js](https://dvajs.com/)开发小程序的经验，
 也让大家能够随时随地上码云。后台使用码云开放[Api](https://gitee.com/api/v5/swagger#/)进行开发，可在线测试。UI 参照[huangjianke/Gitter](https://github.com/huangjianke/Gitter)
 的小程序做了微改，非常感谢大佬支持！！！
 
