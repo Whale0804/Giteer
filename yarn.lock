@@ -152,22 +152,23 @@
   dependencies:
     uglify-js "^3.3.24"
 
-"@tarojs/redux-h5@^1.2.14":
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-1.2.14.tgz#c17fa15d2b76edc82921d86d3b564fd55e5f234a"
-  integrity sha512-bIHEp5ea7aVdxuuTC0E2lTwYtlHvaFR8mQ/DLxFurQ9Fq/zK8btNAxh0l5WJ6zzjctmhimnSQQAkG4T/3AUi5w==
+"@tarojs/redux-h5@^1.2.15":
+  version "1.3.44"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-1.3.44.tgz#0cd558cf3c638d1578303bccce2227645169ce21"
+  integrity sha512-d0VmpK4JUM/cwJwPxph14xtzYY0gXoZGmBUsGupp+BRASY7mjJXjz+jmnvaakAqpZ9Zy9OLogzToDRB5QSOy+w==
   dependencies:
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.4"
     loose-envify "^1.1.0"
     prop-types "^15.6.1"
 
-"@tarojs/redux@^1.2.14":
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-1.2.14.tgz#e38890612af872f761d13a8ac51171ee70533e4c"
-  integrity sha512-DO1drtZ/nkDcuu4r3zOPJV+FNVxwvvThZtzJ18yxgGOJ9+SCsrvCQrS1UsdjZnA4MEgoFT3dX4u+xES4QNOz3w==
+"@tarojs/redux@^1.2.15":
+  version "1.3.44"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-1.3.44.tgz#80764e8ca4d30b89f17c2131ad8bcc8d94fc744d"
+  integrity sha512-ZAcQ/pgURN3cP+yYZgr0OFdzGbrm26A2xe0pYVPEPmq1dARUb8Sk30EVmU9p6XBBH8DSQBqiV4e/ughwNUCxHA==
   dependencies:
-    "@tarojs/utils" "1.2.14"
+    "@tarojs/taro" "1.3.44"
+    "@tarojs/utils" "1.3.44"
 
 "@tarojs/router@1.2.14":
   version "1.2.14"
@@ -237,10 +238,22 @@
   resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-1.2.14.tgz#9cf376faa65fa07b8df243cbd87fb2d81ccd2673"
   integrity sha512-zZes/9YHvZ1Uzt/WDeCIXIhTEbZRXdUNCSvCpWIUolCuuey6rLiHbffKKm9QDx7GEqKV7wrS5FtsTAONgMZB+w==
 
+"@tarojs/taro@1.3.44":
+  version "1.3.44"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-1.3.44.tgz#0d0c88c80dbcc155a76847e12095503ff7a706ea"
+  integrity sha512-3y2gDwMNRoM5b/RVjlk+oS7A5SABbHKsy7whb2hbsMydtJSIsKX+pL3giAq1RGqwZN9rQPYNHttOJdCqF03r0A==
+  dependencies:
+    "@tarojs/utils" "1.3.44"
+
 "@tarojs/utils@1.2.14":
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-1.2.14.tgz#463c7f3699466feed0bb76a700fae35a3fe931a9"
   integrity sha512-5Gg9FyJNaLSjM2Nh/KiJw7lxaezN3p3yFPkT5s52Kzd7JyC0Wf5NoPD+RPrTBGFpwfh9hk/oluvPPnTEL/jLbQ==
+
+"@tarojs/utils@1.3.44":
+  version "1.3.44"
+  resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-1.3.44.tgz#965765ff16efc84a503026378b52a6ad6fd00ea8"
+  integrity sha512-YZstLQiBOapv9Xtu4O1MW3XPi9XwZ7gZy/LqJ2Cofd0hFb0EElmGExBiY5+S4K1HRvC6PCfEEyoYZbWQL20jJA==
 
 "@tarojs/webpack-runner@1.2.14":
   version "1.2.14"
@@ -7461,9 +7474,9 @@ websocket-driver@>=0.5.1:
     websocket-extensions ">=0.1.1"
 
 websocket-extensions@>=0.1.1:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
-  integrity sha512-nqHUnMXmBzT0w570r2JpJxfiSD1IzoI+HGVdd3aZ0yNi3ngvQ4jv1dtHt5VGxfI2yj5yqImPhOK4vmIh2xMbGg==
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
+  integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
 
 weui@^1.1.2:
   version "1.1.3"
