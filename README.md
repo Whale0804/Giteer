@@ -5,6 +5,9 @@
 也让大家能够随时随地上码云。后台使用码云开放[Api](https://gitee.com/api/v5/swagger#/)进行开发，可在线测试。UI 参照[huangjianke/Gitter](https://github.com/huangjianke/Gitter)
 的小程序做了微改，非常感谢大佬支持！！！
 
+### 推荐
+[Fitee: Flutter版的码云](https://github.com/githinkcn/Fitee)
+
 ### 说明
 
 - 由于小程序的限制，无法使用OAuth跳转认证，推荐使用Token认证方式；
