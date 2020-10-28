@@ -1,3 +1,5 @@
+## 小程序暂时登录不了了，因为码云限制了这个应用的秘钥，请到[Fitee: Flutter版的码云](https://github.com/githinkcn/Fitee)
+
 ![](https://raw.githubusercontent.com/githinkcn/Giteer/Giteer/screenshot/128.png)
 ### Giteer For 码云
 
