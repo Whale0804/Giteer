@@ -152,22 +152,23 @@
   dependencies:
     uglify-js "^3.3.24"
 
-"@tarojs/redux-h5@^1.2.14":
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-1.2.14.tgz#c17fa15d2b76edc82921d86d3b564fd55e5f234a"
-  integrity sha512-bIHEp5ea7aVdxuuTC0E2lTwYtlHvaFR8mQ/DLxFurQ9Fq/zK8btNAxh0l5WJ6zzjctmhimnSQQAkG4T/3AUi5w==
+"@tarojs/redux-h5@^1.2.15":
+  version "1.3.46"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-1.3.46.tgz#33111457726d7556d54c8cc3978fa11c42b5f759"
+  integrity sha512-S7vBqAVhAFoHYU0lB536Ofwc1ctRHyWtsdpGMxykC6+sB7zVzLKaIfTtNgs9cKHg1/MH77I8tPT/Dt/Ypp7ujQ==
   dependencies:
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.4"
     loose-envify "^1.1.0"
     prop-types "^15.6.1"
 
-"@tarojs/redux@^1.2.14":
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-1.2.14.tgz#e38890612af872f761d13a8ac51171ee70533e4c"
-  integrity sha512-DO1drtZ/nkDcuu4r3zOPJV+FNVxwvvThZtzJ18yxgGOJ9+SCsrvCQrS1UsdjZnA4MEgoFT3dX4u+xES4QNOz3w==
+"@tarojs/redux@^1.2.15":
+  version "1.3.46"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-1.3.46.tgz#48082984154c9ceaf6cf4fb5553d512cff206fea"
+  integrity sha512-rC8Yt1Ta/8d3CE7TQCYWXYJ1lwHJBl35Yo5dOxCYG+U46cJCRCGzQRyt+PqqfXsN4++dHp6ByOlzPtJuvDrZvQ==
   dependencies:
-    "@tarojs/utils" "1.2.14"
+    "@tarojs/taro" "1.3.46"
+    "@tarojs/utils" "1.3.46"
 
 "@tarojs/router@1.2.14":
   version "1.2.14"
@@ -237,10 +238,22 @@
   resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-1.2.14.tgz#9cf376faa65fa07b8df243cbd87fb2d81ccd2673"
   integrity sha512-zZes/9YHvZ1Uzt/WDeCIXIhTEbZRXdUNCSvCpWIUolCuuey6rLiHbffKKm9QDx7GEqKV7wrS5FtsTAONgMZB+w==
 
+"@tarojs/taro@1.3.46":
+  version "1.3.46"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-1.3.46.tgz#ca6994aed3c60cdeefe36613d94036bc2e2ea3c9"
+  integrity sha512-ADHciP4BoRqod7l6qJr2sVKkmDgKo0cyeRe7h+cQpV36KQlMR7Pus76hZa/tssGOmQ0e/IthWE+S2kMX8ew5/A==
+  dependencies:
+    "@tarojs/utils" "1.3.46"
+
 "@tarojs/utils@1.2.14":
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-1.2.14.tgz#463c7f3699466feed0bb76a700fae35a3fe931a9"
   integrity sha512-5Gg9FyJNaLSjM2Nh/KiJw7lxaezN3p3yFPkT5s52Kzd7JyC0Wf5NoPD+RPrTBGFpwfh9hk/oluvPPnTEL/jLbQ==
+
+"@tarojs/utils@1.3.46":
+  version "1.3.46"
+  resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-1.3.46.tgz#a4d38fdc61df51c9bad52c490b6df2ce5a232799"
+  integrity sha512-bOp+oPZHFXckoZiZbvr41CDQ/y4cKUEKLlpgAhZkiZ9w+BipkswzEo2nE1uUmNcyafDK/PJuCrYY7TUoc8uRQg==
 
 "@tarojs/webpack-runner@1.2.14":
   version "1.2.14"
@@ -3783,9 +3796,9 @@ inherits@2.0.1:
   integrity sha1-sX0I0ya0Qj5Wjv9xn5GwscvfafE=
 
 ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 inquirer@^6.2.2:
   version "6.2.2"
